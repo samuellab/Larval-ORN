@@ -1,0 +1,12 @@
+----------Fit Distribution Function of 1/EC50 Data----------
+Reference: http://tuvalu.santafe.edu/~aaronc/powerlaws/
+PDF: p(x) = x^-alpha, for x >= xmin
+         Scaling exponent: alpha = 1.35
+              Lower bound: xmin = 1.97e+03
+           Log-likelihood: L = -1.60e+03
+                  p-Value: p = 0.22
+(Quote from the paper) If the resulting p-value is greater than 0.1,
+ the power law is a plausible hypothesis for the data, otherwise it is rejected.
+----------PCA on the log(1/EC50) Data----------
+1st PC accounts 38.63 percentage of data variance. 
+12 sigma significance compare with shuffled data. 
