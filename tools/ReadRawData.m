@@ -1,12 +1,13 @@
-function [ dataRaw, infoOdorRaw, infoExpIDRaw, infoConcRaw, infoORNList] = ReadRawData()
+% function [ dataRaw, infoOdorRaw, infoExpIDRaw, infoConcRaw, infoORNList] = ReadRawData()
 % function [rawT, dataRaw, infoOdorRaw, infoExpIDRaw, infoConcRaw, infoORNList] = ReadRawData()
 %% Read the .xlsx data file in the subfolder of 'data',
 % no input varialbes,
 % outputs are the raw data matrix and information of the experiments
 
-filename = fullfile('data', 'Supplementary Table 1.xlsx'); %define the .xlsx file
+% filename = fullfile('data', 'Supplementary Table 1.xlsx'); %define the .xlsx file
+filename = 'C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\data_2nd_round\Supplementary Table 1_plusNewData.xlsx'; %define the .xlsx file
 sheet = 1;
-xlRange = 'A1:X611';
+xlRange = 'A1:X1161';
 [~,~,raw] = xlsread(filename,sheet,xlRange);
 
 %define the experiment information list
@@ -17,7 +18,9 @@ infoORNList  = raw(1, 4:end);
 
 %%
 %extract the data matrix
-dataRaw = cell2mat(raw(2:end, 4:end));
+A = importdata(filename);
+B=A.data.Sheet1;
+dataRaw = B (:, 3:end);
 
 %% clean the data
 % % find out the unidentified (no activity) neurons
@@ -44,4 +47,4 @@ dataRaw = dataRaw(:, index1);
 infoORNList{1}  = 'Or33b-47a';
 infoORNList{18} = 'Or94a-94b';
 
-end
+% end
