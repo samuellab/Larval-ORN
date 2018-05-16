@@ -58,9 +58,10 @@ axis([0 length(explained) 0 40]);
 %     254 192 15; ... %2-phenyl ethanol
 %     ];
 % odorColorMap = odorColorMapRaw./255.0;
-
-odorColorMap = colorcube(length(odorList));
-markerSize = 400;     mksize_temp = [ 0.1 0.2 0.4 0.6 1];
+odorColorMap = zeros(length(odorList), 3);
+odorColorMap(1:19 , :) = repmat([0 0 1], [19, 1]);
+odorColorMap(20:length(odorList) , :) = repmat([1 0 0], [length(odorList) - 19, 1]);
+markerSize = 400;     mksize_temp = [ 0.1 0.2 0.35 0.55 0.8];
 
 figure;
 set(gcf, 'Position', [700 80 1100 850]);

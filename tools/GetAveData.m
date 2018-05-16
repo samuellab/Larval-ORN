@@ -1,9 +1,9 @@
-function [ dataMean, dataSEM, odorList, concList, infoORNList ] = GetAveData( )
+function [ dataMean, dataSEM, odorList, concList, ORNList ] = GetAveData( )
 %% Get the averaged matrix from the raw data
 
 % read raw data
-[ dataRaw, infoOdorRaw, ~, infoConcRaw, infoORNList] = ReadRawData();
-% [~, dataRaw, infoOdorRaw, ~, infoConcRaw, infoORNList] = ReadRawData();
+[ dataRaw, infoOdorRaw, ~, infoConcRaw, ORNList] = ReadRawData();
+% [~, dataRaw, infoOdorRaw, ~, infoConcRaw, ORNList] = ReadRawData();
 
 [odorList, ~] = unique(infoOdorRaw, 'stable');  %list of test odors
 [concList_full, ~] = unique(infoConcRaw);            %list of test concentrations
@@ -16,8 +16,8 @@ else
 end
 
 %% mean and SEM of the data
-dataMean = zeros(length(odorList), length(infoORNList), length(concList));
-dataSEM  = zeros(length(odorList), length(infoORNList), length(concList)); %standard error of the mean
+dataMean = zeros(length(odorList), length(ORNList), length(concList));
+dataSEM  = zeros(length(odorList), length(ORNList), length(concList)); %standard error of the mean
 
 for i = 1: length(odorList) %go through odors
    od = odorList{i};
@@ -29,7 +29,7 @@ for i = 1: length(odorList) %go through odors
        index_con = find(infoConcRaw(index_odor) == concList(j));
        rowList = index_odor(index_con);
        dataBlock = dataRaw(rowList, :);
-       for k = 1:length(infoORNList) %go though ORNs
+       for k = 1:length(ORNList) %go though ORNs
            dataVec = dataBlock(:, k);
            index_nnan = find(~isnan(dataVec));
            dataVecPure = dataVec(index_nnan);
@@ -47,5 +47,9 @@ end
 %     semMat = dataSEM(:,:,i);
 %     figure; imagesc(semMat); title(['SEM ', num2str(concList(i))]);
 % end
+
+%% save data
+dataSaveFile = fullfile('..', 'data', 'AveRawDataMatrix2ndRound.mat'); 
+save(dataSaveFile, 'dataMean', 'dataSEM', 'odorList', 'concList', 'ORNList');
 
 end

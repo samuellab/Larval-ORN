@@ -23,12 +23,12 @@ parent{1} = odorOrderInit;  parent{2} = ORNOrderInit;
 
 % main settings
 Tinit = 1;      % initial temp
-minT = 1e-9;	% stopping temp
-cool = @(T) (.95*T);	% annealing schedule
+minT = 1e-10;	% stopping temp
+cool = @(T) (.975*T);	% annealing schedule
 minF = 0;
-max_consec_rejections = 10000;
-max_try = 10000;
-max_success = 1000;
+max_consec_rejections = 50000;
+max_try = 50000;
+max_success = 5000;
 k = 1;	% boltzmann constant
 
 % counters etc
