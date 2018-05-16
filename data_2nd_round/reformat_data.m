@@ -51,6 +51,11 @@ for i = 1:length(ia) %go through each odor
             table_block{k, 2} =  ID(j);
             table_block{k, 3} =  str2num(string(T_rows{rows_exp(k), 2}));
         end
+<<<<<<< Updated upstream:data_2nd_round/reformat_data.m
+=======
+        
+        table_new = [table_new; T_rows(rows_exp, :)];
+>>>>>>> Stashed changes:Analyzed data_dose-response-2nd round/reformat_data.m
         
         table_new = [table_new; table_block];
     end
