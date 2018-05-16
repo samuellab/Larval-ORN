@@ -5,8 +5,12 @@
 % dataSEM(5,:,:)=[]; 
 
 % load(fullfile('.', 'AnalysisResults', 'FitDoseResponse.mat'));
-load(fullfile('.', 'data', 'AveRawDataMatrix.mat'));
-data = dataRawAve;
+
+% load(fullfile('.', 'data', 'AveRawDataMatrix.mat'));
+
+load(fullfile('.', 'data', 'AveRawDataMatrix2ndRound.mat'));
+
+data = dataMean;
 
 % % normalize data of each ORN-odor pair using fitted r_max
 % [r, c] = find(~isnan(aMatrix));
@@ -14,7 +18,7 @@ data = dataRawAve;
 %     data(r(i), c(i), :) = data(r(i), c(i), :)/aMatrix(r(i), c(i));
 % end
 
-data(5, :, :) = [];   odorList(5) = []; %remove odor 5
+% data(5, :, :) = [];   odorList(5) = []; %remove odor 5
 
 %% apply PCA, treat each concentration a uniq sample
 dataTall = permute(data, [1 3 2]); 
@@ -33,27 +37,29 @@ axis([0 length(explained) 0 40]);
 
 %% plot the data projection onto the first 3 PCs
 %define colormap for odors
-odorColorMapRaw = [...
-    138 198 64;...	%1-pentanol, 35a
-    175 52 147 ;...	%3-pentanol
-    0 145 87 ;...	%6-methyl-5-hepten-2-ol, 13a
-    78 71 157;...	%3-octanol, 85c
-    251 106 74;...	%methyl phenyl sulfide, 24a
-    239 59 44; ...	%anisole, 30a
-    203 24 29 ; ...	%2-acetylpyridine, 22c
-    217,95,14; ...  %2,5-dimethylpyrazine, 33b
-    67 182 73; ...  %pentyl acetate, 47a
-    118,42,131  ;...%geranyl acetate, 82a
-    140,81,10 ; ... %2-methoxyphenyl acetate, 94a
-    45 85 166; ...  %trans,trans-2,4-nonadienal, 
-    103 0 13;...    %4-methyl-5-vinylthiazole, 45b
-    165 15 21; ...  %4,5-dimethylthiazole, 59a
-    64,0,75; ...    %4-hexen-3-one, 42a
-    30 142 205; ...	%2-nonanone, 45a
-    153,112,171; ...%acetal, 42b
-    254 192 15; ... %2-phenyl ethanol
-    ];
-odorColorMap = odorColorMapRaw./255.0;
+% odorColorMapRaw = [...
+%     138 198 64;...	%1-pentanol, 35a
+%     175 52 147 ;...	%3-pentanol
+%     0 145 87 ;...	%6-methyl-5-hepten-2-ol, 13a
+%     78 71 157;...	%3-octanol, 85c
+%     251 106 74;...	%methyl phenyl sulfide, 24a
+%     239 59 44; ...	%anisole, 30a
+%     203 24 29 ; ...	%2-acetylpyridine, 22c
+%     217,95,14; ...  %2,5-dimethylpyrazine, 33b
+%     67 182 73; ...  %pentyl acetate, 47a
+%     118,42,131  ;...%geranyl acetate, 82a
+%     140,81,10 ; ... %2-methoxyphenyl acetate, 94a
+%     45 85 166; ...  %trans,trans-2,4-nonadienal, 
+%     103 0 13;...    %4-methyl-5-vinylthiazole, 45b
+%     165 15 21; ...  %4,5-dimethylthiazole, 59a
+%     64,0,75; ...    %4-hexen-3-one, 42a
+%     30 142 205; ...	%2-nonanone, 45a
+%     153,112,171; ...%acetal, 42b
+%     254 192 15; ... %2-phenyl ethanol
+%     ];
+% odorColorMap = odorColorMapRaw./255.0;
+
+odorColorMap = colorcube(length(odorList));
 markerSize = 400;     mksize_temp = [ 0.1 0.2 0.4 0.6 1];
 
 figure;
