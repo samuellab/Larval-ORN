@@ -5,7 +5,7 @@ function [ dataRaw, infoOdorRaw, infoExpIDRaw, infoConcRaw, infoORNList] = ReadR
 
 filename = fullfile('..', 'data_2nd_round', 'Supplementary Table 1_plusNewData.xlsx'); %define the .xlsx file
 sheet = 1;
-xlRange = 'A1:X1161';
+xlRange = 'A1:X1196';
 [~,~,raw] = xlsread(filename,sheet,xlRange);
 
 %define the experiment information list
