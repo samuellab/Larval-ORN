@@ -1,11 +1,9 @@
-% function [ dataRaw, infoOdorRaw, infoExpIDRaw, infoConcRaw, infoORNList] = ReadRawData()
-% function [rawT, dataRaw, infoOdorRaw, infoExpIDRaw, infoConcRaw, infoORNList] = ReadRawData()
+function [ dataRaw, infoOdorRaw, infoExpIDRaw, infoConcRaw, infoORNList] = ReadRawData()
 %% Read the .xlsx data file in the subfolder of 'data',
 % no input varialbes,
 % outputs are the raw data matrix and information of the experiments
 
-% filename = fullfile('data', 'Supplementary Table 1.xlsx'); %define the .xlsx file
-filename = 'C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\data_2nd_round\Supplementary Table 1_plusNewData.xlsx'; %define the .xlsx file
+filename = fullfile('..', 'data_2nd_round', 'Supplementary Table 1_plusNewData.xlsx'); %define the .xlsx file
 sheet = 1;
 xlRange = 'A1:X1161';
 [~,~,raw] = xlsread(filename,sheet,xlRange);
@@ -29,9 +27,9 @@ dataRaw = B (:, 3:end);
 % disp(infoORNList(index0));
 
 % remove the unidentified neurons in the data and ORN list, and rewrite the varaibles
-index1 = sum(dataRaw, 1)~=0;
-infoORNList = infoORNList(index1);
-dataRaw = dataRaw(:, index1);
+% index1 = sum(dataRaw, 1)~=0;
+% infoORNList = infoORNList(index1);
+% dataRaw = dataRaw(:, index1);
 
 % %% organize the informaiton and data into a table
 % tColHeader = [{'Odor', 'Exp_ID', 'Concentration'}, infoORNList];
@@ -42,9 +40,9 @@ dataRaw = dataRaw(:, index1);
 % tData(:, 4:end) = num2cell(dataRaw);
 % 
 % rawT = cell2table( tData , 'VariableNames',tColHeader); %define the table
+% 
+% %%
+% infoORNList{1}  = 'Or33b-47a';
+% infoORNList{18} = 'Or94a-94b';
 
-%%
-infoORNList{1}  = 'Or33b-47a';
-infoORNList{18} = 'Or94a-94b';
-
-% end
+end
