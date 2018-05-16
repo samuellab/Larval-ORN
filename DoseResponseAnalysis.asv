@@ -172,44 +172,6 @@ maskPlot(19, 9) = 3;    %2-phenyl ethanol 24a;
 maskPlot(19, 10) = 2;   %2-phenyl ethanol 67b;
 maskPlot(19, 11) = 3;   %2-phenyl ethanol 85c;
 
-maskPlot(23, 1) = 1;	%2-heptanone 33b/47a; S
-maskPlot(23, 2) = 3;	%2-heptanone 45a; 
-maskPlot(23, 3) = 3;	%2-heptanone 83a; 
-maskPlot(23, 4) = 1;	%2-heptanone 35a;  S
-maskPlot(23, 5) = 1;	%2-heptanone 42a;  S
-maskPlot(23, 7) = 3;	%2-heptanone 1a; 
-maskPlot(23, 10) = 3;	%2-heptanone 24a; 
-maskPlot(23, 11) = 2;	%2-heptanone 67b; 
-maskPlot(23, 12) = 1;	%2-heptanone 85c; 
-
-
-
-maskPlot(24, 1) = 3;	%methyl salicylate 33b/47a;
-maskPlot(24, 6) = 3;	%methyl salicylate 59a;
-maskPlot(24, 7) = 2;	%methyl salicylate 1a;
-maskPlot(24, 8) = 3;	%methyl salicylate 45b;
-maskPlot(24, 9) = 2;	%methyl salicylate 63a;
-maskPlot(24, 10) = 1;	%methyl salicylate 24a; S
-maskPlot(24, 12) = 2;	%methyl salicylate 85c;
-maskPlot(24, 13) = 3;	%methyl salicylate 13a;
-maskPlot(24, 16) = 1;	%methyl salicylate 22c; S
-maskPlot(24, 21) = 3;	%methyl salicylate 94a/94b;
-
-maskPlot(25, 1) = 3;	%ethyl butyrate 33b/47a;
-maskPlot(25, 2) = 3;	%ethyl butyrate 45a;
-maskPlot(25, 3) = 3;	%ethyl butyrate 83a;
-maskPlot(25, 4) = 3;	%ethyl butyrate 35a;
-maskPlot(25, 5) = 2;	%ethyl butyrate 42a;
-maskPlot(25, 6) = 3;	%ethyl butyrate 59a;
-maskPlot(25, 7) = 3;	%ethyl butyrate 1a;
-maskPlot(25, 9) = 3;	%ethyl butyrate 63a;
-maskPlot(25, 10) = 3;	%ethyl butyrate 24a;
-maskPlot(25, 12) = 3;	%ethyl butyrate 85c;
-maskPlot(25, 14) = 3;	%ethyl butyrate 30a;
-maskPlot(25, 15) = 3;	%ethyl butyrate 82a;
-maskPlot(25, 16) = 3;	%ethyl butyrate 22c;
-maskPlot(25, 17) = 2;	%ethyl butyrate 42b;
-maskPlot(25, 18) = 3;	%ethyl butyrate 33a;
 
 maskPlot(26, 1) = 1;	%isoamyl acetate 33b/47a; S
 maskPlot(26, 2) = 3;	%isoamyl acetate 45a;
@@ -218,12 +180,7 @@ maskPlot(26, 4) = 3;	%isoamyl acetate 35a;
 maskPlot(26, 5) = 3;	%isoamyl acetate 42a;
 maskPlot(26, 6) = 3;	%isoamyl acetate 59a;
 maskPlot(26, 10) = 3;	%isoamyl acetate 24a;
-maskPlot(26, 11) = 3;	%isoamyl acetate 67b;
-maskPlot(26, 12) = 1;	%isoamyl acetate 85c; S
-maskPlot(26, 13) = 3;	%isoamyl acetate 13a;
-maskPlot(26, 16) = 3;	%isoamyl acetate 22c;
-maskPlot(26, 17) = 3;	%isoamyl acetate 42b;
-maskPlot(26, 20) = 3;	%isoamyl acetate 74a;
+
 
 maskPlot(27, 1) = 3;	%4-methylcyclohexane 33b/47a;
 maskPlot(27, 3) = 3;	%4-methylcyclohexane 83a;

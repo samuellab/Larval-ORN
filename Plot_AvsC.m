@@ -1,25 +1,26 @@
 %% load data, averaged acorss trials of the raw data
-load(fullfile('.', 'data', 'AveRawDataMatrix.mat'));
+% load(fullfile('.', 'data', 'AveRawDataMatrix.mat'));
+load(fullfile('.', 'data', 'AveRawDataMatrix2ndRound.mat'));
 
 %% plot the average activity vs concentration figure
-[r, c, z] = size(dataRawAve);
+[r, c, z] = size(dataMean);
 odorConc = [1E-8 1E-7 1E-6 1E-5 1E-4];
 
 % meanodorConc
-actAveEachOdor = mean(dataRawAve, 2);
+actAveEachOdor = mean(dataMean, 2);
 actAveEachOdor = reshape(actAveEachOdor, [r, z]);
 
-actAveEachORN = mean(dataRawAve, 1);
+actAveEachORN = mean(dataMean, 1);
 actAveEachORN = reshape(actAveEachORN, [c, z]);
 
-temp = reshape(dataRawAve, [r*c, z]);
+temp = reshape(dataMean, [r*c, z]);
 actAveAllOdor = mean(temp, 1);
 
 %standard error of the mean
-actSEMEachOdor = std(dataRawAve,0, 2)./sqrt(c);
+actSEMEachOdor = std(dataMean,0, 2)./sqrt(c);
 actSEMEachOdor = reshape(actSEMEachOdor, [r, z]);
 
-actSEMEachORN = std(dataRawAve,0, 1)./sqrt(r);
+actSEMEachORN = std(dataMean,0, 1)./sqrt(r);
 actSEMEachORN = reshape(actSEMEachORN, [c, z]);
 
 actSEMAllOdor = std(temp,0, 1)./sqrt(r*c);

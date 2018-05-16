@@ -24,11 +24,11 @@ parent{1} = odorOrderInit;  parent{2} = ORNOrderInit;
 % main settings
 Tinit = 1;      % initial temp
 minT = 1e-10;	% stopping temp
-cool = @(T) (.975*T);	% annealing schedule
+cool = @(T) (.95*T);	% annealing schedule
 minF = 0;
-max_consec_rejections = 50000;
-max_try = 50000;
-max_success = 5000;
+max_consec_rejections = 10000;
+max_try = 10000;
+max_success = 1000;
 k = 1;	% boltzmann constant
 
 % counters etc
@@ -40,8 +40,8 @@ T = Tinit;
 initenergy = CostFun(parent, pM, data3D, zDim);
 oldenergy = initenergy;
 total = 0;
-% disp('----------Simulated Annealing Process----------');
-% fprintf(1,'\n  T = %7.5f, loss = %10.5f\n',T,oldenergy);
+disp('----------Simulated Annealing Process----------');
+fprintf(1,'\n  T = %7.5f, loss = %10.5f\n',T,oldenergy);
 
 while ~finished
     itry = itry+1; % just an iteration counter
@@ -55,7 +55,7 @@ while ~finished
             break;
         else
             T = cool(T);  % decrease T according to cooling schedule
-%             fprintf(1,'  T = %7.5f, loss = %10.5f\n',T,oldenergy);
+            fprintf(1,'  T = %7.5f, loss = %10.5f\n',T,oldenergy);
             total = total + itry;
             itry = 1;
             success = 1;
