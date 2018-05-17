@@ -1,7 +1,8 @@
 load(fullfile('.', 'data', 'AveRawDataMatrix2ndRound.mat'));
 
 %%
-for i = 20:length(odorList)
+% for i = 20:length(odorList)
+for i = 1:length(odorList)
     for j = 1:length(ORNList)
         resp = dataMean(i, j, :);
         if sum(resp) ~= 0

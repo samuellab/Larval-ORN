@@ -81,8 +81,8 @@ if reproduceFig2
     % run. To reproduce the figure in the paper, use the following orders: 
 %     odorOrder = [17 12 15 2 10 3 4 16 9 1 18 8 6 5 7 13 14 11]; 
 %     ORNOrder  = [16 17 5 2 14 12 11 1 4 7 10 13 15 9 18 8 6 3];
-    odorOrder = [[19,33,12,32,27,15,14,7,8,9,6,22,24,31,30,29,1,5,10,17,28,3,4,23,20,26,13,25,16,2,11,21,34,18]]; 
-    ORNOrder  = [[19,21,3,6,8,14,10,16,9,7,11,4,1,13,12,2,20,5,15,17,18]];
+    odorOrder = [19,33,12,32,27,15,14,7,8,9,6,22,24,31,30,29,1,5,10,17,28,3,4,23,20,26,13,25,16,2,11,21,34,18]; 
+    ORNOrder  = [19,21,3,6,8,14,10,16,9,7,11,4,1,13,12,2,20,5,15,17,18];
 else
     % Use simulated annealing algorithm to search a order of row and col
     [odorOrder, ORNOrder] = GetBestOrder( dataRawAveV );

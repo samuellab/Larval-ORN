@@ -631,3 +631,349 @@ cols =
     18
     18
 
+if system_dependent('IsDebugMode')==1, dbquit; end
+DoseResponseAnalysis
+Count of saturated dose-respons curves:37
+Count of unsaturated but strongly activated curves:41
+Count of weak dose-respons curves:230
+Count of all non-zero dose-response curves:308
+----------FIT SATURATED CURVES----------
+Equation: Y=a/(1+ exp(-b*(X-c)))
+                         Curve Name	a    	b    	c    	R^2 of the fit	
+{Undefined variable "infoORNList" or class "infoORNList".
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('DoseResponseAnalysis', 'C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\DoseResponseAnalysis.m', 389)" style="font-weight:bold">DoseResponseAnalysis</a> (<a href="matlab: opentoline('C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\DoseResponseAnalysis.m',389,0)">line 389</a>)
+    curveName = [odorList{row(i)} , '->', infoORNList{col(i)}]; %define the curve name
+} 
+opentoline('C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\DoseResponseAnalysis.m',389,0)
+opentoline('C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\DoseResponseAnalysis.m',389,0)
+opentoline('C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\DoseResponseAnalysis.m',389,0)
+opentoline('C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\DoseResponseAnalysis.m',389,0)
+DoseResponseAnalysis
+Count of saturated dose-respons curves:37
+Count of unsaturated but strongly activated curves:41
+Count of weak dose-respons curves:230
+Count of all non-zero dose-response curves:308
+----------FIT SATURATED CURVES----------
+Equation: Y=a/(1+ exp(-b*(X-c)))
+                         Curve Name	a    	b    	c    	R^2 of the fit	
+          pentyl acetate->Or33b-47a	2.70	10.00	-6.07	0.998	
+         geranyl acetate->Or33b-47a	1.69	10.00	-5.79	0.998	
+             2-heptanone->Or33b-47a	3.68	2.28	-5.76	0.999	
+         isoamyl acetate->Or33b-47a	3.79	2.57	-5.94	1.000	
+           hexyl acetate->Or33b-47a	4.02	1.99	-7.02	0.999	
+             geranyl acetate->Or45a	3.78	10.00	-5.88	0.987	
+               hexyl acetate->Or45a	3.24	2.22	-7.01	0.997	
+                  1-pentanol->Or35a	4.49	3.28	-6.07	0.997	
+          trans-3-hexen-1-ol->Or35a	4.53	3.81	-6.24	0.997	
+              pentyl acetate->Or35a	4.40	6.13	-6.07	0.999	
+                 2-heptanone->Or35a	3.10	1.28	-6.06	0.957	
+               hexyl acetate->Or35a	3.03	3.54	-6.99	0.967	
+                      nonane->Or35a	2.42	2.96	-5.99	0.997	
+               4-hexen-3-one->Or42a	2.82	3.10	-6.73	1.000	
+                 2-heptanone->Or42a	3.01	4.29	-5.52	0.993	
+    4-methyl-5-vinylthiazole->Or59a	4.32	2.59	-6.86	0.999	
+       methyl phenyl sulfide->Or45b	4.08	2.71	-6.08	0.999	
+    4-methyl-5-vinylthiazole->Or45b	4.91	4.39	-7.02	0.994	
+                benzaldehyde->Or45b	4.24	3.68	-6.21	0.999	
+       methyl phenyl sulfide->Or63a	0.34	2.70	-1.01	-Inf	
+                     anisole->Or63a	0.34	2.70	-1.01	-Inf	
+            2-acetylpyridine->Or63a	0.34	2.70	-1.01	-Inf	
+                benzaldehyde->Or24a	2.86	3.11	-6.42	0.986	
+           methyl salicylate->Or24a	3.04	2.35	-6.57	0.994	
+      6-methyl-5-hepten-2-ol->Or67b	0.29	-0.23	-10.00	0.006	
+                   3-octanol->Or67b	10.00	2.33	-3.23	0.926	
+              pentyl acetate->Or67b	4.02	3.23	-5.15	1.000	
+      6-methyl-5-hepten-2-ol->Or85c	3.39	3.52	-5.97	0.994	
+                   3-octanol->Or85c	3.04	2.97	-7.49	0.998	
+               butyl acetate->Or85c	3.66	2.17	-6.16	0.970	
+                 2-heptanone->Or85c	2.97	-0.02	1.00	0.105	
+             isoamyl acetate->Or85c	3.02	3.55	-6.01	0.992	
+             geranyl acetate->Or30a	0.34	2.70	-1.01	-Inf	
+       methyl phenyl sulfide->Or82a	0.34	2.70	-1.01	-Inf	
+           methyl salicylate->Or22c	5.14	0.00	-6.37	-0.044	
+  trans,trans-2,4-nonadienal->Or42b	0.34	2.70	-1.01	-Inf	
+               ethyl acetate->Or42b	3.85	1.96	-6.59	0.981	
+---------- FIND THE SLOP ----------
+Normalize the curves using the parameter a.
+Shift the curves using the parameter c.
+Pool the data and fit the parameter of b in equation:
+Y=1/(1+ exp(-b*X))
+b = 2.94
+R^2 of the fit: 0.985
+NOTE: if the x-axis is ln(c) instead of log10(c), the value of slop will be
+Slop*log10(e), where e is the Euler number or the base of natural log, 
+the value of which is 1.275
+----------FIT SATURATED CURVES USING FIXED SLOP----------
+Equation: Y=a/(1+ exp(-2.9367*(X-c)))
+                         Curve Name	a    	c    	R^2 of the fit	
+          pentyl acetate->Or33b-47a	2.76	-6.17	0.989	
+         geranyl acetate->Or33b-47a	1.84	-5.51	0.969	
+             2-heptanone->Or33b-47a	3.53	-5.82	0.995	
+         isoamyl acetate->Or33b-47a	3.73	-5.96	0.999	
+           hexyl acetate->Or33b-47a	3.90	-7.04	0.978	
+             geranyl acetate->Or45a	3.95	-5.69	0.953	
+               hexyl acetate->Or45a	3.18	-7.04	0.991	
+                  1-pentanol->Or35a	4.52	-6.07	0.997	
+          trans-3-hexen-1-ol->Or35a	4.59	-6.26	0.993	
+              pentyl acetate->Or35a	4.49	-6.12	0.992	
+                 2-heptanone->Or35a	2.75	-6.13	0.889	
+               hexyl acetate->Or35a	3.04	-6.99	0.967	
+                      nonane->Or35a	2.43	-5.99	0.997	
+               4-hexen-3-one->Or42a	2.83	-6.72	1.000	
+                 2-heptanone->Or42a	3.16	-5.47	0.981	
+    4-methyl-5-vinylthiazole->Or59a	4.28	-6.88	0.998	
+       methyl phenyl sulfide->Or45b	4.05	-6.09	0.999	
+    4-methyl-5-vinylthiazole->Or45b	5.07	-7.01	0.987	
+                benzaldehyde->Or45b	4.29	-6.23	0.996	
+       methyl phenyl sulfide->Or63a	0.00	-4.32	-Inf	
+                     anisole->Or63a	0.00	-4.32	-Inf	
+            2-acetylpyridine->Or63a	0.00	-4.32	-Inf	
+                benzaldehyde->Or24a	2.87	-6.42	0.986	
+           methyl salicylate->Or24a	2.96	-6.61	0.982	
+      6-methyl-5-hepten-2-ol->Or67b	0.08	-10.00	-0.722	
+                   3-octanol->Or67b	2.65	-4.05	0.830	
+              pentyl acetate->Or67b	4.06	-5.14	0.999	
+      6-methyl-5-hepten-2-ol->Or85c	3.44	-5.96	0.994	
+                   3-octanol->Or85c	3.04	-7.49	0.998	
+               butyl acetate->Or85c	3.59	-6.13	0.962	
+                 2-heptanone->Or85c	1.59	-9.99	-0.117	
+             isoamyl acetate->Or85c	3.05	-6.01	0.992	
+             geranyl acetate->Or30a	0.00	-4.32	-Inf	
+       methyl phenyl sulfide->Or82a	0.00	-4.32	-Inf	
+           methyl salicylate->Or22c	2.57	-10.00	-2.456	
+  trans,trans-2,4-nonadienal->Or42b	0.00	-4.32	-Inf	
+               ethyl acetate->Or42b	3.67	-6.65	0.960	
+----------FIT TYPE 2 CURVES USING FIXED SLOP----------
+Equation: Y=a/(1+ exp(-2.9367*(X-c)))
+                         Curve Name	a    	c    	R^2 of the fit	
+               3-octanol->Or33b-47a	5.87	-4.94	0.982	
+              2-nonanone->Or33b-47a	4.62	-5.22	0.993	
+           butyl acetate->Or33b-47a	4.31	-5.28	0.969	
+          benzyl acetate->Or33b-47a	2.61	-5.13	0.999	
+              pentyl acetate->Or45a	2.82	-5.05	0.915	
+  trans,trans-2,4-nonadienal->Or45a	2.45	-5.75	0.997	
+              benzyl acetate->Or45a	1.61	-5.14	0.996	
+    4-methyl-5-vinylthiazole->Or83a	5.64	-5.11	0.998	
+                    myrtenal->Or35a	1.35	-4.59	0.974	
+                  3-pentanol->Or42a	4.39	-5.44	0.998	
+              ethyl butyrate->Or42a	2.86	-5.87	0.989	
+{Operation terminated by user during <a href="matlab:matlab.internal.language.introspective.errorDocCallback('cfInterrupt', 'C:\Program Files\MATLAB\R2018a\toolbox\curvefit\curvefit\cfInterrupt.m', 20)" style="font-weight:bold">cfInterrupt</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2018a\toolbox\curvefit\curvefit\cfInterrupt.m',20,0)">line 20</a>)
+
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('cflsqcurvefit>iFittingInterrupt', 'C:\Program Files\MATLAB\R2018a\toolbox\curvefit\curvefit\private\cflsqcurvefit.m', 67)" style="font-weight:bold">cflsqcurvefit>iFittingInterrupt</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2018a\toolbox\curvefit\curvefit\private\cflsqcurvefit.m',67,0)">line 67</a>)
+stop = cfInterrupt( 'get' );
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('snlsFixedVarEvalOutputOrPlotFcn', 'C:\Program Files\MATLAB\R2018a\toolbox\matlab\optimfun\snlsFixedVarEvalOutputOrPlotFcn.m', 49)" style="font-weight:bold">snlsFixedVarEvalOutputOrPlotFcn</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2018a\toolbox\matlab\optimfun\snlsFixedVarEvalOutputOrPlotFcn.m',49,0)">line 49</a>)
+stop = outFcn(xin, optimValues, state, varargin{:});
+
+In
+<a href="matlab:matlab.internal.language.introspective.errorDocCallback('snlsFixedVarWrapOutputAndPlotFcns>@(x,ov,s,varargin)snlsFixedVarEvalOutputOrPlotFcn(x,ov,s,options.OutputFcn{i},idxEqual,l,initGradFixed,varargin{:})', 'C:\Program Files\MATLAB\R2018a\toolbox\matlab\optimfun\snlsFixedVarWrapOutputAndPlotFcns.m', 41)" style="font-weight:bold">snlsFixedVarWrapOutputAndPlotFcns>@(x,ov,s,varargin)snlsFixedVarEvalOutputOrPlotFcn(x,ov,s,options.OutputFcn{i},idxEqual,l,initGradFixed,varargin{:})</a>
+(<a href="matlab: opentoline('C:\Program Files\MATLAB\R2018a\toolbox\matlab\optimfun\snlsFixedVarWrapOutputAndPlotFcns.m',41,0)">line 41</a>)
+        options.OutputFcn{i} = @(x, ov, s, varargin)snlsFixedVarEvalOutputOrPlotFcn(...
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('callAllOptimOutputFcns', 'C:\Program Files\MATLAB\R2018a\toolbox\matlab\optimfun\callAllOptimOutputFcns.m', 13)" style="font-weight:bold">callAllOptimOutputFcns</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2018a\toolbox\matlab\optimfun\callAllOptimOutputFcns.m',13,0)">line 13</a>)
+    stop(i) = feval(OutputFcn{i},xOutputfcn,optimValues,state,varargin{:});
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('snls>callOutputAndPlotFcns', 'C:\Program Files\MATLAB\R2018a\toolbox\shared\optimlib\snls.p', 462)" style="font-weight:bold">snls>callOutputAndPlotFcns</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2018a\toolbox\shared\optimlib\snls.p',462,0)">line 462</a>)
+            stop = callAllOptimOutputFcns(outputfcn,xOutputfcn,optimValues,state,varargin{:}) || stop;
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('snls', 'C:\Program Files\MATLAB\R2018a\toolbox\shared\optimlib\snls.p', 253)" style="font-weight:bold">snls</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2018a\toolbox\shared\optimlib\snls.p',253,0)">line 253</a>)
+        [xOutputfcn,optimValues, stop] = callOutputAndPlotFcns(outputfcn,plotfcns,caller,x,xOutputfcn,'iter',iter, ...
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('snlsFixedVar', 'C:\Program Files\MATLAB\R2018a\toolbox\shared\optimlib\snlsFixedVar.m', 128)" style="font-weight:bold">snlsFixedVar</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2018a\toolbox\shared\optimlib\snlsFixedVar.m',128,0)">line 128</a>)
+[xcurr,fvec,LAMBDA,JACOB,EXITFLAG,OUTPUT,msgData] = snls(funfcn,xstart(idxFree),l(idxFree),u(idxFree),verb,options, ...
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('lsqncommon', 'C:\Program Files\MATLAB\R2018a\toolbox\shared\optimlib\lsqncommon.m', 163)" style="font-weight:bold">lsqncommon</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2018a\toolbox\shared\optimlib\lsqncommon.m',163,0)">line 163</a>)
+            snlsFixedVar(funfcn,xC,lb,ub,flags.verbosity,options,defaultopt,initVals.F,initVals.J,caller, ...
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('lsqcurvefit', 'C:\Program Files\MATLAB\R2018a\toolbox\shared\optimlib\lsqcurvefit.m', 271)" style="font-weight:bold">lsqcurvefit</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2018a\toolbox\shared\optimlib\lsqcurvefit.m',271,0)">line 271</a>)
+    lsqncommon(funfcn,xCurrent,lb,ub,options,defaultopt,allDefaultOpts,caller,...
+
+In lscftsh
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('cflscftsh', 'C:\Program Files\MATLAB\R2018a\toolbox\curvefit\curvefit\cflscftsh.m', 7)" style="font-weight:bold">cflscftsh</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2018a\toolbox\curvefit\curvefit\cflscftsh.m',7,0)">line 7</a>)
+[varargout{1:nargout}] = lscftsh( varargin{:} );
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('cflsqcurvefit', 'C:\Program Files\MATLAB\R2018a\toolbox\curvefit\curvefit\private\cflsqcurvefit.m', 47)" style="font-weight:bold">cflsqcurvefit</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2018a\toolbox\curvefit\curvefit\private\cflsqcurvefit.m',47,0)">line 47</a>)
+[x,Resnorm,~,EXITFLAG,OUTPUT,~,JACOB] = cflscftsh(FUN,x,XDATA,YDATA,LB,UB,options,varargin{:});
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('fit>iNonLinearFit', 'C:\Program Files\MATLAB\R2018a\toolbox\curvefit\curvefit\fit.p', 1065)" style="font-weight:bold">fit>iNonLinearFit</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2018a\toolbox\curvefit\curvefit\fit.p',1065,0)">line 1065</a>)
+    cflsqcurvefit(model,start,xdata,wtdydata,lowerbnd,upperbnd,...
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('fit>iFit', 'C:\Program Files\MATLAB\R2018a\toolbox\curvefit\curvefit\fit.p', 333)" style="font-weight:bold">fit>iFit</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2018a\toolbox\curvefit\curvefit\fit.p',333,0)">line 333</a>)
+                [xout,resnorm,res,exitflag,optoutput,activebounds,convmsg,J] = iNonLinearFit(...
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('fit', 'C:\Program Files\MATLAB\R2018a\toolbox\curvefit\curvefit\fit.p', 108)" style="font-weight:bold">fit</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2018a\toolbox\curvefit\curvefit\fit.p',108,0)">line 108</a>)
+[fitobj, goodness, output, convmsg] = iFit( xdatain, ydatain, fittypeobj, ...
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('Fit_DR', 'C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\tools\Fit_DR.m', 41)" style="font-weight:bold">Fit_DR</a> (<a href="matlab: opentoline('C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\tools\Fit_DR.m',41,0)">line 41</a>)
+[fitresult, gof] = fit( xData, yData, ft, opts );
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('DoseResponseAnalysis', 'C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\DoseResponseAnalysis.m', 536)" style="font-weight:bold">DoseResponseAnalysis</a> (<a href="matlab: opentoline('C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\DoseResponseAnalysis.m',536,0)">line 536</a>)
+    [coeffs, gof] = Fit_DR(x, y(:), fitParam_Fixed_b, 1, figParam);
+} 
+odorList{3}
+
+ans =
+
+    '6-methyl-5-hepten-2-ol'
+
+ORNList
+
+ORNList =
+
+  1×21 <a href="matlab:helpPopup cell" style="font-weight:bold">cell</a> array
+
+  Columns 1 through 9
+
+    {'Or33b-47a'}    {'Or45a'}    {'Or83a'}    {'Or35a'}    {'Or42a'}    {'Or59a'}    {'Or1a'}    {'Or45b'}    {'Or63a'}
+
+  Columns 10 through 18
+
+    {'Or24a'}    {'Or67b'}    {'Or85c'}    {'Or13a'}    {'Or30a'}    {'Or82a'}    {'Or22c'}    {'Or42b'}    {'Or33a'}
+
+  Columns 19 through 21
+
+    {'Or49a'}    {'Or74a'}    {'Or94a-94b'}
+
+ORNList{11}
+
+ans =
+
+    'Or67b'
+
+maskPlot(3, 1)
+
+ans =
+
+     0
+
+
+maskPlot(3, 11)
+
+ans =
+
+     1
+
+PlotAllDoseResponseCurves
+close all
+PlotAllDoseResponseCurves
+PlotAllDoseResponseCurves
+DoseResponseAnalysis
+Count of saturated dose-respons curves:35
+Count of unsaturated but strongly activated curves:41
+Count of weak dose-respons curves:187
+Count of all non-zero dose-response curves:265
+----------FIT SATURATED CURVES----------
+Equation: Y=a/(1+ exp(-b*(X-c)))
+                         Curve Name	a    	b    	c    	R^2 of the fit	
+          pentyl acetate->Or33b-47a	2.70	10.00	-6.07	0.998	
+         geranyl acetate->Or33b-47a	1.69	10.00	-5.79	0.998	
+             2-heptanone->Or33b-47a	3.68	2.28	-5.76	0.999	
+         isoamyl acetate->Or33b-47a	3.79	2.57	-5.94	1.000	
+           hexyl acetate->Or33b-47a	4.02	1.99	-7.02	0.999	
+             geranyl acetate->Or45a	3.78	10.00	-5.88	0.987	
+               hexyl acetate->Or45a	3.24	2.22	-7.01	0.997	
+                  1-pentanol->Or35a	4.49	3.28	-6.07	0.997	
+          trans-3-hexen-1-ol->Or35a	4.53	3.81	-6.24	0.997	
+              pentyl acetate->Or35a	4.40	6.13	-6.07	0.999	
+                 2-heptanone->Or35a	3.10	1.28	-6.06	0.957	
+               hexyl acetate->Or35a	3.03	3.54	-6.99	0.967	
+                      nonane->Or35a	2.42	2.96	-5.99	0.997	
+               4-hexen-3-one->Or42a	2.82	3.10	-6.73	1.000	
+                 2-heptanone->Or42a	3.01	4.29	-5.52	0.993	
+    4-methyl-5-vinylthiazole->Or59a	4.32	2.59	-6.86	0.999	
+       methyl phenyl sulfide->Or45b	4.08	2.71	-6.08	0.999	
+    4-methyl-5-vinylthiazole->Or45b	4.91	4.39	-7.02	0.994	
+                benzaldehyde->Or45b	4.24	3.68	-6.21	0.999	
+       methyl phenyl sulfide->Or24a	4.76	2.86	-7.45	1.000	
+                     anisole->Or24a	0.61	1.33	-5.91	0.983	
+            2-acetylpyridine->Or24a	1.29	3.74	-7.66	0.995	
+                benzaldehyde->Or24a	2.86	3.11	-6.42	0.986	
+           methyl salicylate->Or24a	3.04	2.35	-6.57	0.994	
+      6-methyl-5-hepten-2-ol->Or85c	3.39	3.52	-5.97	0.994	
+                   3-octanol->Or85c	3.04	2.97	-7.49	0.998	
+              pentyl acetate->Or85c	2.91	10.00	-6.08	0.997	
+               butyl acetate->Or85c	3.66	2.17	-6.16	0.970	
+             isoamyl acetate->Or85c	3.02	3.55	-6.01	0.992	
+      6-methyl-5-hepten-2-ol->Or13a	3.71	2.98	-5.55	0.998	
+                   3-octanol->Or13a	4.26	2.31	-6.07	0.993	
+             geranyl acetate->Or82a	2.43	10.00	-6.93	0.982	
+       methyl phenyl sulfide->Or22c	2.60	3.12	-6.42	0.992	
+               ethyl acetate->Or42b	3.85	1.96	-6.59	0.981	
+  trans,trans-2,4-nonadienal->Or74a	3.59	10.00	-6.73	0.997	
+---------- FIND THE SLOP ----------
+Normalize the curves using the parameter a.
+Shift the curves using the parameter c.
+Pool the data and fit the parameter of b in equation:
+Y=1/(1+ exp(-b*X))
+b = 3.04
+R^2 of the fit: 0.986
+NOTE: if the x-axis is ln(c) instead of log10(c), the value of slop will be
+Slop*log10(e), where e is the Euler number or the base of natural log, 
+the value of which is 1.320
+----------FIT SATURATED CURVES USING FIXED SLOP----------
+Equation: Y=a/(1+ exp(-3.0387*(X-c)))
+                         Curve Name	a    	c    	R^2 of the fit	
+          pentyl acetate->Or33b-47a	2.75	-6.17	0.990	
+         geranyl acetate->Or33b-47a	1.83	-5.52	0.972	
+             2-heptanone->Or33b-47a	3.52	-5.83	0.994	
+         isoamyl acetate->Or33b-47a	3.72	-5.96	0.998	
+           hexyl acetate->Or33b-47a	3.89	-7.04	0.973	
+             geranyl acetate->Or45a	3.94	-5.69	0.957	
+               hexyl acetate->Or45a	3.17	-7.04	0.989	
+                  1-pentanol->Or35a	4.51	-6.07	0.997	
+          trans-3-hexen-1-ol->Or35a	4.58	-6.26	0.994	
+              pentyl acetate->Or35a	4.48	-6.12	0.993	
+                 2-heptanone->Or35a	2.75	-6.13	0.884	
+               hexyl acetate->Or35a	3.04	-6.99	0.965	
+                      nonane->Or35a	2.42	-5.99	0.997	
+               4-hexen-3-one->Or42a	2.84	-6.72	1.000	
+                 2-heptanone->Or42a	3.15	-5.47	0.983	
+    4-methyl-5-vinylthiazole->Or59a	4.27	-6.89	0.998	
+       methyl phenyl sulfide->Or45b	4.04	-6.09	0.999	
+    4-methyl-5-vinylthiazole->Or45b	5.06	-7.01	0.989	
+                benzaldehyde->Or45b	4.28	-6.22	0.997	
+       methyl phenyl sulfide->Or24a	4.74	-7.45	0.999	
+                     anisole->Or24a	0.54	-6.00	0.907	
+            2-acetylpyridine->Or24a	1.31	-7.62	0.988	
+                benzaldehyde->Or24a	2.86	-6.42	0.987	
+           methyl salicylate->Or24a	2.95	-6.62	0.983	
+      6-methyl-5-hepten-2-ol->Or85c	3.43	-5.96	0.994	
+                   3-octanol->Or85c	3.04	-7.49	0.999	
+              pentyl acetate->Or85c	2.97	-6.17	0.978	
+               butyl acetate->Or85c	3.58	-6.13	0.960	
+             isoamyl acetate->Or85c	3.04	-6.01	0.992	
+      6-methyl-5-hepten-2-ol->Or13a	3.70	-5.55	0.999	
+                   3-octanol->Or13a	4.17	-6.06	0.989	
+             geranyl acetate->Or82a	2.51	-6.80	0.957	
+       methyl phenyl sulfide->Or22c	2.62	-6.42	0.992	
+               ethyl acetate->Or42b	3.65	-6.66	0.955	
+  trans,trans-2,4-nonadienal->Or74a	3.76	-6.51	0.952	
+<a href="matlab: opentoline('C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\DoseResponseAnalysis.m',513,1)">513 </a>figCurveFitH2 = figure; hold on; title('Fit Type 2 Curves'); 
+if system_dependent('IsDebugMode')==1, dbquit all; end
+[Warning: Imaginary parts of complex X and/or Y arguments ignored] 
+[Warning: Imaginary parts of complex X and/or Y arguments ignored] 
+[Warning: Imaginary parts of complex X and/or Y arguments ignored] 
+[Warning: Imaginary parts of complex X and/or Y arguments ignored] 
+[Warning: Imaginary parts of complex X and/or Y arguments ignored] 
+[Warning: Imaginary parts of complex X and/or Y arguments ignored] 
+[Warning: Imaginary parts of complex X and/or Y arguments ignored] 
+[Warning: Imaginary parts of complex X and/or Y arguments ignored] 
+[Warning: Imaginary parts of complex X and/or Y arguments ignored] 
+[Warning: Imaginary parts of complex X and/or Y arguments ignored] 
+[Warning: Imaginary parts of complex X and/or Y arguments ignored] 
+[Warning: Imaginary parts of complex X and/or Y arguments ignored] 
+[Warning: Imaginary parts of complex X and/or Y arguments ignored] 
+[Warning: Imaginary parts of complex X and/or Y arguments ignored] 
+[Warning: Imaginary parts of complex X and/or Y arguments ignored] 
+[Warning: Imaginary parts of complex X and/or Y arguments ignored] 
+[Warning: Imaginary parts of complex X and/or Y arguments ignored] 
+[Warning: Imaginary parts of complex X and/or Y arguments ignored] 
+[Warning: Imaginary parts of complex X and/or Y arguments ignored] 
+[Warning: Imaginary parts of complex X and/or Y arguments ignored] 
+[Warning: Imaginary parts of complex X and/or Y arguments ignored] 
+[Warning: Imaginary parts of complex X and/or Y arguments ignored] 
+[Warning: Imaginary parts of complex X and/or Y arguments ignored] 
+DoseResponseAnalysis

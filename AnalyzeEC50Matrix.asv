@@ -5,18 +5,11 @@ warning('off','all');
 % diary on;
 
 load(fullfile('.', 'AnalysisResults', 'FitDoseResponse.mat'));
-
-% load(fullfile('.', 'data', 'AveRawDataMatrix.mat'));
-load(fullfile('.', 'data', 'AveRawDataMatrix2ndRound.mat'));
-
+load(fullfile('.', 'data', 'AveRawDataMatrix.mat'));
 %% distribution of the value of 1/EC50
 % pool the non-NaN elements
 % ec50Pool = cMatrix(~isnan(cMatrix));
 ec50Pool = nonzeros(cMatrix);
-
-% add two super senstive pairs
-ec50Pool = [ec50Pool; -9; -9.5];
-
 sData = 1./(10.^ec50Pool);
 
 % log-log plot of the CDF of the values of 1/EC50
@@ -52,7 +45,7 @@ fprintf('(Quote from the paper) If the resulting p-value is greater than 0.1,\n 
 
 %% apply PCA on the EC50 matrix
 % replace NaN in the EC50 matrix with 0
-% cMatrix(isnan(cMatrix)) = 0;
+cMatrix(isnan(cMatrix)) = 0;
 
 % PCA, using -cMatrix does not change the dimentionality, but it could make
 % the load and projection match each other
@@ -83,7 +76,7 @@ xlabel('Projection on 1st PC');
 %load the .xlsx file of the odor strucure descriptors
 filename = fullfile('.', 'data', 'Odor_Structure_Descriptors_EDragon.xlsx');
 sheet = 1;
-xlRange = 'A3:BLF37';
+xlRange = 'A3:BLF22';
 [~,~,raw] = xlsread(filename,sheet,xlRange);
 
 infoMetric = raw(1, 5:end); %define the information list of the descriptors
@@ -100,7 +93,7 @@ mOpt = m(:, optList);
 % calculate the Pearson correlation coefficient between functional
 % projection and each structure metric
 rho = zeros(1, length(mOpt));
-for i = 1:length(optList)
+for i = 1:length(mOpt)
     temp = corrcoef(proj1st, mOpt(:,i));
     rho(i) = temp(1, 2);
 end
@@ -134,7 +127,7 @@ fprintf('The Pearson correlation coefficient is %.2f. \n', rhoMax);
 cMShuffled = zeros(rows, cols);
 
 N = 1000;
-explainedMatrix = zeros(cols , N);
+explainedMatrix = zeros(rows-1, N);
 
 for k = 1:N
     for i = 1:rows
