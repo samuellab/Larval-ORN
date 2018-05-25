@@ -25,19 +25,25 @@ actSEMEachORN = reshape(actSEMEachORN, [c, z]);
 
 actSEMAllOdor = std(temp,0, 1)./sqrt(r*c);
 
-% plot
-figure; 
-errorbar(odorConc, actAveAllOdor, actSEMAllOdor);
-title('Averaged ORN & Odor'); 
-xlabel('Concentration'); ylabel('\DeltaF/F');
-set(gca,'XScale','log','YScale','log');
-
-% fit the slope
+%fit
 Y = log10(actAveAllOdor');
 X = ones(length(odorConc), 2);
 X(:,2) = log10(odorConc');
 slope = X\Y;
 
+% plot
+figure; 
+errorbar(odorConc, actAveAllOdor, actSEMAllOdor, 'ok');
+hold on
+
+yy = X*slope;
+plot(odorConc, 10.^yy, '--k');
+
+title('Averaged ORN & Odor'); 
+axis([5*10^-9 2*10^-4 0.03 1]);
+xlabel('Concentration'); ylabel('\DeltaF/F');
+set(gca,'XScale','log','YScale','log');
+hold off
 
 figure;
 for i = 1:r

@@ -427,7 +427,8 @@ for i = 1:length(row)
     yMatrix(i, :) = normY;              %rescale y using the maximum
 
     figure(figSlopH);                   %display each dataset
-    plot(xMatrix(i, :), normY, 'o:', 'LineWidth', 0.3); hold on;
+%     plot(xMatrix(i, :), normY, 'o:', 'LineWidth', 0.3); hold on;
+    plot(xMatrix(i, :), normY, 'o', 'LineWidth', 0.3); hold on;
 end
 
 figParam.handle = figSlopH; %define the setting of plot
@@ -668,6 +669,9 @@ figure(figCurveFailed); xlabel('Log10(c)'); ylabel('\Delta F/F'); hold off;
 
 %replace NaN in the EC50 matrix with 0
 cMatrix(isnan(cMatrix)) = 0;
+% add two super senstive pairs, remove after measurement 
+cMatrix(23, 12) = -9;   %2-heptanone, 85c
+cMatrix(24, 16) = -9.5;  %methyl salicylate, 22c 
 
 % apply the sequence of ORN and odor to order elements of the matrix 
 % odorOrder = [17 12 15 2 10 3 4 16 9 1 18 8 6 5 7 13 14 11]; % the order is consistant to figure 2

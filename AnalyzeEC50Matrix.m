@@ -6,16 +6,21 @@ warning('off','all');
 
 load(fullfile('.', 'AnalysisResults', 'FitDoseResponse.mat'));
 
+% add two super senstive pairs, remove after measurement 
+cMatrix(23, 12) = -8.8;   %2-heptanone, 85c
+cMatrix(24, 16) = -9.2;  %methyl salicylate, 22c 
+
 % load(fullfile('.', 'data', 'AveRawDataMatrix.mat'));
 load(fullfile('.', 'data', 'AveRawDataMatrix2ndRound.mat'));
+
+% %%
+% figure;
+% imagesc(-cMatrix);
 
 %% distribution of the value of 1/EC50
 % pool the non-NaN elements
 % ec50Pool = cMatrix(~isnan(cMatrix));
 ec50Pool = nonzeros(cMatrix);
-
-% add two super senstive pairs
-ec50Pool = [ec50Pool; -9; -9.5];
 
 sData = 1./(10.^ec50Pool);
 
