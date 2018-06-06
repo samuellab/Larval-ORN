@@ -8,6 +8,10 @@ function [ dataMean, dataSEM, odorList, concList, ORNList ] = GetAveData( )
 [odorList, ~] = unique(infoOdorRaw, 'stable');  %list of test odors
 [concList_full, ~] = unique(infoConcRaw);            %list of test concentrations
 
+% correct typos of odor name
+odorList{find(strcmp(odorList,'4-methylcyclohexane' ))} = '4-methylcyclohexanol ';
+odorList{find(strcmp(odorList,'4-pheny-2-butanol' ))} = '4-phenyl-2-butanol';
+
 %
 if length(concList_full) > 5
     concList = concList_full(end-4 : end);
