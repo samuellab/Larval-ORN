@@ -7,8 +7,8 @@ warning('off','all');
 load(fullfile('.', 'AnalysisResults', 'FitDoseResponse.mat'));
 
 % add two super senstive pairs, remove after measurement 
-cMatrix(23, 12) = -8.8;   %2-heptanone, 85c
-cMatrix(24, 16) = -9.2;  %methyl salicylate, 22c 
+cMatrix(23, 12) = -8.5;   %2-heptanone, 85c
+cMatrix(24, 16) = -8.9;  %methyl salicylate, 22c 
 
 % load(fullfile('.', 'data', 'AveRawDataMatrix.mat'));
 load(fullfile('.', 'data', 'AveRawDataMatrix2ndRound.mat'));

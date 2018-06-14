@@ -1,15 +1,30 @@
-load('compiled_13a_data.mat', 'sigMat');
+%% setings for 22c
 
-ORN = 'Or13a';
+load('22c_data.mat', 'pp');
 
-odor1 = '6-methyl-5-hepten-2-ol';
-odor2 = '3-octanol';
+ORN = {'Or22c' };
 
-concListOdor1 = [3.16*10^-8; 10^-7; 3.16*10^-7; 10^-6; 3.16*10^-6; 10^-5; 3.16*10^-5; 10^-4];
-concListOdor2 = [10^-8; 3.16*10^-8; 10^-7; 3.16*10^-7; 10^-6; 3.16*10^-6; 10^-5; 3.16*10^-5];
+odor1 = 'methyl salicylate';
+odor2 = 'anisole';
 
-dataOdor1 = sigMat(:, 1:2:end-1);
-dataOdor2 = sigMat(:, 2:2:end);
+concListOdor1 = [10^-11; 3.16*10^-11; 10^-10; 3.16*10^-10; 10^-9; 3.16*10^-9; 10^-8; 3.16*10^-8];
+concListOdor2 = [3.16*10^-8; 10^-7; 3.16*10^-7; 10^-6; 3.16*10^-6; 10^-5; 3.16*10^-5; 10^-4];
+
+%% setings for 42a
+% load('42a_data.mat', 'pp');
+% 
+% ORN = {'Or42a' };
+% 
+% odor1 = '4-hexen-3-one';
+% odor2 = '3-pentanol';
+% 
+% concListOdor1 = [10^-8; 3.16*10^-8; 10^-7; 3.16*10^-7; 10^-6; 3.16*10^-6; 10^-5; 3.16*10^-5];
+% concListOdor2 = [10^-8; 3.16*10^-8; 10^-7; 3.16*10^-7; 10^-6; 3.16*10^-6; 10^-5; 3.16*10^-5];
+
+%%
+pp = pp';
+dataOdor1 = pp(:, 1:2:end-1);
+dataOdor2 = pp(:, 2:2:end);
 
 [trialNum, concNum] = size(dataOdor1);
 
@@ -76,7 +91,6 @@ hold off;
 
 %% fit the curve
 
-
 [fitresult1, gof1] = fit(log10(concListOdor1), data1Mean', ft, opts);
 [fitresult2, gof2] = fit(log10(concListOdor2), data2Mean', ft, opts);
 
@@ -91,3 +105,5 @@ yMax1 = coef1(1); yMax2 = coef2(1);
 
 disp(['y_max1 = ', num2str(yMax1)]);
 disp(['y_max2 = ', num2str(yMax2)]);
+
+%%
