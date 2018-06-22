@@ -25,7 +25,7 @@ results.fitIndiv = cell(3, 2);
 results.cmpPValue = cell(3, 1);
 
 %%
-for  ff = 1:3
+for  ff = 2:2
     
     load(input.matFiles{ff}, input.varNames{ff});   % load files
     if  strcmp(input.varNames{ff}, 'pp')
