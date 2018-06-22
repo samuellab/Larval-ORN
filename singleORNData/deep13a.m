@@ -367,7 +367,7 @@ disp(['Kd_1 = ', num2str(mean(kdVec(1:12))), ' +- ',  num2str(std(kdVec(1:12))/s
 disp(['Kd_2 = ',num2str(mean(kdVec(13:24))), ' +- ',  num2str(std(kdVec(13:24))/sqrt(12))]);
 disp(['Amp_1 = ', num2str(mean(ampVec(1:12))), ' +- ',  num2str(std(ampVec(1:12))/sqrt(12))]);
 disp(['Amp_2 = ',num2str(mean(ampVec(13:24))), ' +- ',  num2str(std(ampVec(13:24))/sqrt(12))]);
-disp(['R-Square of the shared slop fit = ',num2str(rSqaure2nd)]);
+disp(['R-Square of the shared slop fit = ',num2str(rSqaureSlop)]);
 disp(['R-Square of the ensemble fit = ',num2str(rSquareEn)]);
 
 %% ensemble fitting on seperated odor data
