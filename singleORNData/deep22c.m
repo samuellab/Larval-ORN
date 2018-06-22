@@ -1,15 +1,14 @@
 %% input info
-input.matFiles = '13a_data.mat';
-input.varNames = 'sigMat';
-input.ORNs = 'Or13a';
-input.odors = {'6-methyl-5-hepten-2-ol', '3-octanol'};
+input.matFiles = '22c_data.mat';
+input.varNames = 'pp';
+input.ORNs = 'Or22ca';
+input.odors = {'methyl salicylate', 'anisole'};
     
-input.concList = {[3.16*10^-8; 10^-7; 3.16*10^-7; 10^-6; 3.16*10^-6; 10^-5; 3.16*10^-5; 10^-4], ...
-    [10^-8; 3.16*10^-8; 10^-7; 3.16*10^-7; 10^-6; 3.16*10^-6; 10^-5; 3.16*10^-5]}; % concentation list
+input.concList = {[10^-11; 3.16*10^-11; 10^-10; 3.16*10^-10; 10^-9; 3.16*10^-9; 10^-8; 3.16*10^-8], ...
+    [3.16*10^-8; 10^-7; 3.16*10^-7; 10^-6; 3.16*10^-6; 10^-5; 3.16*10^-5; 10^-4];}; % concentation list
 
 % other settings
 cColor =[0 0.4470 0.7410; 0.85 0.325 0.0980];
-
 
 %% output info
 results.fitCoef = cell(1, 2);
@@ -24,7 +23,13 @@ results.fitConfintWidthGroup = cell(2, 2);
 %% load data and setup fitting
 load(input.matFiles, input.varNames);   % load files
 
-dataPool = sigMat;
+if  strcmp(input.varNames, 'pp')
+    dataPool = pp';
+elseif strcmp(input.varNames, 'sigMat')
+    dataPool = sigMat;
+else
+    error('Not listed input variable.');
+end
 
 dataOdor1 = dataPool(:, 1:2:end-1); dataOdor2 = dataPool(:, 2:2:end);
 
@@ -37,7 +42,7 @@ dataY = [resp(:, 1:concNum); resp(:, concNum+1:2*concNum)];
 
 conc = cell2mat(input.concList);
 conc = conc';
-dataX = [repmat(conc(1,:), [12,1]); repmat(conc(2,:), [12,1])];
+dataX = [repmat(conc(1,:), [trialNum,1]); repmat(conc(2,:), [trialNum,1])];
 dataX = log10(dataX);
 
 % setup fitting function and method
@@ -126,34 +131,30 @@ fprintf('%10s\t%-5s\t%-5d\t%.2f+-%.2f\t%.2f+-%.2f\t%.2f+-%.2f\t\n', 'Average', '
     mean(cMatTemp(:, 5)), std(cMatTemp(:, 5))/sqrt(trialNum), ...
     mean(cMatTemp(:, 6)), std(cMatTemp(:, 6))/sqrt(trialNum));
 
-%%  remove 13a's decayed data
+%%  remove 22c's decayed data
 input.satMaskO1 = [...
-    1 1 1 1 1 1 0 0; ...    %1L
+    1 1 1 1 1 1 1 1; ...    %1L
+    1 1 1 1 1 1 1 1; ...    %1R
+    1 1 1 1 1 1 1 1; ...    %2L
+    1 1 1 1 1 1 1 1; ...    %2R
+    1 1 1 1 1 1 1 1; ...    %3L
+    1 1 1 1 1 1 1 1; ...    %3R
+    1 1 1 1 1 1 1 1; ...    %4L
+    1 1 1 1 1 1 1 1; ...    %4R
+    1 1 1 1 1 1 1 1; ...    %5L
+    1 1 1 1 1 1 1 1];       %5R
+
+input.satMaskO2 = [...
+    1 1 1 1 1 1 1 0; ...    %1L
     1 1 1 1 1 1 1 0; ...    %1R
     1 1 1 1 1 1 1 0; ...    %2L
     1 1 1 1 1 1 1 0; ...    %2R
     1 1 1 1 1 1 1 0; ...    %3L
     1 1 1 1 1 1 1 0; ...    %3R
     1 1 1 1 1 1 1 0; ...    %4L
-    1 1 1 1 1 1 1 0; ...    %4R
-    1 1 1 1 1 1 1 0; ...    %5L
-    1 1 1 1 1 1 1 0; ...    %5R
-    1 1 1 1 1 1 1 0; ...    %6L
-    1 1 1 1 1 1 0 0];       %6R
-
-input.satMaskO2 = [...
-    1 1 1 1 1 1 0 0; ...    %1L
-    1 1 1 1 1 1 0 0; ...    %1R
-    1 1 1 1 1 1 1 0; ...    %2L
-    1 1 1 1 1 1 0 0; ...    %2R
-    1 1 1 1 1 1 1 0; ...    %3L
-    1 1 1 1 1 1 0 0; ...    %3R
-    1 1 1 1 1 1 0 0; ...    %4L
     1 1 1 1 1 1 0 0; ...    %4R
     1 1 1 1 1 1 1 0; ...    %5L
-    1 1 1 1 1 1 0 0; ...    %5R
-    1 1 1 1 1 1 1 0; ...    %6L
-    1 1 1 1 1 1 0 0];       %6R
+    1 1 1 1 1 1 0 0];       %5R
 
 % fit on individual curve with mask
 figure; title(['Cleaned ',input.ORNs]);
@@ -345,7 +346,7 @@ c = cTemp(: , [3, 6]);	cc = c(:);
 cg= cgTemp(:, [3, 6]);
 
 for i = 1:3
-    cgg = cg(12*(i-1)+1 : 12*i, :);
+    cgg = cg(trialNum*(i-1)+1 : trialNum*i, :);
     
     ccgg = cgg(:);
     ddc(:, i)  = abs(cc - ccgg);
@@ -363,37 +364,37 @@ std(ddc(2:end,:),1)
 
 disp('Ensemble fitting of both odors');
 disp(['slop = ', num2str(slop), ' +- ', num2str((dSlop(2)-dSlop(1))/2)]);
-disp(['Kd_1 = ', num2str(mean(kdVec(1:12))), ' +- ',  num2str(std(kdVec(1:12))/sqrt(12))]);
-disp(['Kd_2 = ',num2str(mean(kdVec(13:24))), ' +- ',  num2str(std(kdVec(13:24))/sqrt(12))]);
-disp(['Amp_1 = ', num2str(mean(ampVec(1:12))), ' +- ',  num2str(std(ampVec(1:12))/sqrt(12))]);
-disp(['Amp_2 = ',num2str(mean(ampVec(13:24))), ' +- ',  num2str(std(ampVec(13:24))/sqrt(12))]);
-disp(['R-Square of the shared slop fit = ',num2str(rSqaure2nd)]);
+disp(['Kd_1 = ', num2str(mean(kdVec(1:trialNum))), ' +- ',  num2str(std(kdVec(1:trialNum))/sqrt(trialNum))]);
+disp(['Kd_2 = ',num2str(mean(kdVec(1+trialNum:2*trialNum))), ' +- ',  num2str(std(kdVec(trialNum+1:2*trialNum))/sqrt(trialNum))]);
+disp(['Amp_1 = ', num2str(mean(ampVec(1:trialNum))), ' +- ',  num2str(std(ampVec(1:trialNum))/sqrt(trialNum))]);
+disp(['Amp_2 = ',num2str(mean(ampVec(1+trialNum:2*trialNum))), ' +- ',  num2str(std(ampVec(trialNum+1:2*trialNum))/sqrt(trialNum))]);
+disp(['R-Square of the shared slop fit = ',num2str(rSqaureSlop)]);
 disp(['R-Square of the ensemble fit = ',num2str(rSquareEn)]);
 
 %% ensemble fitting on seperated odor data
 % resp = cell2mat(input.data);
-dataY1 = resp(:, 1:8);
-dataY2 = resp(:, 9:16);
+dataY1 = resp(:, 1:concNum);
+dataY2 = resp(:, concNum+1: 2*concNum);
 
 % conc = cell2mat(input.concList);
 % conc = conc';
-dataX1 = log10(repmat(conc(1,:), [12,1])); 
-dataX2 = log10(repmat(conc(2,:), [12,1]));
+dataX1 = log10(repmat(conc(1,:), [trialNum,1])); 
+dataX2 = log10(repmat(conc(2,:), [trialNum,1]));
  
 [slop1, ampVec1, kdVec1, dSlop1, rSqaure2nd1, rSquareEn1] = EnsembleFit(dataX1, dataY1);
 [slop2, ampVec2, kdVec2, dSlop2, rSqaure2nd2, rSquareEn2] = EnsembleFit(dataX2, dataY2);
 
 disp('Ensemble fitting of odor 1');
 disp(['slop_1 = ', num2str(slop1), ' +- ', num2str((dSlop1(2)-dSlop1(1))/2)]);
-disp(['Kd_1 = ', num2str(mean(kdVec1)), ' +- ',  num2str(std(kdVec1)/sqrt(12))]);
-disp(['Amp_1 = ', num2str(mean(ampVec1)), ' +- ',  num2str(std(ampVec1)/sqrt(12))]);
+disp(['Kd_1 = ', num2str(mean(kdVec1)), ' +- ',  num2str(std(kdVec1)/sqrt(trialNum))]);
+disp(['Amp_1 = ', num2str(mean(ampVec1)), ' +- ',  num2str(std(ampVec1)/sqrt(trialNum))]);
 disp(['R-Square of the shared slop fit = ',num2str(rSqaure2nd1)]);
 disp(['R-Square of the ensemble fit = ',num2str(rSquareEn1)]);
 
 disp('Ensemble fitting of odor 2');
 disp(['slop_2 = ', num2str(slop2), ' +- ', num2str((dSlop2(2)-dSlop2(1))/2)]);
-disp(['Kd_1 = ', num2str(mean(kdVec2)), ' +- ',  num2str(std(kdVec2)/sqrt(12))]);
-disp(['Amp_1 = ', num2str(mean(ampVec2)), ' +- ',  num2str(std(ampVec2)/sqrt(12))]);
+disp(['Kd_1 = ', num2str(mean(kdVec2)), ' +- ',  num2str(std(kdVec2)/sqrt(trialNum))]);
+disp(['Amp_1 = ', num2str(mean(ampVec2)), ' +- ',  num2str(std(ampVec2)/sqrt(trialNum))]);
 disp(['R-Square of the shared slop fit = ',num2str(rSqaure2nd2)]);
 disp(['R-Square of the ensemble fit = ',num2str(rSquareEn2)]);
 
@@ -406,19 +407,19 @@ dataYG1 = dataY(:, 1:2:end-1);  dataYG2 = dataY(:, 2:2:end);
 
 disp('Ensemble fitting of data group 1');
 disp(['slop = ', num2str(slopG1), ' +- ', num2str((dSlopG1(2)-dSlopG1(1))/2)]);
-disp(['Kd_1 = ', num2str(mean(kdVecG1(1:12))), ' +- ',  num2str(std(kdVecG1(1:12))/sqrt(12))]);
-disp(['Kd_2 = ',num2str(mean(kdVecG1(13:24))), ' +- ',  num2str(std(kdVecG1(13:24))/sqrt(12))]);
-disp(['Amp_1 = ', num2str(mean(ampVecG1(1:12))), ' +- ',  num2str(std(ampVecG1(1:12))/sqrt(12))]);
-disp(['Amp_2 = ',num2str(mean(ampVecG1(13:24))), ' +- ',  num2str(std(ampVecG1(13:24))/sqrt(12))]);
+disp(['Kd_1 = ', num2str(mean(kdVecG1(1:trialNum))), ' +- ',  num2str(std(kdVecG1(1:trialNum))/sqrt(trialNum))]);
+disp(['Kd_2 = ',num2str(mean(kdVecG1(1+trialNum:2*trialNum))), ' +- ',  num2str(std(kdVecG1(1+trialNum:2*trialNum))/sqrt(trialNum))]);
+disp(['Amp_1 = ', num2str(mean(ampVecG1(1:trialNum))), ' +- ',  num2str(std(ampVecG1(1:trialNum))/sqrt(trialNum))]);
+disp(['Amp_2 = ',num2str(mean(ampVecG1(1+trialNum:2*trialNum))), ' +- ',  num2str(std(ampVecG1(1+trialNum:2*trialNum))/sqrt(trialNum))]);
 disp(['R-Square of the shared slop fit = ',num2str(rSqaure2ndG1)]);
 disp(['R-Square of the ensemble fit = ',num2str(rSquareEnG1)]);
 
 disp('Ensemble fitting of data group 2');
 disp(['slop = ', num2str(slopG2), ' +- ', num2str((dSlopG2(2)-dSlopG2(1))/2)]);
-disp(['Kd_1 = ', num2str(mean(kdVecG2(1:12))), ' +- ',  num2str(std(kdVecG2(1:12))/sqrt(12))]);
-disp(['Kd_2 = ',num2str(mean(kdVecG2(13:24))), ' +- ',  num2str(std(kdVecG2(13:24))/sqrt(12))]);
-disp(['Amp_1 = ', num2str(mean(ampVecG2(1:12))), ' +- ',  num2str(std(ampVecG2(1:12))/sqrt(12))]);
-disp(['Amp_2 = ',num2str(mean(ampVecG2(13:24))), ' +- ',  num2str(std(ampVecG2(13:24))/sqrt(12))]);
+disp(['Kd_1 = ', num2str(mean(kdVecG2(1:trialNum))), ' +- ',  num2str(std(kdVecG2(1:trialNum))/sqrt(trialNum))]);
+disp(['Kd_2 = ',num2str(mean(kdVecG2(1+trialNum:2*trialNum))), ' +- ',  num2str(std(kdVecG2(1+trialNum:2*trialNum))/sqrt(trialNum))]);
+disp(['Amp_1 = ', num2str(mean(ampVecG2(1:trialNum))), ' +- ',  num2str(std(ampVecG2(1:12))/sqrt(trialNum))]);
+disp(['Amp_2 = ',num2str(mean(ampVecG2(1+trialNum:2*trialNum))), ' +- ',  num2str(std(ampVecG2(1+trialNum:2*trialNum))/sqrt(trialNum))]);
 disp(['R-Square of the shared slop fit = ',num2str(rSqaure2ndG2)]);
 disp(['R-Square of the ensemble fit = ',num2str(rSquareEnG2)]);
 
@@ -430,10 +431,10 @@ disp(['R-Square of the ensemble fit = ',num2str(rSquareEnG2)]);
 
 disp('--------------------fminsearch fitting:--------------------');
 disp(['slop = ', num2str(slopfs)]);
-disp(['Kd_1 = ', num2str(mean(kdVecfs(1:12))), ' +- ',  num2str(std(kdVecfs(1:12))/sqrt(12))]);
-disp(['Kd_2 = ',num2str(mean(kdVecfs(13:24))), ' +- ',  num2str(std(kdVecfs(13:24))/sqrt(12))]);
-disp(['Amp_1 = ', num2str(mean(ampVecfs(1:12))), ' +- ',  num2str(std(ampVecfs(1:12))/sqrt(12))]);
-disp(['Amp_2 = ',num2str(mean(ampVecfs(13:24))), ' +- ',  num2str(std(ampVecfs(13:24))/sqrt(12))]);
+disp(['Kd_1 = ', num2str(mean(kdVecfs(1:trialNum))), ' +- ',  num2str(std(kdVecfs(1:trialNum))/sqrt(trialNum))]);
+disp(['Kd_2 = ',num2str(mean(kdVecfs(trialNum+1:2*trialNum))), ' +- ',  num2str(std(kdVecfs(trialNum+1:2*trialNum))/sqrt(trialNum))]);
+disp(['Amp_1 = ', num2str(mean(ampVecfs(1:trialNum))), ' +- ',  num2str(std(ampVecfs(1:trialNum))/sqrt(trialNum))]);
+disp(['Amp_2 = ',num2str(mean(ampVecfs(1+trialNum:2*trialNum))), ' +- ',  num2str(std(ampVecfs(1+trialNum:2*trialNum))/sqrt(trialNum))]);
 disp(['R-Square = ',num2str(rSquarefs)]);
 
 %% fit the undersampled data
