@@ -64,8 +64,8 @@ end
 % format the display
 legend(legText, 'Location',  'northwest'); axis tight; hold off;
 xlabel('Concentration'); ylabel('\DeltaF/F'); set(gca,'XScale','log' );
-yTickMax = round(max(reshape(cell2mat(results.rMean), [], 1)));
-yticks(1:yTickMax); yticklabels(num2str((1:yTickMax)')); 
+yTickMax = round(max(reshpae(results.rMean)))
+yticks(1:); yticklabels(num2str((1:5)')); 
 xticks(logspace(-11, -4, 8));
 xticklabels({'10^{11}', '10^{10}', '10^{9}', '10^{8}', '10^{7}', ...
     '10^{6}', '10^{5}', '10^{4}',});
@@ -87,27 +87,22 @@ end
 
 %% show each individual curve
 
-% plot each individual curve on top of each other, seperate two ORNs
-
+% plot each individual curve on top of each other
+figure; hold on;  
 for i = 1:length(input.ORNs)
-    figure; hold on;  title(input.ORNs{i});
     for j = 1:length(input.odors(1, :))
         plot(input.concList{i,j}, input.dff{i,j}, ...
             '-o', 'Color', cColor(j+(i-1)*length(input.odors(1, :)),:));
     end    
-    
-    axis tight; hold off;
-    xlabel('Concentration'); ylabel('\DeltaF/F'); set(gca,'XScale','log' );
-%     yTickMax = round(max(reshape(cell2mat(input.dff), [], 1)));
-%     yticks(1:yTickMax); yticklabels(num2str((1:yTickMax)')); 
-%     xticks(logspace(-11, -4, 8));
-%     xticklabels({'10^{11}', '10^{10}', '10^{9}', '10^{8}', '10^{7}', ...
-%         '10^{6}', '10^{5}', '10^{4}',});
-%     set(gcf, 'Position', [100, 100, 700, 420]); movegui(gcf, 'northwest');
-    
 end
 
-
+axis tight; hold off;
+xlabel('Concentration'); ylabel('\DeltaF/F'); set(gca,'XScale','log' );
+yticks(1:5); yticklabels(num2str((1:5)')); 
+xticks(logspace(-11, -4, 8));
+xticklabels({'10^{11}', '10^{10}', '10^{9}', '10^{8}', '10^{7}', ...
+    '10^{6}', '10^{5}', '10^{4}',});
+set(gcf, 'Position', [100, 100, 700, 420]); movegui(gcf, 'northwest');
 
 %%
 for  ff = 2:2
