@@ -44,7 +44,7 @@ opts.Display = 'Off';
 opts.Robust = 'Bisquare';
 opts.Lower = [-1 -1 -12]; % setup the range and initial value of the variable
 opts.Upper = [10 15 1];
-opts.StartPoint = [4 5 -6.5];
+opts.StartPoint = [5 5 -6.5];
 
 %% averaged data
 %calculate the mean and sem
@@ -60,8 +60,7 @@ for i = 1:length(input.ORNs)
         legText{end+1} = [input.ORNs{i}, ' ',input.odors{i, j}];
     end    
 end
-
-% format the display
+% format the figure 
 legend(legText, 'Location',  'northwest'); axis tight; hold off;
 xlabel('Concentration'); ylabel('\DeltaF/F'); set(gca,'XScale','log' );
 yTickMax = round(max(reshape(cell2mat(results.rMean), [], 1)));
@@ -72,7 +71,7 @@ xticklabels({'10^{11}', '10^{10}', '10^{9}', '10^{8}', '10^{7}', ...
 set(gcf, 'Position', [100, 100, 700, 420]); movegui(gcf, 'northwest');
 
 % fit the averaged curuves and print
-disp('----------FIT AVERAGED DATA:----------');
+disp('----------FIT AVERAGED CURVE:----------');
 fprintf('%5s\t%-20s\t%-5s\t%-5s\t%-5s\t%-5s\t\n', 'ORN', 'Odor', 'Amp', 'Slop', 'EC_{50}', 'R^2');
 for i = 1:length(input.ORNs)
     for j = 1:length(input.odors(1, :))
@@ -88,24 +87,78 @@ end
 %% show each individual curve
 
 % plot each individual curve on top of each other, seperate two ORNs
-
 for i = 1:length(input.ORNs)
     figure; hold on;  title(input.ORNs{i});
     for j = 1:length(input.odors(1, :))
-        plot(input.concList{i,j}, input.dff{i,j}, ...
-            '-o', 'Color', cColor(j+(i-1)*length(input.odors(1, :)),:));
-    end    
+        plot(input.concList{i,j}, input.dff{i,j}, '-o', 'Color', ...
+            cColor(j+(i-1)*length(input.odors(1, :)),:));
+    end 
     
     axis tight; hold off;
-    xlabel('Concentration'); ylabel('\DeltaF/F'); set(gca,'XScale','log' );
-%     yTickMax = round(max(reshape(cell2mat(input.dff), [], 1)));
-%     yticks(1:yTickMax); yticklabels(num2str((1:yTickMax)')); 
-%     xticks(logspace(-11, -4, 8));
-%     xticklabels({'10^{11}', '10^{10}', '10^{9}', '10^{8}', '10^{7}', ...
-%         '10^{6}', '10^{5}', '10^{4}',});
-%     set(gcf, 'Position', [100, 100, 700, 420]); movegui(gcf, 'northwest');
-    
+    xlabel('Concentration'); ylabel('\DeltaF/F'); set(gca,'XScale','log' );    
 end
+
+%% fit each individual curve and display the parameters
+disp('----------FIT INDIVIDUAL CURVE:----------');
+fprintf('%5s\t%-20s\t%-5s\t%-5s\t%-5s\t%-5s\t%-5s\t\n', 'ORN', 'Odor', 'Trial', 'Amp', 'Slop', 'EC_{50}', 'R^2');
+for i = 1:length(input.ORNs)
+    for j = 1:length(input.odors(1, :))
+        yMat = input.dff{i, j}; [trialNum, ~] = size(yMat);
+        for k = 1:trialNum
+            [fitresult, gof] = fit(log10((input.concList{i,j})'), (yMat(k,:))', ft, opts);
+            results.fitCoeffIdv{i, j}(k,:) = coeffvalues(fitresult);    
+            results.fitR2Idv{i, j}(k) = gof.rsquare; 
+            fprintf('%5s\t%-20s\t%5s\t%.2f\t%.2f\t%.2f\t%.2f\n', ...
+                input.ORNs{i}, input.odors{i, j}, input.expID{i, j}{k}, ...
+                results.fitCoeffIdv{i, j}(k,1), results.fitCoeffIdv{i, j}(k,2), ...
+                results.fitCoeffIdv{i, j}(k,3), results.fitR2Idv{i, j}(k));
+        end
+    end
+end
+
+%% compare the parameters
+% plot the amplitudes, with data from the same trial linked
+figure;  hold on; title('Amplitude')
+coeffPool = cell2mat(results.fitCoeffIdv);
+ampPool = coeffPool(:, [1,4]);
+for i = 1:length(input.ORNs)
+    for k = 1:length(input.expID{i, 1})
+        myIndex = (i-1) * length(input.expID{i, 1}) + k;
+        for j = 1:length(input.odors(1, :))
+            plot((i-1)*length(input.odors(1, :)) + j, ampPool(myIndex, j), ...
+                'o', 'Color', cColor(j+(i-1)*length(input.odors(1, :)),:));
+        end
+        plot([1 2]+(i-1)*2, ampPool(myIndex, :), 'k');
+    end
+end
+
+xticks(1:i*j); hold off 
+xticklabels({input.odors{1,1}, input.odors{1,2}, input.odors{2,1}, input.odors{2,2}});
+xtickangle(-45);    ylabel('\DeltaF/F'); axis([0.5 4.5 0 ceil(max(ampPool(:)))]);
+set(gcf, 'Position', [100, 100, 350, 420]); movegui(gcf, 'north');
+
+%% plot the hist of the amplitude difference
+dA = (ampPool(:,1) - ampPool(:,2))./mean(ampPool, 2);
+
+disp('----------AMPLITUDE RELATIVE DIFFERENCE:----------');
+fprintf('%5s\t%-5s\t%-5s\n', 'ORN', 'mean(dA)', 'std(dA)');
+fprintf('%5s\t%.3f\t\t%.3f\n',input.ORNs{1}, mean(dA(1:12)), std(dA(1:12)));
+fprintf('%5s\t%.3f\t\t%.3f\n',input.ORNs{2}, mean(dA(13:end)), std(dA(13:end)));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
