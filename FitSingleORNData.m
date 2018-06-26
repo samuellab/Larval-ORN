@@ -1,18 +1,13 @@
-%% input info
-input.matFiles = {'13a_data.mat'; '22c_data.mat'; '42a_data.mat'}; %file names
-input.varNames = {'sigMat'; 'pp'; 'pp'};  %variable names
-input.ORNs = {'Or13a'; 'Or22c'; 'Or42a'}; %ORN name
-input.odors = {'6-methyl-5-hepten-2-ol', '3-octanol'; 'methyl salicylate', 'anisole'; ...
-    '4-hexen-3-one', '3-pentanol'}; %odor name;
-input.concList = {[3.16*10^-8; 10^-7; 3.16*10^-7; 10^-6; 3.16*10^-6; 10^-5; 3.16*10^-5; 10^-4], ...
-    [10^-8; 3.16*10^-8; 10^-7; 3.16*10^-7; 10^-6; 3.16*10^-6; 10^-5; 3.16*10^-5]; ...
-    [10^-11; 3.16*10^-11; 10^-10; 3.16*10^-10; 10^-9; 3.16*10^-9; 10^-8; 3.16*10^-8], ...
-    [3.16*10^-8; 10^-7; 3.16*10^-7; 10^-6; 3.16*10^-6; 10^-5; 3.16*10^-5; 10^-4]; ...
-    [10^-8; 3.16*10^-8; 10^-7; 3.16*10^-7; 10^-6; 3.16*10^-6; 10^-5; 3.16*10^-5], ...
-    [10^-8; 3.16*10^-8; 10^-7; 3.16*10^-7; 10^-6; 3.16*10^-6; 10^-5; 3.16*10^-5]}; % concentation list
+%% input file info
+fileName = fullfile('data', 'Supplementary Table 1.csv');
 
-% other settings
-cColor =[0 0.4470 0.7410; 0.85 0.325 0.0980];
+%% other settings
+% cColor =[0 0.4470 0.7410; 0.85 0.325 0.0980];
+
+%% load Excel file
+T = readtable(fileName);
+
+
 
 %% output info
 results.rMean = cell(3,2);

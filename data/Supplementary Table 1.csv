@@ -1,0 +1,353 @@
+ORN,Exp_ID,Odor,Concentration,DF/F
+O13a,1_L,6-methyl-5-hepten-2-ol,3.16E-08,0.206061803
+O13a,1_L,6-methyl-5-hepten-2-ol,1.00E-07,0.215028991
+O13a,1_L,6-methyl-5-hepten-2-ol,3.16E-07,0.19589025
+O13a,1_L,6-methyl-5-hepten-2-ol,1.00E-06,0.842867337
+O13a,1_L,6-methyl-5-hepten-2-ol,3.16E-06,2.87657315
+O13a,1_L,6-methyl-5-hepten-2-ol,1.00E-05,2.549102421
+O13a,1_L,6-methyl-5-hepten-2-ol,3.16E-05,2.493829477
+O13a,1_L,6-methyl-5-hepten-2-ol,1.00E-04,2.327115154
+O13a,1_L,3-octanol,1.00E-08,0.328630851
+O13a,1_L,3-octanol,3.16E-08,0.043036768
+O13a,1_L,3-octanol,1.00E-07,0.775564679
+O13a,1_L,3-octanol,3.16E-07,2.059888854
+O13a,1_L,3-octanol,1.00E-06,2.84952657
+O13a,1_L,3-octanol,3.16E-06,2.55291706
+O13a,1_L,3-octanol,1.00E-05,2.478227635
+O13a,1_L,3-octanol,3.16E-05,2.162792355
+O13a,1_R,6-methyl-5-hepten-2-ol,3.16E-08,0.030861781
+O13a,1_R,6-methyl-5-hepten-2-ol,1.00E-07,0.049189176
+O13a,1_R,6-methyl-5-hepten-2-ol,3.16E-07,0.059795985
+O13a,1_R,6-methyl-5-hepten-2-ol,1.00E-06,0.587976722
+O13a,1_R,6-methyl-5-hepten-2-ol,3.16E-06,2.315181848
+O13a,1_R,6-methyl-5-hepten-2-ol,1.00E-05,2.483542354
+O13a,1_R,6-methyl-5-hepten-2-ol,3.16E-05,2.606613386
+O13a,1_R,6-methyl-5-hepten-2-ol,1.00E-04,2.399882118
+O13a,1_R,3-octanol,1.00E-08,0.085502999
+O13a,1_R,3-octanol,3.16E-08,0.092303488
+O13a,1_R,3-octanol,1.00E-07,0.577369055
+O13a,1_R,3-octanol,3.16E-07,1.940900512
+O13a,1_R,3-octanol,1.00E-06,2.77003844
+O13a,1_R,3-octanol,3.16E-06,2.678588226
+O13a,1_R,3-octanol,1.00E-05,2.409597959
+O13a,1_R,3-octanol,3.16E-05,2.145355526
+O13a,2_L,6-methyl-5-hepten-2-ol,3.16E-08,0.031262632
+O13a,2_L,6-methyl-5-hepten-2-ol,1.00E-07,0.009518251
+O13a,2_L,6-methyl-5-hepten-2-ol,3.16E-07,0.191017455
+O13a,2_L,6-methyl-5-hepten-2-ol,1.00E-06,1.271717965
+O13a,2_L,6-methyl-5-hepten-2-ol,3.16E-06,3.068753637
+O13a,2_L,6-methyl-5-hepten-2-ol,1.00E-05,4.169735149
+O13a,2_L,6-methyl-5-hepten-2-ol,3.16E-05,4.504764157
+O13a,2_L,6-methyl-5-hepten-2-ol,1.00E-04,4.572602868
+O13a,2_L,3-octanol,1.00E-08,0.011570335
+O13a,2_L,3-octanol,3.16E-08,0.130287661
+O13a,2_L,3-octanol,1.00E-07,0.882480213
+O13a,2_L,3-octanol,3.16E-07,2.669581683
+O13a,2_L,3-octanol,1.00E-06,3.791837953
+O13a,2_L,3-octanol,3.16E-06,4.349594028
+O13a,2_L,3-octanol,1.00E-05,4.368929075
+O13a,2_L,3-octanol,3.16E-05,4.146704337
+O13a,2_R,6-methyl-5-hepten-2-ol,3.16E-08,0.167836803
+O13a,2_R,6-methyl-5-hepten-2-ol,1.00E-07,0.190892259
+O13a,2_R,6-methyl-5-hepten-2-ol,3.16E-07,0.531694638
+O13a,2_R,6-methyl-5-hepten-2-ol,1.00E-06,1.787737586
+O13a,2_R,6-methyl-5-hepten-2-ol,3.16E-06,5.22948302
+O13a,2_R,6-methyl-5-hepten-2-ol,1.00E-05,5.728101636
+O13a,2_R,6-methyl-5-hepten-2-ol,3.16E-05,5.693158937
+O13a,2_R,6-methyl-5-hepten-2-ol,1.00E-04,5.173408224
+O13a,2_R,3-octanol,1.00E-08,0.089936248
+O13a,2_R,3-octanol,3.16E-08,0.399339808
+O13a,2_R,3-octanol,1.00E-07,1.352865063
+O13a,2_R,3-octanol,3.16E-07,4.525756684
+O13a,2_R,3-octanol,1.00E-06,6.001095283
+O13a,2_R,3-octanol,3.16E-06,5.86848512
+O13a,2_R,3-octanol,1.00E-05,5.43743394
+O13a,2_R,3-octanol,3.16E-05,4.507741472
+O13a,3_L,6-methyl-5-hepten-2-ol,3.16E-08,0.042924378
+O13a,3_L,6-methyl-5-hepten-2-ol,1.00E-07,0.092447244
+O13a,3_L,6-methyl-5-hepten-2-ol,3.16E-07,0.349690757
+O13a,3_L,6-methyl-5-hepten-2-ol,1.00E-06,1.710828015
+O13a,3_L,6-methyl-5-hepten-2-ol,3.16E-06,6.219889042
+O13a,3_L,6-methyl-5-hepten-2-ol,1.00E-05,7.026401815
+O13a,3_L,6-methyl-5-hepten-2-ol,3.16E-05,7.267294195
+O13a,3_L,6-methyl-5-hepten-2-ol,1.00E-04,6.662970696
+O13a,3_L,3-octanol,1.00E-08,0.041215581
+O13a,3_L,3-octanol,3.16E-08,0.29320767
+O13a,3_L,3-octanol,1.00E-07,1.150453543
+O13a,3_L,3-octanol,3.16E-07,4.713921622
+O13a,3_L,3-octanol,1.00E-06,6.982496039
+O13a,3_L,3-octanol,3.16E-06,7.225915834
+O13a,3_L,3-octanol,1.00E-05,7.320631775
+O13a,3_L,3-octanol,3.16E-05,6.898293169
+O13a,3_R,6-methyl-5-hepten-2-ol,3.16E-08,0.005640855
+O13a,3_R,6-methyl-5-hepten-2-ol,1.00E-07,0.116752563
+O13a,3_R,6-methyl-5-hepten-2-ol,3.16E-07,0.471173164
+O13a,3_R,6-methyl-5-hepten-2-ol,1.00E-06,1.89773824
+O13a,3_R,6-methyl-5-hepten-2-ol,3.16E-06,4.671608875
+O13a,3_R,6-methyl-5-hepten-2-ol,1.00E-05,5.536670388
+O13a,3_R,6-methyl-5-hepten-2-ol,3.16E-05,5.513140806
+O13a,3_R,6-methyl-5-hepten-2-ol,1.00E-04,4.867896693
+O13a,3_R,3-octanol,1.00E-08,0.094558224
+O13a,3_R,3-octanol,3.16E-08,0.349167605
+O13a,3_R,3-octanol,1.00E-07,1.675390367
+O13a,3_R,3-octanol,3.16E-07,4.477904638
+O13a,3_R,3-octanol,1.00E-06,5.773632984
+O13a,3_R,3-octanol,3.16E-06,5.5608861
+O13a,3_R,3-octanol,1.00E-05,5.430981198
+O13a,3_R,3-octanol,3.16E-05,4.087906682
+O13a,4_L,6-methyl-5-hepten-2-ol,3.16E-08,-0.022809164
+O13a,4_L,6-methyl-5-hepten-2-ol,1.00E-07,0.040270645
+O13a,4_L,6-methyl-5-hepten-2-ol,3.16E-07,0.268301389
+O13a,4_L,6-methyl-5-hepten-2-ol,1.00E-06,1.098135806
+O13a,4_L,6-methyl-5-hepten-2-ol,3.16E-06,2.233147957
+O13a,4_L,6-methyl-5-hepten-2-ol,1.00E-05,3.18928908
+O13a,4_L,6-methyl-5-hepten-2-ol,3.16E-05,3.436865853
+O13a,4_L,6-methyl-5-hepten-2-ol,1.00E-04,2.803443579
+O13a,4_L,3-octanol,1.00E-08,-0.000216418
+O13a,4_L,3-octanol,3.16E-08,0.267170581
+O13a,4_L,3-octanol,1.00E-07,0.958107624
+O13a,4_L,3-octanol,3.16E-07,2.286589193
+O13a,4_L,3-octanol,1.00E-06,3.039820008
+O13a,4_L,3-octanol,3.16E-06,3.565533485
+O13a,4_L,3-octanol,1.00E-05,2.627801023
+O13a,4_L,3-octanol,3.16E-05,2.925846326
+O13a,4_R,6-methyl-5-hepten-2-ol,3.16E-08,0.032747208
+O13a,4_R,6-methyl-5-hepten-2-ol,1.00E-07,0.034972429
+O13a,4_R,6-methyl-5-hepten-2-ol,3.16E-07,0.188638018
+O13a,4_R,6-methyl-5-hepten-2-ol,1.00E-06,0.924694124
+O13a,4_R,6-methyl-5-hepten-2-ol,3.16E-06,2.893781186
+O13a,4_R,6-methyl-5-hepten-2-ol,1.00E-05,3.911991929
+O13a,4_R,6-methyl-5-hepten-2-ol,3.16E-05,4.92115836
+O13a,4_R,6-methyl-5-hepten-2-ol,1.00E-04,4.961520493
+O13a,4_R,3-octanol,1.00E-08,0.050543232
+O13a,4_R,3-octanol,3.16E-08,0.240895858
+O13a,4_R,3-octanol,1.00E-07,0.517355078
+O13a,4_R,3-octanol,3.16E-07,2.205648043
+O13a,4_R,3-octanol,1.00E-06,3.970423013
+O13a,4_R,3-octanol,3.16E-06,4.217469986
+O13a,4_R,3-octanol,1.00E-05,3.99896976
+O13a,4_R,3-octanol,3.16E-05,4.342527358
+O13a,5_L,6-methyl-5-hepten-2-ol,3.16E-08,0.076945617
+O13a,5_L,6-methyl-5-hepten-2-ol,1.00E-07,0.035072908
+O13a,5_L,6-methyl-5-hepten-2-ol,3.16E-07,0.308467518
+O13a,5_L,6-methyl-5-hepten-2-ol,1.00E-06,1.366051205
+O13a,5_L,6-methyl-5-hepten-2-ol,3.16E-06,5.382317349
+O13a,5_L,6-methyl-5-hepten-2-ol,1.00E-05,7.539695601
+O13a,5_L,6-methyl-5-hepten-2-ol,3.16E-05,7.057071286
+O13a,5_L,6-methyl-5-hepten-2-ol,1.00E-04,7.281882878
+O13a,5_L,3-octanol,1.00E-08,0.032702561
+O13a,5_L,3-octanol,3.16E-08,0.289401782
+O13a,5_L,3-octanol,1.00E-07,0.987378473
+O13a,5_L,3-octanol,3.16E-07,3.967474839
+O13a,5_L,3-octanol,1.00E-06,6.368483326
+O13a,5_L,3-octanol,3.16E-06,6.487547953
+O13a,5_L,3-octanol,1.00E-05,7.571148443
+O13a,5_L,3-octanol,3.16E-05,7.535474434
+O13a,5_R,6-methyl-5-hepten-2-ol,3.16E-08,0.089003302
+O13a,5_R,6-methyl-5-hepten-2-ol,1.00E-07,0.146856311
+O13a,5_R,6-methyl-5-hepten-2-ol,3.16E-07,0.502619952
+O13a,5_R,6-methyl-5-hepten-2-ol,1.00E-06,1.430329561
+O13a,5_R,6-methyl-5-hepten-2-ol,3.16E-06,4.406038318
+O13a,5_R,6-methyl-5-hepten-2-ol,1.00E-05,7.042782577
+O13a,5_R,6-methyl-5-hepten-2-ol,3.16E-05,6.26997834
+O13a,5_R,6-methyl-5-hepten-2-ol,1.00E-04,6.08929345
+O13a,5_R,3-octanol,1.00E-08,0.102128933
+O13a,5_R,3-octanol,3.16E-08,0.371821184
+O13a,5_R,3-octanol,1.00E-07,1.140184944
+O13a,5_R,3-octanol,3.16E-07,3.405097874
+O13a,5_R,3-octanol,1.00E-06,6.343644397
+O13a,5_R,3-octanol,3.16E-06,6.713441648
+O13a,5_R,3-octanol,1.00E-05,6.344889191
+O13a,5_R,3-octanol,3.16E-05,6.105782156
+O13a,6_L,6-methyl-5-hepten-2-ol,3.16E-08,0.07812242
+O13a,6_L,6-methyl-5-hepten-2-ol,1.00E-07,0.123803678
+O13a,6_L,6-methyl-5-hepten-2-ol,3.16E-07,0.42264042
+O13a,6_L,6-methyl-5-hepten-2-ol,1.00E-06,2.160375428
+O13a,6_L,6-methyl-5-hepten-2-ol,3.16E-06,4.429899822
+O13a,6_L,6-methyl-5-hepten-2-ol,1.00E-05,4.714704399
+O13a,6_L,6-methyl-5-hepten-2-ol,3.16E-05,4.806720153
+O13a,6_L,6-methyl-5-hepten-2-ol,1.00E-04,5.16875717
+O13a,6_L,3-octanol,1.00E-08,0.102152612
+O13a,6_L,3-octanol,3.16E-08,0.312473604
+O13a,6_L,3-octanol,1.00E-07,1.320737704
+O13a,6_L,3-octanol,3.16E-07,3.676544861
+O13a,6_L,3-octanol,1.00E-06,4.61496964
+O13a,6_L,3-octanol,3.16E-06,4.651646609
+O13a,6_L,3-octanol,1.00E-05,5.284781195
+O13a,6_L,3-octanol,3.16E-05,4.98470155
+O13a,6_R,6-methyl-5-hepten-2-ol,3.16E-08,0.143534776
+O13a,6_R,6-methyl-5-hepten-2-ol,1.00E-07,0.129743981
+O13a,6_R,6-methyl-5-hepten-2-ol,3.16E-07,0.597738306
+O13a,6_R,6-methyl-5-hepten-2-ol,1.00E-06,3.082991435
+O13a,6_R,6-methyl-5-hepten-2-ol,3.16E-06,5.260034641
+O13a,6_R,6-methyl-5-hepten-2-ol,1.00E-05,5.519110024
+O13a,6_R,6-methyl-5-hepten-2-ol,3.16E-05,5.005108046
+O13a,6_R,6-methyl-5-hepten-2-ol,1.00E-04,4.320831011
+O13a,6_R,3-octanol,1.00E-08,0.051918833
+O13a,6_R,3-octanol,3.16E-08,0.788137215
+O13a,6_R,3-octanol,1.00E-07,2.293542582
+O13a,6_R,3-octanol,3.16E-07,4.491634149
+O13a,6_R,3-octanol,1.00E-06,5.504464707
+O13a,6_R,3-octanol,3.16E-06,5.369095856
+O13a,6_R,3-octanol,1.00E-05,4.564767255
+O13a,6_R,3-octanol,3.16E-05,3.731317359
+Or22c,1_L,methyl salicylate,1.00E-11,0.18146875
+Or22c,1_L,methyl salicylate,3.16E-11,0.098209099
+Or22c,1_L,methyl salicylate,1.00E-10,0.276480055
+Or22c,1_L,methyl salicylate,3.16E-10,1.029138543
+Or22c,1_L,methyl salicylate,1.00E-09,3.56128256
+Or22c,1_L,methyl salicylate,3.16E-09,3.31042211
+Or22c,1_L,methyl salicylate,1.00E-08,4.187717408
+Or22c,1_L,methyl salicylate,3.16E-08,3.78418934
+Or22c,1_L,anisole,3.16E-08,0.165704373
+Or22c,1_L,anisole,1.00E-07,0.008654088
+Or22c,1_L,anisole,3.16E-07,0.054202968
+Or22c,1_L,anisole,1.00E-06,0.7292108
+Or22c,1_L,anisole,3.16E-06,3.874235513
+Or22c,1_L,anisole,1.00E-05,3.796474661
+Or22c,1_L,anisole,3.16E-05,4.050817316
+Or22c,1_L,anisole,0.0001,3.653208367
+Or22c,1_R,methyl salicylate,1.00E-11,0.189450056
+Or22c,1_R,methyl salicylate,3.16E-11,0.056385875
+Or22c,1_R,methyl salicylate,1.00E-10,0.241472337
+Or22c,1_R,methyl salicylate,3.16E-10,0.681167644
+Or22c,1_R,methyl salicylate,1.00E-09,3.233004947
+Or22c,1_R,methyl salicylate,3.16E-09,3.582489504
+Or22c,1_R,methyl salicylate,1.00E-08,4.405711435
+Or22c,1_R,methyl salicylate,3.16E-08,4.264591387
+Or22c,1_R,anisole,3.16E-08,0.007059276
+Or22c,1_R,anisole,1.00E-07,0.004691982
+Or22c,1_R,anisole,3.16E-07,-0.004001954
+Or22c,1_R,anisole,1.00E-06,0.225670283
+Or22c,1_R,anisole,3.16E-06,2.590306356
+Or22c,1_R,anisole,1.00E-05,4.706775575
+Or22c,1_R,anisole,3.16E-05,4.488995926
+Or22c,1_R,anisole,0.0001,4.030309265
+Or22c,2_L,methyl salicylate,1.00E-11,0.151513943
+Or22c,2_L,methyl salicylate,3.16E-11,0.144103914
+Or22c,2_L,methyl salicylate,1.00E-10,0.401838479
+Or22c,2_L,methyl salicylate,3.16E-10,0.526508691
+Or22c,2_L,methyl salicylate,1.00E-09,2.032718489
+Or22c,2_L,methyl salicylate,3.16E-09,2.423524528
+Or22c,2_L,methyl salicylate,1.00E-08,3.72452224
+Or22c,2_L,methyl salicylate,3.16E-08,3.43301885
+Or22c,2_L,anisole,3.16E-08,0.080240659
+Or22c,2_L,anisole,1.00E-07,0.04178342
+Or22c,2_L,anisole,3.16E-07,0.124894521
+Or22c,2_L,anisole,1.00E-06,0.742827988
+Or22c,2_L,anisole,3.16E-06,3.232038014
+Or22c,2_L,anisole,1.00E-05,4.536123357
+Or22c,2_L,anisole,3.16E-05,4.388565085
+Or22c,2_L,anisole,0.0001,3.928637704
+Or22c,2_R,methyl salicylate,1.00E-11,0.077253016
+Or22c,2_R,methyl salicylate,3.16E-11,0.048136737
+Or22c,2_R,methyl salicylate,1.00E-10,0.176071249
+Or22c,2_R,methyl salicylate,3.16E-10,0.46421978
+Or22c,2_R,methyl salicylate,1.00E-09,2.588920178
+Or22c,2_R,methyl salicylate,3.16E-09,3.211334196
+Or22c,2_R,methyl salicylate,1.00E-08,4.986547808
+Or22c,2_R,methyl salicylate,3.16E-08,5.17361587
+Or22c,2_R,anisole,3.16E-08,0.054348128
+Or22c,2_R,anisole,1.00E-07,0.029352571
+Or22c,2_R,anisole,3.16E-07,0.060155768
+Or22c,2_R,anisole,1.00E-06,0.639974604
+Or22c,2_R,anisole,3.16E-06,3.336508204
+Or22c,2_R,anisole,1.00E-05,5.564370493
+Or22c,2_R,anisole,3.16E-05,5.584208726
+Or22c,2_R,anisole,0.0001,4.970426548
+Or22c,3_L,methyl salicylate,1.00E-11,0.204010374
+Or22c,3_L,methyl salicylate,3.16E-11,0.189363498
+Or22c,3_L,methyl salicylate,1.00E-10,0.446702661
+Or22c,3_L,methyl salicylate,3.16E-10,0.911558496
+Or22c,3_L,methyl salicylate,1.00E-09,3.492850633
+Or22c,3_L,methyl salicylate,3.16E-09,4.625491679
+Or22c,3_L,methyl salicylate,1.00E-08,4.722929317
+Or22c,3_L,methyl salicylate,3.16E-08,4.659438553
+Or22c,3_L,anisole,3.16E-08,-0.0093984
+Or22c,3_L,anisole,1.00E-07,0.140696608
+Or22c,3_L,anisole,3.16E-07,0.11166762
+Or22c,3_L,anisole,1.00E-06,0.576387416
+Or22c,3_L,anisole,3.16E-06,2.959981101
+Or22c,3_L,anisole,1.00E-05,5.162410203
+Or22c,3_L,anisole,3.16E-05,5.59716044
+Or22c,3_L,anisole,0.0001,4.577398201
+Or22c,3_R,methyl salicylate,1.00E-11,0.052259274
+Or22c,3_R,methyl salicylate,3.16E-11,0.011989823
+Or22c,3_R,methyl salicylate,1.00E-10,0.06024319
+Or22c,3_R,methyl salicylate,3.16E-10,0.248716568
+Or22c,3_R,methyl salicylate,1.00E-09,1.797011783
+Or22c,3_R,methyl salicylate,3.16E-09,2.6331716
+Or22c,3_R,methyl salicylate,1.00E-08,4.524484329
+Or22c,3_R,methyl salicylate,3.16E-08,4.749326441
+Or22c,3_R,anisole,3.16E-08,-0.0154181
+Or22c,3_R,anisole,1.00E-07,0.057430503
+Or22c,3_R,anisole,3.16E-07,-0.040697986
+Or22c,3_R,anisole,1.00E-06,0.065127662
+Or22c,3_R,anisole,3.16E-06,1.368495432
+Or22c,3_R,anisole,1.00E-05,4.776469561
+Or22c,3_R,anisole,3.16E-05,5.169489797
+Or22c,3_R,anisole,0.0001,4.30173321
+Or22c,4_L,methyl salicylate,1.00E-11,0.09393795
+Or22c,4_L,methyl salicylate,3.16E-11,0.070883244
+Or22c,4_L,methyl salicylate,1.00E-10,0.225246565
+Or22c,4_L,methyl salicylate,3.16E-10,0.840782537
+Or22c,4_L,methyl salicylate,1.00E-09,3.706772341
+Or22c,4_L,methyl salicylate,3.16E-09,3.778400414
+Or22c,4_L,methyl salicylate,1.00E-08,4.397873003
+Or22c,4_L,methyl salicylate,3.16E-08,4.082880407
+Or22c,4_L,anisole,3.16E-08,-0.044554482
+Or22c,4_L,anisole,1.00E-07,-0.059652327
+Or22c,4_L,anisole,3.16E-07,0.013649319
+Or22c,4_L,anisole,1.00E-06,0.335128154
+Or22c,4_L,anisole,3.16E-06,3.18469737
+Or22c,4_L,anisole,1.00E-05,4.459390293
+Or22c,4_L,anisole,3.16E-05,4.552408679
+Or22c,4_L,anisole,0.0001,4.255681579
+Or22c,4_R,methyl salicylate,1.00E-11,-0.001085034
+Or22c,4_R,methyl salicylate,3.16E-11,0.014701282
+Or22c,4_R,methyl salicylate,1.00E-10,-0.027359816
+Or22c,4_R,methyl salicylate,3.16E-10,-0.025395943
+Or22c,4_R,methyl salicylate,1.00E-09,0.186103292
+Or22c,4_R,methyl salicylate,3.16E-09,0.193454524
+Or22c,4_R,methyl salicylate,1.00E-08,2.095464983
+Or22c,4_R,methyl salicylate,3.16E-08,3.271677124
+Or22c,4_R,anisole,3.16E-08,-0.027975742
+Or22c,4_R,anisole,1.00E-07,-0.046862071
+Or22c,4_R,anisole,3.16E-07,-0.065680161
+Or22c,4_R,anisole,1.00E-06,-0.130933753
+Or22c,4_R,anisole,3.16E-06,0.025120623
+Or22c,4_R,anisole,1.00E-05,1.948872826
+Or22c,4_R,anisole,3.16E-05,3.370208443
+Or22c,4_R,anisole,0.0001,3.370515077
+Or22c,5_L,methyl salicylate,1.00E-11,0.002820457
+Or22c,5_L,methyl salicylate,3.16E-11,0.009618716
+Or22c,5_L,methyl salicylate,1.00E-10,-0.044113373
+Or22c,5_L,methyl salicylate,3.16E-10,0.011716374
+Or22c,5_L,methyl salicylate,1.00E-09,-0.043315021
+Or22c,5_L,methyl salicylate,3.16E-09,0.556192109
+Or22c,5_L,methyl salicylate,1.00E-08,5.43071714
+Or22c,5_L,methyl salicylate,3.16E-08,5.575820777
+Or22c,5_L,anisole,3.16E-08,0.144844738
+Or22c,5_L,anisole,1.00E-07,0.086946207
+Or22c,5_L,anisole,3.16E-07,0.000975442
+Or22c,5_L,anisole,1.00E-06,0.185518799
+Or22c,5_L,anisole,3.16E-06,2.867336018
+Or22c,5_L,anisole,1.00E-05,6.736613777
+Or22c,5_L,anisole,3.16E-05,5.385548923
+Or22c,5_L,anisole,0.0001,5.433470226
+Or22c,5_R,methyl salicylate,1.00E-11,0.004178427
+Or22c,5_R,methyl salicylate,3.16E-11,0.003820241
+Or22c,5_R,methyl salicylate,1.00E-10,0.002926634
+Or22c,5_R,methyl salicylate,3.16E-10,0.027024269
+Or22c,5_R,methyl salicylate,1.00E-09,0.054608333
+Or22c,5_R,methyl salicylate,3.16E-09,0.998853143
+Or22c,5_R,methyl salicylate,1.00E-08,4.929828946
+Or22c,5_R,methyl salicylate,3.16E-08,5.785109695
+Or22c,5_R,anisole,3.16E-08,0.021994788
+Or22c,5_R,anisole,1.00E-07,0.032325179
+Or22c,5_R,anisole,3.16E-07,-0.018548432
+Or22c,5_R,anisole,1.00E-06,0.539230697
+Or22c,5_R,anisole,3.16E-06,2.960919684
+Or22c,5_R,anisole,1.00E-05,5.637155199
+Or22c,5_R,anisole,3.16E-05,5.497350991
+Or22c,5_R,anisole,0.0001,5.33761229
