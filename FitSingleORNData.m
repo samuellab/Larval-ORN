@@ -1,12 +1,36 @@
 %% input file info
 fileName = fullfile('data', 'Supplementary Table 1.csv');
 
-%% other settings
+% load Excel file
+dataT = readtable(fileName);
+
+[input.ORNs, ~, icORN] = unique(dataT.ORN, 'stable');     %ORN name
+
+for i = 1:length(input.ORNs)
+    list1 = find(icORN == i); 
+    
+    %odor name
+    odorVec = unique(dataT.Odor(list1),'stable');       
+    input.odors(i, :) = odorVec';   
+    
+    %concentration, df/f, exp_ID 
+    for j = 1:length(input.odors(i,:))
+        list2 = find(strcmp(input.odors{i, j}, dataT.Odor)) ;
+        list12 = intersect(list1, list2);
+        
+        % concentration
+        concVec = unique(dataT.Concentration(list12), 'stable'); input.concList{i, j} = concVec';
+        
+        % df/f
+        input.dff{i, j} = reshape(transpose(dataT.DF_F(list12)), [], length(input.concList{i, j}));
+        
+        % exp ID
+        input.expID{i, j} = unique(dataT.Exp_ID(list12), 'stable'); 
+    end
+end
+
+% other settings
 % cColor =[0 0.4470 0.7410; 0.85 0.325 0.0980];
-
-%% load Excel file
-T = readtable(fileName);
-
 
 
 %% output info
@@ -19,7 +43,7 @@ results.fit = cell(3,2);
 results.fitIndiv = cell(3, 2);
 results.cmpPValue = cell(3, 1);
 
-%%
+%% 
 for  ff = 2:2
     
     load(input.matFiles{ff}, input.varNames{ff});   % load files
