@@ -42,9 +42,9 @@ ft = fittype( 'a/(1+ exp(-b*(x-c)))', 'independent', 'x', 'dependent', 'y' );
 opts = fitoptions( 'Method', 'NonlinearLeastSquares' );
 opts.Display = 'Off';
 opts.Robust = 'Bisquare';
-opts.Lower = [-1 -1 -12]; % setup the range and initial value of the variable
-opts.Upper = [10 15 1];
-opts.StartPoint = [5 5 -6.5];
+opts.Lower = [-1 -1 -11]; % setup the range and initial value of the variable
+opts.Upper = [10 15 -3];
+opts.StartPoint = [5 5 -9];
 
 %% averaged data
 %calculate the mean and sem
@@ -118,12 +118,12 @@ end
 
 %% compare the parameters
 % plot the amplitudes, with data from the same trial linked
-figure;  hold on; title('Amplitude')
+figure;  hold on; title('Amplitude');
 coeffPool = cell2mat(results.fitCoeffIdv);
 ampPool = coeffPool(:, [1,4]);
 for i = 1:length(input.ORNs)
     for k = 1:length(input.expID{i, 1})
-        myIndex = (i-1) * length(input.expID{i, 1}) + k;
+        myIndex = (i-1) * length(input.expID{1, 1}) + k;
         for j = 1:length(input.odors(1, :))
             plot((i-1)*length(input.odors(1, :)) + j, ampPool(myIndex, j), ...
                 'o', 'Color', cColor(j+(i-1)*length(input.odors(1, :)),:));
@@ -137,15 +137,34 @@ xticklabels({input.odors{1,1}, input.odors{1,2}, input.odors{2,1}, input.odors{2
 xtickangle(-45);    ylabel('\DeltaF/F'); axis([0.5 4.5 0 ceil(max(ampPool(:)))]);
 set(gcf, 'Position', [100, 100, 350, 420]); movegui(gcf, 'north');
 
-%% plot the hist of the amplitude difference
-dA = (ampPool(:,1) - ampPool(:,2))./mean(ampPool, 2);
+% %% plot the hist of the amplitude difference
+% dA = (ampPool(:,1) - ampPool(:,2))./mean(ampPool, 2);
+% 
+% disp('----------AMPLITUDE RELATIVE DIFFERENCE:----------');
+% fprintf('%5s\t%-5s\t%-5s\n', 'ORN', 'mean(dA)', 'std(dA)');
+% fprintf('%5s\t%.3f\t\t%.3f\n',input.ORNs{1}, mean(dA(1:12)), std(dA(1:12)));
+% fprintf('%5s\t%.3f\t\t%.3f\n',input.ORNs{2}, mean(dA(13:end)), std(dA(13:end)));
 
-disp('----------AMPLITUDE RELATIVE DIFFERENCE:----------');
-fprintf('%5s\t%-5s\t%-5s\n', 'ORN', 'mean(dA)', 'std(dA)');
-fprintf('%5s\t%.3f\t\t%.3f\n',input.ORNs{1}, mean(dA(1:12)), std(dA(1:12)));
-fprintf('%5s\t%.3f\t\t%.3f\n',input.ORNs{2}, mean(dA(13:end)), std(dA(13:end)));
+%% plot the EC50 values
+figure;  hold on; title('EC_{50}')
+coeffPool = cell2mat(results.fitCoeffIdv);
+kdPool = coeffPool(:, [3, 6]);
+for i = 1:length(input.ORNs)
+    for k = 1:length(input.expID{i, 1})
+        myIndex = (i-1) * length(input.expID{1, 1}) + k;
+        for j = 1:length(input.odors(1, :))
+            plot((i-1)*length(input.odors(1, :)) + j, kdPool(myIndex, j), ...
+                'o', 'Color', cColor(j+(i-1)*length(input.odors(1, :)),:));
+        end
+        plot([1 2]+(i-1)*2, kdPool(myIndex, :), 'k');
+    end
+end
 
-
+xticks(1:i*j); hold off 
+xticklabels({input.odors{1,1}, input.odors{1,2}, input.odors{2,1}, input.odors{2,2}});
+xtickangle(-45);    ylabel('\DeltaF/F'); 
+axis([0.5 4.5 -9.5 -5]);
+set(gcf, 'Position', [100, 100, 350, 420]); movegui(gcf, 'north');
 
 
 
