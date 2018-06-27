@@ -123,7 +123,7 @@ f3 = figure; hold on; title('Hill Coeff');
 coeffPool = cell2mat(results.fitCoeffIdv);
 ampPool = coeffPool(:, [1,4]); 
 hcPool = coeffPool(:, [2,5]); 
-kdPoll = coeffPool(:, [3,6]); 
+kdPool = coeffPool(:, [3,6]); 
 for i = 1:length(input.ORNs)
     for k = 1:length(input.expID{i, 1})
         myIndex = (i-1) * length(input.expID{1, 1}) + k;
@@ -159,9 +159,20 @@ set(gcf, 'Position', [100, 100, 350, 420]); movegui(gcf, 'north');
 
 %% shift the EC_50, plot data
 dffNorm = cellfun(@(x, y) x./y(:, 1), input.dff, results.fitCoeffIdv, 'UniformOutput', false);
-concShift = cellfun(@(x, y) repmat(x, ))
+concShift = cellfun(@(x, y) repmat(log10(x), length(y(:,3)), 1) - repmat(y(:, 3), 1, length(x)), ...
+    input.concList, results.fitCoeffIdv, 'UniformOutput', false);
 
-dataXShift = dataX - repmat(coefR1(:,3), [1, xPoints]);
+xData = []; yData = [];
+for i = 1:length(input.ORNs)
+    for j = 1:length(input.odors(1, :))
+        xData = [xData; concShift{i, j}];
+        yData = [yData; dffNorm{i, j}];
+    end
+end
+
+figure; 
+plot(xData', yData', 'ok'); hold off
+
 
 
 
