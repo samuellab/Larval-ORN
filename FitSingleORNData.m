@@ -1,3 +1,8 @@
+close all; clear; clc;
+warning('off','all');
+diary(fullfile('.', 'AnalysisResults', 'fitsingleORNdata_log.txt')); 
+diary on;
+
 %% input file info
 fileName = fullfile('data', 'Supplementary Table 1.csv');
 
@@ -72,15 +77,17 @@ set(gcf, 'Position', [100, 100, 700, 420]); movegui(gcf, 'northwest');
 
 % fit the averaged curuves and print
 disp('----------FIT AVERAGED CURVE:----------');
-fprintf('%5s\t%-20s\t%-5s\t%-5s\t%-5s\t%-5s\t\n', 'ORN', 'Odor', 'Amp', 'Slop', 'EC_{50}', 'R^2');
+fprintf('%5s\t%-20s\t%-5s\t%-10s\t%-5s\t%-5s\t\n', 'ORN', 'Odor', 'Amp', 'Slop', 'EC_{50}', 'R^2');
 for i = 1:length(input.ORNs)
     for j = 1:length(input.odors(1, :))
         [fitresult, gof] = fit(log10((input.concList{i,j})'), (results.rMean{i, j})', ft, opts);
         results.fitCoeff{i, j} = coeffvalues(fitresult);    
+        ci = confint(fitresult,0.95);
+        results.fitConfint{i, j} = (ci(2,:)-ci(1,:))/2;
         results.fitR2{i, j} = gof.rsquare; 
-        fprintf('%5s\t%-20s\t%.2f\t%.2f\t%.2f\t%.2f\n', ...
+        fprintf('%5s\t%-20s\t%.2f\t%.2f+-%.2f\t%.2f\t%.2f\n', ...
             input.ORNs{i}, input.odors{i, j}, results.fitCoeff{i, j}(1),...
-            results.fitCoeff{i, j}(2), results.fitCoeff{i, j}(3), results.fitR2{i, j});
+            results.fitCoeff{i, j}(2), results.fitConfint{i,j}(2), results.fitCoeff{i, j}(3), results.fitR2{i, j});
     end
 end
 
@@ -118,8 +125,8 @@ end
 
 %% compare the parameters
 f1 = figure; hold on; title('Amplitude');
-f2 = figure; hold on; title('EC_{50}');
-f3 = figure; hold on; title('Hill Coeff');
+f2 = figure; hold on; title('Hill Coeff');
+f3 = figure; hold on; title('EC_{50}');
 coeffPool = cell2mat(results.fitCoeffIdv);
 ampPool = coeffPool(:, [1,4]); 
 hcPool = coeffPool(:, [2,5]); 
@@ -157,246 +164,67 @@ xtickangle(-45);    ylabel('\DeltaF/F');
 axis([0.5 4.5 floor(min(kdPool(:))) ceil(max(kdPool(:)))]);
 set(gcf, 'Position', [100, 100, 350, 420]); movegui(gcf, 'north');
 
-%% shift the EC_50, plot data
+%% shift the EC_50, plot and fit for each odor-neuron pair
 dffNorm = cellfun(@(x, y) x./y(:, 1), input.dff, results.fitCoeffIdv, 'UniformOutput', false);
 concShift = cellfun(@(x, y) repmat(log10(x), length(y(:,3)), 1) - repmat(y(:, 3), 1, length(x)), ...
     input.concList, results.fitCoeffIdv, 'UniformOutput', false);
 
-xData = []; yData = [];
+xDataPool = []; yDataPool = [];
 for i = 1:length(input.ORNs)
     for j = 1:length(input.odors(1, :))
-        xData = [xData; concShift{i, j}];
-        yData = [yData; dffNorm{i, j}];
+        xData = concShift{i, j};   yData = dffNorm{i, j};
+        xDataPool = [xDataPool; xData]; yDataPool = [yDataPool; yData];
+        figure; plot(xData', yData', 'o', 'Color',  cColor(j+(i-1)*length(input.odors(1, :)),:)); hold off
     end
 end
 
-figure; 
-plot(xData', yData', 'ok'); hold off
+% fit the ensemble data for each odor-ORN pair
+disp('----------FIT CURVE ENSEMBLE EACH PAIR:----------');
+fprintf('%5s\t%-20s\t%-5s\t%-10s\t%-5s\t%-5s\t\n', 'ORN', 'Odor', 'Amp', 'Slop', 'EC_{50}', 'R^2');
 
+opts.Lower = [0 -1 -2]; opts.Upper = [2 10 3];  opts.StartPoint = [1 5 0];
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-%%
-for  ff = 2:2
-    
-    load(input.matFiles{ff}, input.varNames{ff});   % load files
-    if  strcmp(input.varNames{ff}, 'pp')
-        dataPool = pp';
-    elseif strcmp(input.varNames{ff}, 'sigMat')
-        dataPool = sigMat;
-    else
-        error('Not listed input variable.');
+for i = 1:length(input.ORNs)
+    for j = 1:length(input.odors(1, :))
+        xData = concShift{i, j};   yData = dffNorm{i, j};
+        
+        [fitresult, gof] = fit(xData(:),yData(:), ft, opts);
+        results.fitCoeffEns{i, j} = coeffvalues(fitresult);    
+        ci = confint(fitresult,0.95);
+        results.fitConfintEns{i, j} = (ci(2,:)-ci(1,:))/2;
+        results.fitR2Ens{i, j}    = gof.rsquare; 
+        
+        fprintf('%5s\t%-20s\t%.2f\t%.2f+-%.2f\t%.2f\t%.2f\n', ...
+            input.ORNs{i}, input.odors{i, j}, results.fitCoeffEns{i, j}(1), ...
+            results.fitCoeffEns{i, j}(2), results.fitConfintEns{i, j}(2), ...
+            results.fitCoeffEns{i, j}(3), results.fitR2Ens{i, j});
     end
-    
-    dataOdor1 = dataPool(:, 1:2:end-1); dataOdor2 = dataPool(:, 2:2:end);
-    
-    input.data{ff, 1} = dataOdor1;  input.data{ff, 2} = dataOdor2;
-    
-    [trialNum, concNum] = size(dataOdor1);
-
-    
-
-    %% fit on individual curve
-    coefMat = zeros(trialNum, 6 );      
-
-    px1 = linspace (log10(input.concList{ff,1}(1)), log10(input.concList{ff,1}(end)));
-    px2 = linspace (log10(input.concList{ff,2}(1)), log10(input.concList{ff,2}(end)));
-
-    figure; title(input.ORNs{ff});
-    for i = 1:trialNum
-        %fit
-        [fitresult1, ~] = fit(log10(input.concList{ff,1}), dataOdor1(i, :)', ft, opts);
-        [fitresult2, ~] = fit(log10(input.concList{ff,2}), dataOdor2(i, :)', ft, opts);
-
-        %paramter
-        coef1 = coeffvalues(fitresult1);    coef2 = coeffvalues(fitresult2);
-        coefMat(i, 1:3) = coef1; coefMat(i, 4:6) = coef2;
-
-        py1 = hillEq(coef1(1), coef1(2), coef1(3), px1);
-        py2 = hillEq(coef2(1), coef2(2), coef2(3), px2);
-
-        subplot( ceil(trialNum/2), 2,  i);
-
-        plot(input.concList{ff,1}, dataOdor1(i, :), 'o', 'Color', cColor(1,:));
-        hold on;
-        plot(10.^px1, py1,   'Color', cColor(1,:));
-
-        plot(input.concList{ff,2}, dataOdor2(i, :), 'o', 'Color', cColor(2,:));
-        plot(10.^px2, py2,   'Color', cColor(2,:));    
-
-        xlabel('Concentration'); ylabel('\DeltaF/F'); 
-        set(gca,'XScale','log' );
-
-    %     legend({[odor1, ' ', num2str(coef1)], [odor2, ' ', num2str(coef2)]}, 'Location',  'northwest');
-    %     title(['ORN trial=', num2str(i) ]);
-        hold off;
-    end
-    
-    % save the fitting results
-    results.fitIndiv{ff, 1} = coefMat(:, 1:3);
-    results.fitIndiv{ff, 2} = coefMat(:, 4:6);
-
-    %% one-on-one compariation
-    figure;
-    cmpInd = 1:6;   cmpIndM= repmat(cmpInd, [trialNum, 1]);
-    h = zeros(1, 3); p = h; % t-test score
-    alpha = [1 1 -1];
-    for i = 1:3
-        [h(i), p(i)] = ttest(coefMat(:, i), coefMat(:, 3+i));
-        plot(cmpIndM(:, 2*i-1:2*i)', alpha(i)*coefMat(:, [i, 3+i])', 'o-', 'color', 'k'); hold on;
-    end
-    xticks([1.5 3.5 5.5]);
-    xticklabels({['Amp, h=', num2str(h(1))], ['Hill Coeff., h=', num2str(h(2))], ...
-        ['EC_{50}, h=', num2str(h(3))]});
-    title([input.ORNs{ff}, '-', input.odors{ff, 1}, ' vs ', input.odors{ff, 2}]);
-    
-    % save the comparision results
-    results.cmpPValue{ff} =[h, p];
-
-    %% get the averaged data
-
-    data1Mean = mean(dataOdor1, 1);
-    data1SEM = std(dataOdor1, 1)/sqrt(trialNum);
-    data1Var = var(dataOdor1, 1);
-
-    data2Mean = mean(dataOdor2, 1);
-    data2SEM = std(dataOdor2, 1)/sqrt(trialNum);
-    data2Var = var(dataOdor2, 1);
-    
-    results.rMean{ff, 1} = data1Mean;   results.rMean{ff, 2} = data2Mean;
-    results.rSEM{ff, 1} = data1SEM;     results.rSEM{ff, 2} = data2SEM;
-    results.rVar{ff, 1} = data1Var;     results.rVar{ff, 2} = data2Var;   
-    
-    %% fit the curve
-    [fitresult1, gof1] = fit(log10(input.concList{ff,1}), data1Mean', ft, opts);
-    [fitresult2, gof2] = fit(log10(input.concList{ff,2}), data2Mean', ft, opts);
-
-    coef1 = coeffvalues(fitresult1);    coef2 = coeffvalues(fitresult2);
-    results.fit{ff, 1} = coef1;         results.fit{ff, 2} = coef2;
-    
-    py1 = hillEq(coef1(1), coef1(2), coef1(3), px1);
-    py2 = hillEq(coef2(1), coef2(2), coef2(3), px2);
-
-    %% plot the dose-response data
-    figure; 
-    errorbar(input.concList{ff,1}, data1Mean, data1SEM, 'o', 'Color', cColor(1,:)); hold on;
-    plot(10.^px1, py1,   'Color', cColor(1,:));
-
-    errorbar(input.concList{ff,2}, data2Mean, data2SEM, 'o', 'Color', cColor(2,:));
-    plot(10.^px2, py2,   'Color', cColor(2,:));    
-
-    legend({input.odors{ff,1}, input.odors{ff,2}}, 'Location',  'northwest');
-
-    title([input.ORNs{ff} , 'N=', num2str(trialNum)])
-    xlabel('Concentration'); ylabel('\DeltaF/F');
-    set(gca,'XScale','log' );
-    hold off;
 end
 
-% %% plot the var-vs-mean 
-% or13aMean = [results.rMean{1,1}, results.rMean{1,2}];
-% or13aVar  = [results.rVar{1,1}, results.rVar{1,2}];
-% figure; 
-% plot(or13aMean(:), or13aVar(:), 'ro');  hold on
-% 
-% or22cMean = [results.rMean{2,1}, results.rMean{2,2}];
-% or22cVar  = [results.rVar{2,1}, results.rVar{2,2}];
-% plot(or22cMean(:), or22cVar(:), 'bo'); 
-% 
-% or42aMean = [results.rMean{3,1}, results.rMean{3,2}];
-% or42aVar  = [results.rVar{3,1}, results.rVar{3,2}];
-% plot(or42aMean(:), or42aVar(:), 'ko'); hold off;
+% fit the ensemble data of pooled all odor-ORN pair
+disp('----------FIT CURVE ENSEMBLE POOLED ALL DATA:----------');
+fprintf('%5s\t%-20s\t%-5s\t%-10s\t%-5s\t%-5s\t\n', 'ORN', 'Odor', 'Amp', 'Slop', 'EC_{50}', 'R^2');
 
-% %% plot the distribution of amp
-% fitParmPool = cell2mat(results.fitIndiv);
-% aPool = [fitParmPool(:, 1);  fitParmPool(:, 4)];
-% figure; histogram(aPool); title('Amp');
-% hPool = [fitParmPool(:, 2);  fitParmPool(:, 5)];
-% figure; histogram(hPool); title('Hill Coeff');
-% kdPool= [fitParmPool(:, 3);  fitParmPool(:, 6)];
-% figure; histogram(kdPool); title('EC_{50}');
+[fitresult, gof] = fit(xDataPool(:),yDataPool(:), ft, opts);
+results.fitCoeffEnsAll{i,j} = coeffvalues(fitresult);    
+ci = confint(fitresult,0.95);
+results.fitConfintEnsAll{i,j} = (ci(2,:)-ci(1,:))/2;
+results.fitR2EnsAll{i, j}     = gof.rsquare; 
 
-% %%
-% fitParm = cell2mat(results.fitIndiv);
-% ampPool = fitParm(:, [1, 4]);
-% slopPool =fitParm(:, [2, 4]); 
-% 
-% kdPool1 = fitParm(1:12, 3);  
-% kdPool2 = fitParm(1:12, 6); 
-% 
-% kdPool3 = fitParm(13:22, 3); 
-% kdPool4 = fitParm(13:22, 6); 
-% 
-% kdPool5 = fitParm(23:33, 3); 
-% kdPool6 = fitParm(23:33, 6); 
-% 
-% 
-% ampMean = mean(ampPool(:))
-% ampVar =  var(ampPool(:))
-% 
-% slopPool = slopPool(:);
-% slopPool(slopPool>10) = [];
-% slopMean = mean(slopPool(:))
-% slopVar =  var(slopPool(:))
-% 
-% kdPoolCent = [kdPool1 - mean(kdPool1); kdPool2 - mean(kdPool2); kdPool3 - mean(kdPool3); ...
-%     kdPool4 - mean(kdPool4); kdPool5 - mean(kdPool5); kdPool6 - mean(kdPool6)] ;
-% kdVar = var(kdPoolCent)
+fprintf('%5s\t%-20s\t%.2f\t%.2f+-%.2f\t%.2f\t%.2f\n', ...
+    input.ORNs{i}, input.odors{i, j}, results.fitCoeffEnsAll{i, j}(1), ...
+    results.fitCoeffEnsAll{i, j}(2), results.fitConfintEnsAll{i, j}(2), ...
+    results.fitCoeffEnsAll{i, j}(3), results.fitR2EnsAll{i, j});
 
-%% discuss 13a's fitting results
-% Q1, for the same neuron, is the measured \Delta{Kd} more reliable?
-kd1 = results.fitIndiv{1,1}(:, 3);  kd2 = results.fitIndiv{1,2}(:, 3);
-dkd = abs(kd1-kd2);
+%% save data
+save(fullfile('.', 'AnalysisResults', 'fitSingleORNdataResults.mat'), 'input', 'results');
+diary off;
 
-disp([input.ORNs{1}, ' responds to ', input.odors{1,1},' = ', ...
-    num2str(mean(kd1)), ' +- ', num2str(std(kd1))]);
-disp([input.ORNs{1}, ' responds to ', input.odors{1,2},' = ', ...
-    num2str(mean(kd2)), ' +- ', num2str(std(kd2))]);
-disp(['The difference of EC50 for each neuron: ', num2str(mean(dkd)), ...
-    ' +- ', num2str(std(dkd))]);
-
-% Q2, check if bilateral has less variation?
-% calculate \Delta{Kd} between the two bilateral neurons
-kd = [kd1, kd2];
-
-kdL = kd(1:2:11, :); kdR = kd(2:2:12, :); 
-dkdLR = kdL - kdR;
-disp(['Bilateral difference of EC50: ', num2str(mean(dkdLR(:))), ' +- ', num2str(std(dkdLR(:)))]);
-
-% Q3, is the amplitude more reliable for the same neuron? 
-% compare to the fitting error to the difference. 
-
-slop1 = results.fitIndiv{1,1}(:, 2);  slop2 = results.fitIndiv{1,2}(:, 2);
-slopAll = [slop1, slop2];
-mean(slopAll(:))
-std(slopAll(:))
-
-
-
-
-
+% save all figures
+FolderName = fullfile('.', 'AnalysisResults');   % Your destination folder
+FigList = findobj(allchild(0), 'flat', 'Type', 'figure');
+for iFig = 1:length(FigList)
+  FigHandle = FigList(iFig);
+  FigName   = ['singlORNFit', num2str(get(FigHandle, 'Number')), '.fig'];
+  savefig(FigHandle, fullfile(FolderName, FigName));
+end
