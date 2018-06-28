@@ -111,12 +111,12 @@ for i = 1 : numORN
         end
         
         % fit the shifted and normalized data
-        [fitresult, gof] = fit(xxVec', yyVec', ft2, opts2);
+        [fitresult, gof] = fit(xxVec', yyVec', ft, opts2);
         coeffEn{i, j} = coeffvalues(fitresult);    
         r2En{i, j} = gof.rsquare; 
         fprintf('%5s\t%-20s\t%5s\t%.2f\t%.2f\t%.2f\t%.2f\n', ...
             input.ORNs{i}, input.odors{i, j}, 'All', ...
-            coeffEn{i, j}(1), coeffEn{i, j}(2), coeffEn{i, j}(3), r2En{i, j});
+            coeffEn{i, j}(1), coeffEn{i, j}(2), coeffEn{i, j}(3), r2En{i, j}(k));
 
     end
 end
