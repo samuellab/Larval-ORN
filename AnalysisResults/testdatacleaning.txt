@@ -1,0 +1,50 @@
+\----------FIT INDIVIDUAL CLEANED CURVE:----------
+  ORN	Odor                	ExpID	Amp  	Slop 	EC_50	R^2  	
+Or13a	6-methyl-5-hepten-2-ol	  1_L	2.56	3.98	-5.93	0.97
+Or13a	6-methyl-5-hepten-2-ol	  1_R	2.55	6.86	-5.83	1.00
+Or13a	6-methyl-5-hepten-2-ol	  2_L	4.57	3.44	-5.71	1.00
+Or13a	6-methyl-5-hepten-2-ol	  2_R	5.87	5.29	-5.86	0.99
+Or13a	6-methyl-5-hepten-2-ol	  3_L	7.20	5.85	-5.81	1.00
+Or13a	6-methyl-5-hepten-2-ol	  3_R	5.75	4.11	-5.84	1.00
+Or13a	6-methyl-5-hepten-2-ol	  4_L	3.55	2.97	-5.70	1.00
+Or13a	6-methyl-5-hepten-2-ol	  4_R	5.00	3.61	-5.59	1.00
+Or13a	6-methyl-5-hepten-2-ol	  5_L	7.91	4.55	-5.66	1.00
+Or13a	6-methyl-5-hepten-2-ol	  5_R	8.40	3.16	-5.52	1.00
+Or13a	6-methyl-5-hepten-2-ol	  6_L	4.93	4.45	-5.95	1.00
+Or13a	6-methyl-5-hepten-2-ol	  6_R	5.36	5.20	-6.07	0.99
+Or13a	6-methyl-5-hepten-2-ol	  All	1.00	4.12	0.01	0.99
+Or13a	3-octanol           	  1_L	2.62	4.75	-6.81	0.97
+Or13a	3-octanol           	  1_R	2.63	4.91	-6.73	0.99
+Or13a	3-octanol           	  2_L	4.38	3.50	-6.61	1.00
+Or13a	3-octanol           	  2_R	5.81	4.93	-6.76	0.99
+Or13a	3-octanol           	  3_L	7.32	4.52	-6.63	1.00
+Or13a	3-octanol           	  3_R	5.60	4.50	-6.82	1.00
+Or13a	3-octanol           	  4_L	3.61	2.94	-6.66	1.00
+Or13a	3-octanol           	  4_R	4.24	4.38	-6.53	0.99
+Or13a	3-octanol           	  5_L	6.66	4.38	-6.60	0.99
+Or13a	3-octanol           	  5_R	7.06	3.58	-6.51	1.00
+Or13a	3-octanol           	  6_L	4.95	3.84	-6.75	0.99
+Or13a	3-octanol           	  6_R	5.56	3.45	-6.91	1.00
+Or13a	3-octanol           	  All	0.99	4.16	-0.00	0.99
+Or22c	methyl salicylate   	 21_L	3.79	6.72	-9.36	0.97
+Or22c	methyl salicylate   	 21_R	4.08	5.31	-9.23	0.98
+Or22c	methyl salicylate   	 22_L	4.91	1.78	-8.60	0.97
+Or22c	methyl salicylate   	 22_R	5.42	2.51	-8.80	0.98
+Or22c	methyl salicylate   	 23_L	4.78	4.53	-9.21	0.99
+Or22c	methyl salicylate   	 23_R	5.10	2.61	-8.63	0.98
+Or22c	methyl salicylate   	 24_L	4.12	6.82	-9.31	0.99
+Or22c	methyl salicylate   	 24_R	3.35	6.43	-8.08	1.00
+Or22c	methyl salicylate   	 25_L	5.58	11.65	-8.31	1.00
+Or22c	methyl salicylate   	 25_R	5.83	6.55	-8.26	1.00
+Or22c	methyl salicylate   	  All	0.98	6.32	0.01	0.98
+Or22c	anisole             	 21_L	3.93	11.47	-5.87	1.00
+Or22c	anisole             	 21_R	4.88	6.31	-5.52	1.00
+Or22c	anisole             	 22_L	4.72	4.85	-5.66	1.00
+Or22c	anisole             	 22_R	5.72	5.11	-5.57	1.00
+Or22c	anisole             	 23_L	5.65	4.52	-5.52	1.00
+Or22c	anisole             	 23_R	5.18	6.96	-5.35	1.00
+Or22c	anisole             	 24_L	4.54	6.75	-5.63	1.00
+Or22c	anisole             	 24_R	3.38	10.73	-5.03	1.00
+Or22c	anisole             	 25_L	7.13	6.46	-5.44	1.00
+Or22c	anisole             	 25_R	6.27	4.58	-5.48	1.00
+Or22c	anisole             	  All	1.00	6.25	-0.00	1.00

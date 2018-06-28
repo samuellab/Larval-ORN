@@ -10,6 +10,12 @@
 % run after the scirpt 'ModelComparison.m' and 'FitSingleORNData.m', which 
 % saved some data needed
 
+%%
+close all; clear; clc;
+warning('off','all');
+diary(fullfile('.', 'AnalysisResults', 'testdatacleaning.txt')); 
+diary on;
+
 %% 
 ratio = 0.85;
 addpath(fullfile('.', 'tools'));
@@ -121,4 +127,4 @@ for i = 1 : numORN
     end
 end
 
-
+diary off;
