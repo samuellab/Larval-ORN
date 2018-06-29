@@ -3,8 +3,7 @@ addpath(fullfile('.', 'tools'));
 %%
 fileName = fullfile('data', 'Supplementary Table 3.csv');
 
-% load Excel file
-dataT = readtable(fileName);
+dataT = readtable(fileName);    % load Excel file
 
 [input.Odor, ~, input.indOdor] = unique(dataT.Odor, 'stable');	%ORN name
 input.ORN = dataT.Properties.VariableNames(4:end);
@@ -12,14 +11,11 @@ input.concList = dataT.Concentration;
 input.expID = dataT.Exp_ID;
 input.dff = table2array(dataT(:, 4:end));
 
-%% plot the response curve of every odor 
-plotFlag = 0;
-if plotFlag == 1
+%% average data cross trials for each odor-ORN pair
+concTensor = zeros(length(input.Odor), length(input.ORN), 5);
+rspTensor  = concTensor;
+
 for i = 1 : length(input.Odor)
-    figure('Name', input.Odor{i}, 'NumberTitle','off', ...
-        'units','normalized','outerposition',[0 0 1 1]);
-    hold on;
-    
     odI = find(input.indOdor == i); % row index of each odor
     
     concList = input.concList(odI); % concentration list
@@ -27,22 +23,10 @@ for i = 1 : length(input.Odor)
     
     [expList, ia, ic] = unique(input.expID(odI), 'stable');   % find out how many trials each odor
     
-    for j = 1: length(expList)
-        expInd = find(ic == j);
-        c = concList(expInd);
-        r = dffPool(expInd, :);
+    expInd = find(ic == j);
+    c = concList(expInd);
+    r = dffPool(expInd, :);
 
-        for k = 1:length(input.ORN)
-            subplot(3, 7, k); 
-            plot(log10(c), r(:, k), 'o-'); title(input.ORN{k});
-            xlabel('log10(c)'); ylabel('\DeltaF/F'); hold on;
-            pause(0.0001); 
-        end
-    end
-    hold off;
-    FigName   = [num2str(get(gcf, 'name')), '.fig'];
-    savefig(gcf, fullfile('AnalysisResults', FigName)); close(gcf);
-end
 end
 
 %% manually set mark good data
