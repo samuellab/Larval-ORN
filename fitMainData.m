@@ -91,7 +91,6 @@ maskPlot(28, 2) = 2;	%hexyl acetate 45a;  S
 maskPlot(28, 4) = 1;	%hexyl acetate 35a;  S
 maskPlot(34, 4) = 1;	%nonane 35a; S
 
-
 %% setup fitting function and method
 hillEq = @(a, b, c, x)  a./(1+ exp(-b*(x-c)));
 ft = fittype( 'a/(1+ exp(-b*(x-c)))', 'independent', 'x', 'dependent', 'y' );
@@ -99,12 +98,18 @@ opts = fitoptions( 'Method', 'NonlinearLeastSquares' );
 opts.Display = 'Off';
 opts.Robust = 'Bisquare';
 opts.Lower = [-1 -1 -11]; % setup the range and initial value of the variable
-opts.Upper = [10 15 -3];
-opts.StartPoint = [5 5 -9];
+opts.Upper = [15 15 -1];
+opts.StartPoint = [4 4 -6];
 
+%% fit each curve
+[odorIdxList, ornIdxList] = find(maskPlot >0 );    %find the index of good data
 
-%% 
-[odorIdxList, ornIdxList] = find(maskPlot == 1);    %find the index of good data
+results.fitOdorList = {};    results.fitORNList = {};   results.fitExpID = {};
+results.fitDataX = [];      results.fitDataY = [];
+results.fitCoeff = [];      results.fitconfint = [];	results.fitR2 = [];
+
+disp('----------FIT IINDIVIDUAL CURVE:----------');
+fprintf('%20s\t%-10s\t%-5s\t%-5s\t%-5s\t%-5s\t%-5s\t\n', 'Odor', 'ORN', 'ExpID', 'Amp', 'Slop', 'EC50', 'R^2');
 
 for i = 1 : length(odorIdxList)
     odIdx = odorIdxList(i);     colNum = ornIdxList(i);
@@ -119,15 +124,48 @@ for i = 1 : length(odorIdxList)
         conc = concPool(expList);
         r = rPool(expList);
         
-        
-        
-        
-        
+        if ~sum(isnan(r))
+            [fitresult, gof] = fit(log10(conc), r, ft, opts);   %fit
+            % set criteria to accept the fitting result
+            rSq = gof.rsquare; coeff = coeffvalues(fitresult);
+            flag = sum((coeff < opts.Upper-0.1)) == 3;
+            if rSq > 0.9 && flag
+                ci = confint(fitresult,0.95);
+
+                results.fitCoeff = [results.fitCoeff; coeffvalues(fitresult)]; 
+                results.fitconfint = [results.fitconfint; (ci(2,:) - ci(1,:))/2];
+                results.fitR2 = [results.fitR2; rSq];
+                
+                results.fitDataX = [results.fitDataX; log10(conc')];
+                results.fitDataY = [results.fitDataY; r'];
+
+                results.fitOdorList{end+1} = input.Odor{odIdx};   
+                results.fitORNList{end+1} = input.ORN{colNum};  
+                results.fitExpID{end+1} = C{j};
+
+                fprintf('%20s\t%-5s\t%-5s\t%.2f\t%.2f\t%.2f\t%.2f\n', ...
+                    results.fitOdorList{end}, results.fitORNList{end}, ...
+                    results.fitExpID{end}, results.fitCoeff(end, 1), results.fitCoeff(end, 2), ...
+                    results.fitCoeff(end, 3), results.fitR2(end));
+            end
+        end
     end
-    
-    
-    
 end
+
+%% fit the data ensemble
+
+dataX = results.fitDataX;   dataY = results.fitDataY;
+slop0 = median(results.fitCoeff(:, 2));
+ampVec0 = results.fitCoeff(:, 1);
+kdVec0 = results.fitCoeff(:, 3);
+
+[slop, ampVec, kdVec, rSquare] = EnsembleMiniSearch(dataX, dataY, hillEq, slop0, ampVec0, kdVec0);
+
+% plot the data 
+
+
+
+
 
 
 
