@@ -12,22 +12,84 @@ input.expID = dataT.Exp_ID;
 input.dff = table2array(dataT(:, 4:end));
 
 %% average data cross trials for each odor-ORN pair
-concTensor = zeros(length(input.Odor), length(input.ORN), 5);
-rspTensor  = concTensor;
+concTs = zeros(length(input.Odor), length(input.ORN), 5);
+rspTs  = concTs;
 
 for i = 1 : length(input.Odor)
     odI = find(input.indOdor == i); % row index of each odor
     
-    concList = input.concList(odI); % concentration list
+    concPool = input.concList(odI); % concentration list
     dffPool = input.dff(odI, :);    % response data block
     
     [expList, ia, ic] = unique(input.expID(odI), 'stable');   % find out how many trials each odor
     
-    expInd = find(ic == j);
-    c = concList(expInd);
-    r = dffPool(expInd, :);
-
+    dffPoolTensor = reshape(dffPool', length(input.ORN), [], length(expList));
+    concPoolMat = reshape(concPool, [], length(expList)); 
+    
+    for j = 1 : length(input.ORN)
+        dffMat = squeeze(dffPoolTensor(j, :, :));
+        
+        % each colume is a trial, find trilas are not NaN
+        colIdx = find(~isnan(dffMat(1, :)));
+        
+        % check if the concentration list is the same for these trials
+        concBlock =concPoolMat(:, colIdx);
+        dffBlock = dffMat(:, colIdx);
+        if isequal(concBlock(:, 1:end-1), concBlock(:, 2:end))
+            concTs(i, j, :) = concBlock(:, 1);
+            rspTs(i, j, :) = mean(dffBlock, 2);
+        else
+            error('Trials do not share the same set of odor concentration.');
+        end
+    end
 end
+
+%% go though the paris find all the non-active paris. 
+fitMask = ones(length(input.Odor), length(input.ORN));
+
+rMatSum = sum(rspTs, 3); 
+
+% plot the curves
+for i = 1:length(input.Odor)
+    figure; title()
+end
+    
+    
+rMatSum(find(rMatSum == 0)) = 0; 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 %% manually set mark good data
 maskPlot = zeros(length(input.Odor), length(input.ORN));
