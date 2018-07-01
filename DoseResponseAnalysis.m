@@ -3,7 +3,7 @@ clear; clc;
 %% load data, averaged acorss trials of the raw data
 % load(fullfile('.', 'data', 'AveRawDataMatrix.mat'));
 
-load(fullfile('.', 'data', 'AveRawDataMatrix2ndRound.mat'));
+load(fullfile('.', 'data', 'AveRawDataMatrixFASTVERSION.mat'));
 [rowTotal, colTotal, ~] = size(dataMean);
 
 %% Label the curves
@@ -477,7 +477,7 @@ for i = 1:length(row) %go through all the saturated curves
     figParam.lineColor = hPoint.Color;
     figParam.lineName = curveName;
     %fit the curve and plot it 
-    [coeffs, gof] = Fit_DR(x, y(:), fitParam_Fixed_b, 1, figParam);
+    [coeffs, gof] = Fit_DR(x, y(:), fitParam_Fixed_b, plotCurve, figParam);
 
     %print out the fitted parameters
     fprintf('%35s\t%.2f\t%.2f\t%.3f\t\n',curveName,coeffs(1),coeffs(3), gof.rsquare);
@@ -535,7 +535,7 @@ for i = 1:length(row2)
     figParam.lineColor = hPoint.Color;
     figParam.lineName = curveName;
     %fit the curve and plot it 
-    [coeffs, gof] = Fit_DR(x, y(:), fitParam_Fixed_b, 1, figParam);
+    [coeffs, gof] = Fit_DR(x, y(:), fitParam_Fixed_b,plotCurve, figParam);
 
     %print out the fitted parameters
     fprintf('%35s\t%.2f\t%.2f\t%.3f\t\n',curveName,coeffs(1),coeffs(3),gof.rsquare);
@@ -609,7 +609,7 @@ for i = 1:length(row3)
     end
     
     %fit the curve and plot it 
-    [coeffs, gof] = Fit_DR(x, y(:), fitParam_3, 1, figParam);
+    [coeffs, gof] = Fit_DR(x, y(:), fitParam_3, plotCurve, figParam);
 
     %print out the fitted parameters
     fprintf('%35s\t%.2f\t%.3f\t\n',curveName, coeffs(3), gof.rsquare);
@@ -670,15 +670,19 @@ figure(figCurveFailed); xlabel('Log10(c)'); ylabel('\Delta F/F'); hold off;
 %replace NaN in the EC50 matrix with 0
 cMatrix(isnan(cMatrix)) = 0;
 % add two super senstive pairs, remove after measurement 
-cMatrix(23, 12) = -9;   %2-heptanone, 85c
-cMatrix(24, 16) = -9.5;  %methyl salicylate, 22c 
+cMatrix(23, 12) = -9.06;   %2-heptanone, 85c
+cMatrix(24, 16) = -8.85;  %methyl salicylate, 22c 
 
 % apply the sequence of ORN and odor to order elements of the matrix 
 % odorOrder = [17 12 15 2 10 3 4 16 9 1 18 8 6 5 7 13 14 11]; % the order is consistant to figure 2
 % ORNOrder = [16 17 5 2 14 12 11 1 4 7 10 13 15 9 18 8 6 3];
 
-odorOrder = [19,33,12,32,27,15,14,7,8,9,6,22,24,31,30,29,1,5,10,17,28,3,4,23,20,26,13,25,16,2,11,21,34,18]; 
-ORNOrder  = [19,21,3,6,8,14,10,16,9,7,11,4,1,13,12,2,20,5,15,17,18];
+% odorOrder = [19,33,12,32,27,15,14,7,8,9,6,22,24,31,30,29,1,5,10,17,28,3,4,23,20,26,13,25,16,2,11,21,34,18]; 
+% ORNOrder  = [19,21,3,6,8,14,10,16,9,7,11,4,1,13,12,2,20,5,15,17,18];
+
+odorOrder = [18,34,21,2,11,16,25,13,26,17,20,28,23,4,3,10,5,1,29,27,24,30,31,22,6,9,8,7,14,15,32,12,19,33]; 
+ORNOrder  = [18,17,15,5,20,2,1,12,13,4,11,7,16,9,10,14,8,6,3,21,19];
+
 
 [rowNum, colNum] = size(cMatrix);
 newMStep1 = -cMatrix;
@@ -694,6 +698,7 @@ end
 ec50Map = newMStep2;
 figure;  pos = get(gcf, 'pos'); set(gcf, 'pos', [pos(1), pos(2), 610, 420]);
 imagesc(ec50Map); 
+set(gcf, 'Position', [100 250 560 700])
 set(gca, 'CLim', [0 max(ec50Map(:))]);
 set(gca,'XTick',1:colNum);
 set(gca,'XTickLabel',ORNList(ORNOrder));
@@ -701,7 +706,8 @@ set(gca,'xaxisLocation','top');
 set(gca,'YTick',1:rowNum);
 set(gca,'YTickLabel',odorList(odorOrder));
 set(gca, 'XTickLabelRotation', 45);
-colormap(jet); c = colorbar; 
+cmp = colormap(jet); cmp(1,:) = [0 0 0];
+colormap(cmp); c = colorbar; 
 c.TickLabels{1} = 'NaN'; c.Label.String = '-log10(EC50)';
 title('EC50'); 
 
