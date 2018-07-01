@@ -45,194 +45,75 @@ for i = 1 : length(input.Odor)
 end
 
 %% go though the paris find all the non-active paris. 
-fitMask = ones(length(input.Odor), length(input.ORN));
+fitMask = 99 * ones(length(input.Odor), length(input.ORN));
 
 rMatSum = sum(rspTs, 3); 
 
-% plot the curves
-for i = 1:length(input.Odor)
-    figure('Name', input.Odor{i}, 'NumberTitle','off', ...
-        'units','normalized','outerposition',[0 0 1 1]);
-    hold on;
-    
-    for j = 1:length(input.ORN)
-        subplot(3, 7, j);   % each ORN a pannel
-        plot(log10(squeeze(concTs(i,j,:))), squeeze(rspTs(i,j,:)), '-o'); 
-        title(input.ORN{j});
-        xlabel('log10(c)'); ylabel('\DeltaF/F'); hold on;
-        pause(0.01);
-        
-    end
-    
-end
-    
-    
-% rMatSum(find(rMatSum == 0)) = 0; 
+fitMask(find(rMatSum == 0)) = 0; 
+countPairZeros = length(find(rMatSum(:) == 0));
+disp(['Count of non activated odor-ORN pairs:', num2str(countPairZeros), ...
+    ', which is ',num2str(100*countPairZeros/numel(rMatSum)), ...
+    '% of the total experiments.']);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-%% manually set mark good data
-maskPlot = zeros(length(input.Odor), length(input.ORN));
-
-maskPlot(1, 4) = 1;     %1-pentanol 35a; S
-maskPlot(2, 5) = 1;     %3-pentanol 42a; ?
-maskPlot(3, 12) = 1;    %6-methyl-5-hepten-2-ol 85c; S
-maskPlot(3, 13) = 1;    %6-methyl-5-hepten-2-ol 13a; S
-maskPlot(4, 1)  = 2;    %3-octanol 33b; 
-maskPlot(4, 12) = 1;    %3-octanol 85c; S
-maskPlot(4, 13) = 1;    %3-octanol 13a; S
-maskPlot(5, 4) = 1;     %trans-3-hexen-1-ol 35a; S
-maskPlot(6, 8) = 1;     %methyl phenyl sulfide 45b; S
-maskPlot(6, 10) = 1;    %methyl phenyl sulfide 24a; S
-maskPlot(6, 14) = 2;    %methyl phenyl sulfide 30a;
-maskPlot(6, 16) = 1;    %methyl phenyl sulfide 22c; S
-maskPlot(8, 10) = 1;    %2-acetylpyridine 24a; S
-maskPlot(10, 1) = 1;    %pentyl acetate 33b; S
-maskPlot(10, 4) = 1;    %pentyl acetate 35a; S
-maskPlot(10, 12) = 1;   %pentyl acetate 85c; S
-maskPlot(10, 13) = 1;   %pentyl acetate 13a;
-maskPlot(11, 2) = 1;    %geranyl acetate 45a; S
-maskPlot(11, 15) = 1;   %geranyl acetate 82a; S
-maskPlot(13, 2) = 2;    %trans,trans-2,4-nonadienal 45a; 
-maskPlot(13, 20) = 1;   %trans,trans-2,4-nonadienal 74a; S
-maskPlot(14, 6) = 1;    %4m5v 59a; S
-maskPlot(14, 8) = 1;    %4m5v 45b; S
-maskPlot(15, 6) = 2;    %4,5-dimethylthiazole 59a; not flat
-maskPlot(16, 5) = 1;    %4-hexen-3-one 42a; S
-maskPlot(20, 12) = 1;	%butyl acetate 85c; S
-maskPlot(21, 17) = 1;	%ethyl acetate 42b; S
-maskPlot(22, 8) = 1;	%benzaldehyde 45b; S
-maskPlot(22, 10) = 1;	%benzaldehyde 24a; S
-maskPlot(23, 1) = 1;	%2-heptanone 33b/47a; S
-maskPlot(23, 4) = 1;	%2-heptanone 35a;  S
-maskPlot(23, 5) = 1;	%2-heptanone 42a;  S
-maskPlot(23, 12) = 1;	%2-heptanone 85c; 
-maskPlot(23, 13) = 2;	%2-heptanone 13a; 
-maskPlot(24, 9) = 2;	%methyl salicylate 63a;
-maskPlot(24, 10) = 1;	%methyl salicylate 24a; S
-maskPlot(24, 12) = 2;	%methyl salicylate 85c; % have strange low point
-maskPlot(24, 16) = 1;	%methyl salicylate 22c; S
-maskPlot(26, 1) = 1;	%isoamyl acetate 33b/47a; S
-maskPlot(26, 12) = 1;	%isoamyl acetate 85c; S
-maskPlot(26, 16) = 2;	%isoamyl acetate 22c; % have strange low point
-maskPlot(28, 1) = 1;	%hexyl acetate 33b/47a;  S
-maskPlot(28, 2) = 2;	%hexyl acetate 45a;  S
-maskPlot(28, 4) = 1;	%hexyl acetate 35a;  S
-maskPlot(34, 4) = 1;	%nonane 35a; S
-
-%% setup fitting function and method
+%% pre-fit, see which pair could be fitted well
+% set up the fitting
 hillEq = @(a, b, c, x)  a./(1+ exp(-b*(x-c)));
 
 ft = fittype( 'a/(1+ exp(-b*(x-c)))', 'independent', 'x', 'dependent', 'y' );
 opts = fitoptions( 'Method', 'NonlinearLeastSquares' );
 opts.Display = 'Off';
 opts.Robust = 'Bisquare';
-opts.Lower = [-1 -1 -11]; % setup the range and initial value of the variable
-opts.Upper = [15 15 -1];
-opts.StartPoint = [4 4 -6];
+opts.Lower = [0 0 -11]; % setup the range and initial value of the variable
+opts.Upper = [max(rspTs(:))*1.5 10 0];
+opts.StartPoint = [4 4 -7];
 
-%% fit each curve
-[odorIdxList, ornIdxList] = find(maskPlot >0 );    %find the index of good data
+disp('----------PRE-FIT----------');
+fprintf('%25s\t%-10s\t%-5s\t%-5s\t%-5s\t%-5s\t\n', 'Odor', 'ORN', 'Amp', 'Slop', 'EC50', 'R^2');
 
-results.fitOdorList = {};    results.fitORNList = {};   results.fitExpID = {};
-results.fitDataX = [];      results.fitDataY = [];
-results.fitCoeff = [];      results.fitconfint = [];	results.fitR2 = [];
-
-disp('----------FIT IINDIVIDUAL CURVE:----------');
-fprintf('%20s\t%-10s\t%-5s\t%-5s\t%-5s\t%-5s\t%-5s\t\n', 'Odor', 'ORN', 'ExpID', 'Amp', 'Slop', 'EC50', 'R^2');
-
-for i = 1 : length(odorIdxList)
-    odIdx = odorIdxList(i);     colNum = ornIdxList(i);
+[ftRow, ftCol] = find(fitMask);
+gfX = [];  gfY = [];
+gfRC = [];  gfCoeff = [];	gfR2 = [];
+for i = 1:length(ftRow)
+    xx = squeeze(concTs(ftRow(i), ftCol(i), :));
+    yy = squeeze(rspTs(ftRow(i), ftCol(i), :));
     
-    rowList = find(input.indOdor == odIdx);
-    concPool = input.concList(rowList);
-    rPool = input.dff(rowList);
-    expIDPool = input.expID(rowList);
-    [C, ~, ic] = unique(expIDPool);
-    for j = 1 : length(C)
-        expList = find(ic == j);
-        conc = concPool(expList);
-        r = rPool(expList);
+    [fitresult, gof] = fit(log10(xx), yy, ft, opts);   %fit
+    
+    rSq = gof.rsquare; coeff = coeffvalues(fitresult);
+    
+    flag = coeff(1)>2 && coeff(3) < -5.8;
+    if rSq > 0.9 && flag
+       fitMask(ftRow(i), ftCol(i)) = 1;
+       gfX = [gfX; log10(xx')];  gfY = [gfY; yy'];  gfRC = [gfRC; ftRow(i), ftCol(i)]; 
+       gfCoeff = [gfCoeff; coeff];  gfR2 = [gfR2; rSq];
+       
+       fprintf('%25s\t%-5s\t%.2f\t%.2f\t%.2f\t%.2f\n', ...
+            input.Odor{gfRC(end, 1)}, input.ORN{gfRC(end, 2)}, ...
+            gfCoeff(end, 1), gfCoeff(end, 2), gfCoeff(end, 3),gfR2(end));
         
-        if ~sum(isnan(r))
-            [fitresult, gof] = fit(log10(conc), r, ft, opts);   %fit
-            % set criteria to accept the fitting result
-            rSq = gof.rsquare; coeff = coeffvalues(fitresult);
-            flag = sum((coeff < opts.Upper-0.1)) == 3;
-            if rSq > 0.9 && flag
-                ci = confint(fitresult,0.95);
-
-                results.fitCoeff = [results.fitCoeff; coeffvalues(fitresult)]; 
-                results.fitconfint = [results.fitconfint; (ci(2,:) - ci(1,:))/2];
-                results.fitR2 = [results.fitR2; rSq];
-                
-                results.fitDataX = [results.fitDataX; log10(conc')];
-                results.fitDataY = [results.fitDataY; r'];
-
-                results.fitOdorList{end+1} = input.Odor{odIdx};   
-                results.fitORNList{end+1} = input.ORN{colNum};  
-                results.fitExpID{end+1} = C{j};
-
-                fprintf('%20s\t%-5s\t%-5s\t%.2f\t%.2f\t%.2f\t%.2f\n', ...
-                    results.fitOdorList{end}, results.fitORNList{end}, ...
-                    results.fitExpID{end}, results.fitCoeff(end, 1), results.fitCoeff(end, 2), ...
-                    results.fitCoeff(end, 3), results.fitR2(end));
-            end
-        end
+        xP = linspace(min(log10(xx)), max(log10(xx)), 50);
+        yP = hillEq(coeff(1), coeff(2), coeff(3), xP);
+        
+%         figure; plot(log10(xx), yy, 'ok'); hold on;
+%         plot(xP, yP, 'r'); xlabel('log10(c)'); ylabel('\DeltaF/F');
+%         title([input.Odor{gfRC(end, 1)}, input.ORN{gfRC(end, 2)}]);
     end
 end
 
-results.fitR2IdvEn = EnsmbleRSquare(results.fitDataX, results.fitDataY, results.fitCoeff, hillEq);
-fprintf('# of fitted curves: %u. \n', length(results.fitR2));
-fprintf('R Square of all data: %.2f. \n', results.fitR2IdvEn);
+%% ensemble fit of all these good fitted curves
+addpath(fullfile('.', 'tools'));
 
-%% fit the data ensemble with initial parameter from the individual fit
-
-dataX = results.fitDataX;   dataY = results.fitDataY;   
-slop0 = median(results.fitCoeff(:, 2));
-ampVec0 = results.fitCoeff(:, 1);   kdVec0 = results.fitCoeff(:, 3);
+slop0 = median(gfCoeff(:, 2)); ampVec0 = gfCoeff(:, 1); kdVec0 = gfCoeff(:, 3);
 
 disp('----------FIT CURVE ENSEMBLE:----------');
 fprintf('%-5s\t%-5s\t\n', 'Slop', 'R^2');
-[slop, ampVec, kdVec, rSquare] = EnsembleMiniSearch(dataX, dataY, hillEq, slop0, ampVec0, kdVec0);
+[slop, ampVec, kdVec, rSquare] = EnsembleMiniSearch(gfX, gfY, hillEq, slop0, ampVec0, kdVec0);
 
 fprintf('%.2f\t%.2f\t\n', slop, rSquare);
 
 % plot the data 
-dataXEn = dataX -  repmat(kdVec,  1, length(dataX(1,:)));
-dataYEn = dataY ./ repmat(ampVec, 1, length(dataX(1,:)));
+dataXEn = gfX -  repmat(kdVec,  1, length(gfX(1,:)));
+dataYEn = gfY ./ repmat(ampVec, 1, length(gfY(1,:)));
 
 % save into results
 results.fitCoeffFMS = [ampVec, repmat(slop, length(ampVec), 1), kdVec];
@@ -241,95 +122,49 @@ figure;
 plot(dataXEn(:), dataYEn(:), 'ok'); hold on;
 xPlot = linspace(min(dataXEn(:)), max(dataXEn(:)), 100);
 yPlot = hillEq(1, slop, 0, xPlot);
-plot(xPlot, yPlot, 'r');    xlabel('log10(c)'); ylabel('Norm.(\DeltaF/F)');
+plot(xPlot, yPlot, 'r'); xlabel('Relative log10(c)'); ylabel('Norm.(\DeltaF/F)');
+hold off;
 
-%% fit the individual curves using slop=5.1565.
-fixedSlop = 5.1565;
-
+%%
 ft2 = fittype( 'a/(1+ exp(-b*(x-c)))', 'independent', 'x', 'dependent', 'y' );
 opts2 = fitoptions( 'Method', 'NonlinearLeastSquares' );
 opts2.Display = 'Off';
 opts2.Robust = 'Bisquare';
-opts2.Lower = [-1 fixedSlop -11]; % setup the range and initial value of the variable
-opts2.Upper = [15 fixedSlop -1];
-opts2.StartPoint = [4 fixedSlop -6];
+opts2.Lower = [0 slop -11]; % setup the range and initial value of the variable
+opts2.Upper = [max(rspTs(:))*1.5 slop 0];
+opts2.StartPoint = [4 slop -7];
 
-disp('----------FIT IINDIVIDUAL CURVE W/ FIXED SLOP:----------');
-fprintf('%20s\t%-10s\t%-5s\t%-5s\t%-5s\t%-5s\t%-5s\t\n', 'Odor', 'ORN', 'ExpID', 'Amp', 'Slop', 'EC50', 'R^2');
 
-for i = 1: length(results.fitR2)
-    xx = results.fitDataX(i, :);
-    yy = results.fitDataY(i, :);
-    [fitresult, gof] = fit(xx', yy', ft2, opts2);   %fit
+disp('----------FIT WITH KNOWN SLOP----------');
+fprintf('%25s\t%-10s\t%-5s\t%-5s\t%-5s\t%-5s\t\n', 'Odor', 'ORN', 'Amp', 'Slop', 'EC50', 'R^2');
+
+[ftRow, ftCol] = find(fitMask == 99 );
+gfX2 = [];  gfY2 = [];
+gfRC2 = [];  gfCoeff2 = [];	gfR22 = [];
+for i = 1:length(ftRow)
+    xx = squeeze(concTs(ftRow(i), ftCol(i), :));
+    yy = squeeze(rspTs(ftRow(i), ftCol(i), :));
     
-    ci = confint(fitresult,0.95);
-
-    results.fitCoeffFixSlop(i, :) = coeffvalues(fitresult);
-    results.fitconfintFixSlop(i,:) = (ci(2,:) - ci(1,:))/2;
-    results.fitR2FixSlop(i) = gof.rsquare;
+    [fitresult, gof] = fit(log10(xx), yy, ft2, opts2);   %fit
     
-    fprintf('%20s\t%-5s\t%-5s\t%.2f\t%.2f\t%.2f\t%.2f\n', ...
-        results.fitOdorList{i}, results.fitORNList{i}, ...
-        results.fitExpID{i}, results.fitCoeffFixSlop(i, 1), ...
-        results.fitCoeffFixSlop(i, 2), results.fitCoeffFixSlop(i, 3),...
-        results.fitR2FixSlop(i));
+    rSq = gof.rsquare; coeff = coeffvalues(fitresult);
+    
+    flag = coeff(1)>2 && coeff(3) < -5;
+    if rSq > 0.9 && flag
+%        fitMask(ftRow(i), ftCol(i)) = 2;
+       gfX2 = [gfX2; log10(xx')];  gfY2 = [gfY2; yy'];  gfRC2 = [gfRC2; ftRow(i), ftCol(i)]; 
+       gfCoeff2 = [gfCoeff2; coeff];  gfR22 = [gfR22; rSq];
+       
+       fprintf('%25s\t%-5s\t%.2f\t%.2f\t%.2f\t%.2f\n', ...
+            input.Odor{gfRC2(end, 1)}, input.ORN{gfRC2(end, 2)}, ...
+            gfCoeff2(end, 1), gfCoeff2(end, 2), gfCoeff2(end, 3),gfR22(end));
+        
+        xP = linspace(min(log10(xx)), max(log10(xx)), 50);
+        yP = hillEq(coeff(1), coeff(2), coeff(3), xP);
+        
+        figure; 
+        plot(log10(xx), yy, 'ok'); hold on;
+        plot(xP, yP, 'r'); xlabel('log10(c)'); ylabel('\DeltaF/F');
+        title([input.Odor{gfRC2(end, 1)}, input.ORN{gfRC2(end, 2)}]);
+    end
 end
-
-rSquareEn = EnsmbleRSquare(dataX, dataY, results.fitCoeffFixSlop, hillEq);
-
-dataXEnFixSlop = dataX -  repmat(results.fitCoeffFixSlop(:, 3), 1, length(dataX(1,:)));
-dataYEnFixSlop = dataY ./ repmat(results.fitCoeffFixSlop(:, 1), 1, length(dataX(1,:)));
-
-figure; 
-plot(dataXEnFixSlop(:), dataYEnFixSlop(:), 'ok'); hold on;
-xPlot = linspace(min(dataXEnFixSlop(:)), max(dataXEnFixSlop(:)), 100);
-yPlot = hillEq(1, fixedSlop, 0, xPlot);
-plot(xPlot, yPlot, 'r');    xlabel('log10(c)'); ylabel('Norm.(\DeltaF/F)');
-
-%% compare the fitted parameters
-disp('----------PARAMETER COMPARISON:----------');
-fprintf('%5s\t%-5s\t%-5s\t%-5s\t%-5s\t%-5s\t%-5s\t%-5s\t%-5s\t%-5s\t\n', ...
-    '#', 'AmpA', 'AmpB', 'AmpC', 'SlopA', 'SlopB', 'SlopC', 'KdA', 'KdB', 'KdC');
-
-for i = 1:length(results.fitR2)
-    fprintf('%5s\t%.2f\t%.2f\t%.2f\t%.2f\t%.2f\t%.2f\t%.2f\t%.2f\t%.2f\t\n', ...
-        num2str(i), results.fitCoeff(i, 1), results.fitCoeffFMS(i,1), ...
-        results.fitCoeffFixSlop(i, 1), results.fitCoeff(i, 2), results.fitCoeffFMS(i,2), ...
-        results.fitCoeffFixSlop(i, 2), results.fitCoeff(i, 3), results.fitCoeffFMS(i,3), ...
-        results.fitCoeffFixSlop(i, 3));
-end
-
-% plot the difference between the EC50
-kdCmp = [results.fitCoeff(:, 3), results.fitCoeffFMS(:, 3), results.fitCoeffFixSlop(:, 3)];
-
-figure; 
-plot(1:2, kdCmp(:, 2:3), 'ko-');
-kdDiff = abs(kdCmp(:, 2) - kdCmp(:,3));
-mean(kdDiff); 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
