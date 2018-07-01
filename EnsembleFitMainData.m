@@ -51,11 +51,23 @@ rMatSum = sum(rspTs, 3);
 
 % plot the curves
 for i = 1:length(input.Odor)
-    figure; title()
+    figure('Name', input.Odor{i}, 'NumberTitle','off', ...
+        'units','normalized','outerposition',[0 0 1 1]);
+    hold on;
+    
+    for j = 1:length(input.ORN)
+        subplot(3, 7, j);   % each ORN a pannel
+        plot(log10(squeeze(concTs(i,j,:))), squeeze(rspTs(i,j,:)), '-o'); 
+        title(input.ORN{j});
+        xlabel('log10(c)'); ylabel('\DeltaF/F'); hold on;
+        pause(0.01);
+        
+    end
+    
 end
     
     
-rMatSum(find(rMatSum == 0)) = 0; 
+% rMatSum(find(rMatSum == 0)) = 0; 
 
 
 
