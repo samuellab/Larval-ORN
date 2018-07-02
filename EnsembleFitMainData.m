@@ -55,7 +55,7 @@ disp(['Count of non activated odor-ORN pairs:', num2str(countPairZeros), ...
     ', which is ',num2str(100*countPairZeros/numel(rMatSum)), ...
     '% of the total experiments.']);
 
-%% pre-fit, see which pair could be fitted well
+%% pre-fit, look for pairs could be fitted well
 % set up the fitting
 hillEq = @(a, b, c, x)  a./(1+ exp(-b*(x-c)));
 
@@ -67,12 +67,18 @@ opts.Lower = [0 0 -11]; % setup the range and initial value of the variable
 opts.Upper = [max(rspTs(:))*1.5 10 0];
 opts.StartPoint = [4 4 -7];
 
+[rowTotal, colTotal, ~] = size(rspTs);
+cMatrix = NaN(rowTotal, colTotal);     % the thresholds for each odor_ORN pair, 'c' in the equation
+aMatrix = NaN(rowTotal, colTotal);     % the saturated amplitude for each odor-ORN pair
+r2Matrix= NaN(rowTotal, colTotal);     % the R-square value of the fitting
+
+%%
 disp('----------PRE-FIT----------');
 fprintf('%25s\t%-10s\t%-5s\t%-5s\t%-5s\t%-5s\t\n', 'Odor', 'ORN', 'Amp', 'Slop', 'EC50', 'R^2');
 
 [ftRow, ftCol] = find(fitMask);
-gfX = [];  gfY = [];
-gfRC = [];  gfCoeff = [];	gfR2 = [];
+gfX = [];  gfY = [];    gfRC = [];  gfCoeff = [];	gfR2 = [];
+
 for i = 1:length(ftRow)
     xx = squeeze(concTs(ftRow(i), ftCol(i), :));
     yy = squeeze(rspTs(ftRow(i), ftCol(i), :));
@@ -94,14 +100,15 @@ for i = 1:length(ftRow)
         xP = linspace(min(log10(xx)), max(log10(xx)), 50);
         yP = hillEq(coeff(1), coeff(2), coeff(3), xP);
         
-%         figure; plot(log10(xx), yy, 'ok'); hold on;
-%         plot(xP, yP, 'r'); xlabel('log10(c)'); ylabel('\DeltaF/F');
-%         title([input.Odor{gfRC(end, 1)}, input.ORN{gfRC(end, 2)}]);
+        figure; plot(log10(xx), yy, 'ok'); hold on;
+        plot(xP, yP, 'r'); xlabel('log10(c)'); ylabel('\DeltaF/F');
+        title([input.Odor{gfRC(end, 1)}, input.ORN{gfRC(end, 2)}]);
     end
 end
 
+disp(['Count of well-fitted saturated odor-ORN pairs:', num2str(length(gfR2))]);
+
 %% ensemble fit of all these good fitted curves
-addpath(fullfile('.', 'tools'));
 
 slop0 = median(gfCoeff(:, 2)); ampVec0 = gfCoeff(:, 1); kdVec0 = gfCoeff(:, 3);
 
@@ -124,6 +131,12 @@ xPlot = linspace(min(dataXEn(:)), max(dataXEn(:)), 100);
 yPlot = hillEq(1, slop, 0, xPlot);
 plot(xPlot, yPlot, 'r'); xlabel('Relative log10(c)'); ylabel('Norm.(\DeltaF/F)');
 hold off;
+
+for i = 1:length(ampVec)
+    cMatrix(gfRC(i,1), gfRC(i,2)) = kdVec(i);
+    aMatrix(gfRC(i,1), gfRC(i,2)) = ampVec(i);
+    r2Matrix(gfRC(i,1), gfRC(i,2))= gfR2(i);
+end
 
 %%
 ft2 = fittype( 'a/(1+ exp(-b*(x-c)))', 'independent', 'x', 'dependent', 'y' );
@@ -151,7 +164,7 @@ for i = 1:length(ftRow)
     
     flag = coeff(1)>2 && coeff(3) < -5;
     if rSq > 0.9 && flag
-%        fitMask(ftRow(i), ftCol(i)) = 2;
+       fitMask(ftRow(i), ftCol(i)) = 2;
        gfX2 = [gfX2; log10(xx')];  gfY2 = [gfY2; yy'];  gfRC2 = [gfRC2; ftRow(i), ftCol(i)]; 
        gfCoeff2 = [gfCoeff2; coeff];  gfR22 = [gfR22; rSq];
        
@@ -166,5 +179,50 @@ for i = 1:length(ftRow)
         plot(log10(xx), yy, 'ok'); hold on;
         plot(xP, yP, 'r'); xlabel('log10(c)'); ylabel('\DeltaF/F');
         title([input.Odor{gfRC2(end, 1)}, input.ORN{gfRC2(end, 2)}]);
+        
+        cMatrix(ftRow(i), ftCol(i)) = coeff(3);
+        aMatrix(ftRow(i), ftCol(i)) = coeff(1);
+        r2Matrix(ftRow(i), ftCol(i))= rSq;
     end
 end
+
+disp(['Count of fitted odor-ORN pairs w/ predefined slop w/ EC50 smaller than -5:', ...
+    num2str(length(gfR22))]);
+
+
+%% take a look at the paris amplitude smaller than the setted threshold
+[ftRow, ftCol] = find(fitMask);
+
+disp('----------FIT WITH KNOWN SLOP,CHECK FAILED FITTINTS----------');
+fprintf('%25s\t%-10s\t%-5s\t%-5s\t%-5s\t%-5s\t\n', 'Odor', 'ORN', 'Amp', 'Slop', 'EC50', 'R^2');
+
+for i = 1:length(ftRow)
+    xx = squeeze(concTs(ftRow(i), ftCol(i), :));
+    yy = squeeze(rspTs (ftRow(i), ftCol(i), :));
+    
+    [fitresult, gof] = fit(log10(xx), yy, ft2, opts2);   %fit
+    
+    rSq = gof.rsquare; coeff = coeffvalues(fitresult);
+    
+    flag = coeff(1) <= 2 && coeff(1) > 0.4 && coeff(3) < -5;
+    if rSq > 0.9 && flag
+
+       fprintf('%25s\t%-5s\t%.2f\t%.2f\t%.2f\t%.2f\n', input.Odor{ftRow(i)}, ...
+           input.ORN{ftCol(i)}, coeff(1), coeff(2), coeff(3),rSq);
+        
+        xP = linspace(min(log10(xx)), max(log10(xx)), 50);
+        yP = hillEq(coeff(1), coeff(2), coeff(3), xP);
+        
+        figure; 
+        plot(log10(xx), yy, 'ok'); hold on;
+        plot(xP, yP, 'r'); xlabel('log10(c)'); ylabel('\DeltaF/F');
+        title([input.Odor{ftRow(i)}, input.ORN{ftCol(i)}]);
+        
+    end
+end
+
+
+
+
+
+
