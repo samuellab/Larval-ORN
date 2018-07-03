@@ -4,11 +4,12 @@ warning('off','all');
 % diary(fullfile('.', 'AnalysisResults', 'AnalyzeEC50Matrix_log.txt')); 
 % diary on;
 
-load(fullfile('.', 'AnalysisResults', 'FitDoseResponse.mat'));
+% load(fullfile('.', 'AnalysisResults', 'FitDoseResponse.mat'));
+load(fullfile('.', 'AnalysisResults', 'fitResults.mat'));
 
 % add two super senstive pairs, remove after measurement 
-cMatrix(23, 12) = -8.5;   %2-heptanone, 85c
-cMatrix(24, 16) = -8.9;  %methyl salicylate, 22c 
+% cMatrix(23, 12) = -9.06;   %2-heptanone, 85c
+% cMatrix(24, 16) = -8.85;  %methyl salicylate, 22c 
 
 % load(fullfile('.', 'data', 'AveRawDataMatrix.mat'));
 load(fullfile('.', 'data', 'AveRawDataMatrix2ndRound.mat'));
@@ -183,5 +184,5 @@ fprintf('1st PC accounts %.2f percentage of data variance. \n', explained1(1));
 fprintf('%.0f sigma significance compare with shuffled data. \n', round(significance));
 
 %% Save analyzed data 
-save(fullfile('.', 'AnalysisResults', 'AnalyzeEC50Matrix.mat'), 'alpha', 'xmin', 'p');
+% save(fullfile('.', 'AnalysisResults', 'AnalyzeEC50Matrix.mat'), 'alpha', 'xmin', 'p');
 % diary off;

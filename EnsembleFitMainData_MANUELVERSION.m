@@ -167,22 +167,73 @@ for i = 1:length(ftRow)
     end
 end
 
+% %% show the distribution of the amplitudes of the type 3 curves.
+% [ftRow, ftCol] = find(maskPlot == 3);
+% ymax3 = [];
+% for i = 1:length(ftRow)
+%     yy = squeeze(rspTs(ftRow(i), ftCol(i), :));
+%     
+%     ymax3 = [ymax3; max(yy(:))];
+% end
+
+
 %% Estimate the maximum values for each Odor
 
 % find out all the non-nan values in the aMatrix and plot the histogram
 % ampKnown=aMatrix(~isnan(aMatrix));
 % histogram(ampKnown);
 
-meanA = nanmean(aMatrix(:));
+% meanA = nanmean(aMatrix(:));
+
+maxAofOdor = zeros(rowNum, 1); % define parameter to store maximum amplitude 
+lowerBound = 1; % set a lower bound of the maximum amplitude
+
+disp('----------FIND AMPLITUDE OF EACH ODOR FOR TYPE 3 CURVE FITTING----------');
+fprintf('%30s\t%-5s\t\n', 'Odor Name', 'Amplitude');
+
+maxProj = max(rspTs, [], 3); %max of the data along the concentration
+ 
+for i = 1:rowNum
+    index = ~isnan(aMatrix(i, :)); %find the nun-zero elements of each row (odor), from the saturated dataset
+    maxSeqTemp = aMatrix(i, index);
+    maxSeq = maxSeqTemp(maxSeqTemp>lowerBound); %select the max values higher than the lower bound
+        
+    maxEst = mean(maxSeq); % use the mean as the maximum
+%     if ~isnan(maxEst) && maxEst>lowerBound
+        maxAofOdor(i) = maxEst;
+%     else %if there is no qualified elements, find the maximum in the raw data
+%         indexBackup = find(maxProj(i, :)>lowerBound);
+%         seqBackup = maxProj(i, indexBackup);
+%         maxEstBackup = mean(seqBackup);
+%         if isnan(maxEstBackup)
+%             maxAofOdor(i) = max(maxProj(i, :));
+%         else
+%             maxAofOdor(i) = maxEstBackup;
+%         end
+%     end
+    
+	fprintf('%30s\t%.2f\t\n', input.Odor{i}, maxAofOdor(i));
+end
+
+%% plot selected odor's dose-response map
+selOdorIdx = 1;
+figure; 
+for i = 1:colNum
+    xx = squeeze(concTs(selOdorIdx, i, :));
+    yy = squeeze(rspTs(selOdorIdx, i, :));
+    subplot(3, 7, i);
+    plot(log10(xx), yy, 'o-'); title(input.ORN{i});
+end
+
 
 %% fit with fixed slop and amplitude
 ft3 = fittype( 'a/(1+ exp(-b*(x-c)))', 'independent', 'x', 'dependent', 'y' );
 opts3 = fitoptions( 'Method', 'NonlinearLeastSquares' );
 opts3.Display = 'Off';
 opts3.Robust = 'Bisquare';
-opts3.Lower = [meanA slop -11]; % setup the range and initial value of the variable
-opts3.Upper = [meanA slop 0];
-opts3.StartPoint = [meanA slop -7];
+% opts3.Lower = [meanA slop -11]; % setup the range and initial value of the variable
+% opts3.Upper = [meanA slop 0];
+% opts3.StartPoint = [meanA slop -7];
 
 disp('----------FIT WITH KNOWN SLOP----------');
 fprintf('%25s\t%-10s\t%-5s\t%-5s\t%-5s\t%-5s\t\n', 'Odor', 'ORN', 'Amp', 'Slop', 'EC50', 'R^2');
@@ -193,11 +244,17 @@ plotFlag = 0;
 for i = 1:length(ftRow)
     xx = squeeze(concTs(ftRow(i), ftCol(i), :));
     yy = squeeze(rspTs(ftRow(i), ftCol(i), :));
-    
-    if max(yy) < meanA
-        [fitresult, gof] = fit(log10(xx), yy, ft3, opts3);   %fit
-    else
+
+    if max(yy) > maxAofOdor(ftRow(i))
         [fitresult, gof] = fit(log10(xx), yy, ft2, opts2);
+        
+    else
+        % setup the range and initial value of the variable
+        opts3.Lower = [maxAofOdor(ftRow(i)) slop -11]; 
+        opts3.Upper = [maxAofOdor(ftRow(i)) slop 0];
+        opts3.StartPoint = [maxAofOdor(ftRow(i)) slop -7];
+        
+        [fitresult, gof] = fit(log10(xx), yy, ft3, opts3);   %fit
     end
     
     rSq = gof.rsquare; coeff = coeffvalues(fitresult);
@@ -219,6 +276,32 @@ for i = 1:length(ftRow)
         title([input.Odor{ftRow(i)}, input.ORN{ftCol(i)}]);
     end
 end
+
+
+% %%
+% 
+% % compare by row,
+% varRow = [];
+% for i = 1: rowNum
+%     rowData = aMatrix(i, :);
+%     rowData = rowData(~isnan(rowData));
+%     
+%     rowData = rowData - mean(rowData);
+%     varRow = [varRow, rowData];
+% end
+% std(varRow)
+% 
+% 
+% varCol = [];
+% for j = 1: colNum
+%     colData = aMatrix(:, j);
+%     colData = colData(~isnan(colData));
+%     
+%     colData = colData - mean(colData);
+%     varCol = [varCol; colData];
+% end
+% std(varCol)
+% 
 
 %% show the failed fittings
 gofThld = 0.5;
@@ -291,7 +374,38 @@ c.TickLabels{1} = 'NaN'; c.Label.String = '-log10(EC50)';
 title('EC50'); 
 
 
+% show the amplitude matrix
+aMatShow = aMatrix;    aMatShow(isnan(aMatShow)) = 0;
 
+newAStep1 = aMatShow;
+for i = 1:rowNum
+    newAStep1(i,:) = aMatShow(odorOrder(i),:);
+end
+newAStep2 = newAStep1;
+for i = 1:colNum
+    newAStep2(:,i) = newAStep1(:,ORNOrder(i));
+end
+
+% draw the heat map of the EC50 matrix
+aMap = newAStep2;
+figure;  pos = get(gcf, 'pos'); set(gcf, 'pos', [pos(1), pos(2), 610, 420]);
+imagesc(aMap); 
+set(gcf, 'Position', [100 250 560 700])
+set(gca, 'CLim', [0 max(aMap(:))]);
+set(gca,'XTick',1:colNum);
+set(gca,'XTickLabel',input.ORN(ORNOrder));
+set(gca,'xaxisLocation','top');
+set(gca,'YTick',1:rowNum);
+set(gca,'YTickLabel',input.Odor(odorOrder));
+set(gca, 'XTickLabelRotation', 45);
+cmp = colormap(jet); cmp(1,:) = [0 0 0];
+colormap(cmp); c = colorbar; 
+c.TickLabels{1} = 'NaN'; c.Label.String = '-log10(EC50)';
+title('Amp'); 
+
+
+%%
+% save('fitResults.mat', 'aMatrix', 'cMatrix', 'r2Matrix', 'slop');
 
 
 
