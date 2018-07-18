@@ -7,9 +7,6 @@ warning('off','all');
 % load(fullfile('.', 'AnalysisResults', 'FitDoseResponse.mat'));
 load(fullfile('.', 'AnalysisResults', 'fitResults.mat'));
 
-% add two super senstive pairs, remove after measurement 
-% cMatrix(23, 12) = -9.06;   %2-heptanone, 85c
-% cMatrix(24, 16) = -8.85;  %methyl salicylate, 22c 
 
 % load(fullfile('.', 'data', 'AveRawDataMatrix.mat'));
 load(fullfile('.', 'data', 'AveRawDataMatrix2ndRound.mat'));
@@ -20,8 +17,11 @@ load(fullfile('.', 'data', 'AveRawDataMatrix2ndRound.mat'));
 
 %% distribution of the value of 1/EC50
 % pool the non-NaN elements
-% ec50Pool = cMatrix(~isnan(cMatrix));
-ec50Pool = nonzeros(cMatrix);
+ec50Pool = cMatrix(~isnan(cMatrix));
+% ec50Pool = nonzeros(cMatrix);
+% ec50Pool = nonzeros(cMatrixMol);
+
+% ec50Pool = ec50Pool(ec50Pool<-3.5);
 
 sData = 1./(10.^ec50Pool);
 
@@ -58,7 +58,7 @@ fprintf('(Quote from the paper) If the resulting p-value is greater than 0.1,\n 
 
 %% apply PCA on the EC50 matrix
 % replace NaN in the EC50 matrix with 0
-% cMatrix(isnan(cMatrix)) = 0;
+cMatrix(isnan(cMatrix)) = 0;
 
 % PCA, using -cMatrix does not change the dimentionality, but it could make
 % the load and projection match each other
@@ -83,6 +83,15 @@ figure; barh(proj_sorted);
 set(gca,'YTick',1:length(proj_index));
 set(gca,'YTickLabel',odorList(proj_index));
 xlabel('Projection on 1st PC');
+
+%%
+figure; stem(proj_sorted); 
+
+figure; stem(load_sorted); 
+
+% set(gca,'YTick',1:length(proj_index));
+% set(gca,'YTickLabel',odorList(proj_index));
+% xlabel('Projection on 1st PC');
 
 %% Compare odors' functional with structure
 %load structure data
@@ -156,7 +165,7 @@ end
 
 %calculate the mean and std of the percentage explained
 explainedAve = mean(explainedMatrix, 2);
-explainedStd = std(explainedMatrix, 0, 2);
+explainedStd = std(explainedMatrix, 0, 2)*2;
 
 % figure;   pareto(explainedAve);	title('Shuffled Matrix');
 
@@ -166,6 +175,7 @@ patch([1:length(explainedAve) fliplr(1:length(explainedAve))], ...
     [explainedAve'+explainedStd' fliplr(explainedAve'-explainedStd')],[0.7 0.7 0.7]);
 xlabel('PCs'); ylabel('% of variance explained'); legend('KdMatrix', 'Shuffled');
 hold off;
+axis([0 21 ylim]);
 
 figure; hist(explainedMatrix(1,:)); hold on; plot(explained1(1)*ones(1, 31), 0:10:300, 'r'); 
 xlabel('% of variance explained by 1st PC'); ylabel('counts');

@@ -14,6 +14,7 @@ input.dff = table2array(dataT(:, 4:end));
 %% average data cross trials for each odor-ORN pair
 concTs = zeros(length(input.Odor), length(input.ORN), 5);
 rspTs  = concTs;
+semTs = concTs;
 
 for i = 1 : length(input.Odor)
     odI = find(input.indOdor == i); % row index of each odor
@@ -38,6 +39,7 @@ for i = 1 : length(input.Odor)
         if isequal(concBlock(:, 1:end-1), concBlock(:, 2:end))
             concTs(i, j, :) = concBlock(:, 1);
             rspTs(i, j, :) = mean(dffBlock, 2);
+            semTs(i, j, :) = std(dffBlock, 0, 2)/sqrt(size(dffBlock, 2));
         else
             error('Trials do not share the same set of odor concentration.');
         end
@@ -63,6 +65,7 @@ opts.StartPoint = [4 4 -7];
 cMatrix = NaN(rowTotal, colTotal);     % the thresholds for each odor_ORN pair, 'c' in the equation
 aMatrix = NaN(rowTotal, colTotal);     % the saturated amplitude for each odor-ORN pair
 r2Matrix= NaN(rowTotal, colTotal);     % the R-square value of the fitting
+stdMatrix=NaN(rowTotal, colTotal);
 
 %% fit each saturate pairs
 disp('----------PRE-FIT----------');
@@ -105,7 +108,7 @@ fprintf('%-5s\t%-5s\t\n', 'Slop', 'R^2');
 
 fprintf('%.2f\t%.2f\t\n', slop, rSquare);
 
-% plot the data 
+%% plot the data 
 dataXEn = gfX -  repmat(kdVec,  1, length(gfX(1,:)));
 dataYEn = gfY ./ repmat(ampVec, 1, length(gfY(1,:)));
 
@@ -119,11 +122,32 @@ yPlot = hillEq(1, slop, 0, xPlot);
 plot(10.^xPlot, yPlot, 'r'); xlabel('Relative Concentration'); ylabel('Norm.(\DeltaF/F)');
 set(gca, 'XScale', 'log')
 hold off;
+
+
+figure; 
 for i = 1:length(ampVec)
     cMatrix(gfRC(i,1), gfRC(i,2)) = kdVec(i);
     aMatrix(gfRC(i,1), gfRC(i,2)) = ampVec(i);
     r2Matrix(gfRC(i,1), gfRC(i,2))= gfR2(i);
+    
+    fprintf('%25s\t%-5s\t%.2f\t%.2f\t%.2f\t%.2f\n', input.Odor{gfRC(i,1)}, ...
+        input.ORN{gfRC(i, 2)}, ampVec(i), slop, kdVec(i), gfR2(i));
+    
+    xx = squeeze(concTs(gfRC(i), ftCol(i), :));
+    yy = squeeze(rspTs(ftRow(i), ftCol(i), :));
+    sem = squeeze(semTs(ftRow(i), ftCol(i), :));
+
+%     if plotFlag
+    subplot(6, 6, i);
+    xP = linspace(min(log10(xx)), max(log10(xx)), 50);
+    yP = hillEq( ampVec(i), slop, kdVec(i), xP);
+
+    errorbar(log10(xx), yy, sem, 'ok', 'MarkerSize', 4); hold on;
+    plot(xP, yP, 'k'); xlabel('log_{10}(c)'); ylabel('\DeltaF/F');
+    title([input.Odor{gfRC(i, 1)}, ' / ', input.ORN{gfRC(i, 2)}]);
+%     end
 end
+set(gcf, 'Position', [63 1 1500 1000])
 
 %% fit with fixed slop
 ft2 = fittype( 'a/(1+ exp(-b*(x-c)))', 'independent', 'x', 'dependent', 'y' );
@@ -137,9 +161,10 @@ opts2.StartPoint = [4 slop -7];
 disp('----------FIT WITH KNOWN SLOP----------');
 fprintf('%25s\t%-10s\t%-5s\t%-5s\t%-5s\t%-5s\t\n', 'Odor', 'ORN', 'Amp', 'Slop', 'EC50', 'R^2');
 
-[ftRow, ftCol] = find(maskPlot == 2);
+[ftCol, ftRow] = find(maskPlot' == 2);
 % gfX2 = [];  gfY2 = [];
 % gfRC2 = [];  gfCoeff2 = [];	gfR22 = [];
+
 
 for i = 1:length(ftRow)
     xx = squeeze(concTs(ftRow(i), ftCol(i), :));
@@ -163,7 +188,7 @@ for i = 1:length(ftRow)
         figure; 
         plot(log10(xx), yy, 'ok'); hold on;
         plot(xP, yP, 'r'); xlabel('log10(c)'); ylabel('\DeltaF/F');
-        title([input.Odor{ftRow(i)}, input.ORN{ftCol(i)}]);
+        title([input.Odor{ftRow(i)}, '/', input.ORN{ftCol(i)}, '/', num2str(coeff(1)), '/', num2str(coeff(3))]);
     end
 end
 
@@ -177,6 +202,70 @@ end
 % end
 
 
+% %% plot selected odor's dose-response map
+% selOdorIdx = 1;
+% figure; 
+% for i = 1:colNum
+%     xx = squeeze(concTs(selOdorIdx, i, :));
+%     yy = squeeze(rspTs(selOdorIdx, i, :));
+%     subplot(3, 7, i);
+%     plot(log10(xx), yy, 'o-'); title(input.ORN{i});
+% end
+
+
+%% compare the distribution of y_max
+
+% pool all the y_max together, look at the overall distribution
+afit = aMatrix(~isnan(aMatrix));
+afit = afit-mean(afit);
+edges = -4: 0.5 : 4;
+figure; 
+subplot(1, 3, 1);
+h1 = histogram(afit, edges); 
+h1.FaceColor  = 'k';
+axis([-4.5 4.5 0 28]);
+ylabel('Count'); xlabel('A_{i,j} - <A>'); 
+title(['std = ',num2str(std(afit))]);
+
+% compare the distribution along the cols(ORNs)
+% each col, substract the mean
+resCol = [];
+for j = 1 : colTotal
+   colData = aMatrix(:, j) ;
+   colData = colData(~isnan(colData));
+   if length(colData) > 1
+       resCol = [resCol; colData-mean(colData)];
+   end
+end
+
+subplot(1, 3, 2);
+h3 = histogram(resCol, edges);   
+h3.FaceColor  = 'k';
+axis([-4.5 4.5 0 28]);
+ylabel('Count'); xlabel('A_{i,j} - <A_{.,j}>');
+title(['std = ',num2str(std(resCol))]);
+
+
+% compare the distribution along the rows(odors)
+% each row, substract the mean
+resRow = [];
+for i = 1 : rowTotal
+   rowData = aMatrix(i, :) ;
+   rowData = rowData(~isnan(rowData));
+   if length(rowData) > 1
+       resRow = [resRow, rowData-mean(rowData)];
+   end
+end
+
+subplot(1, 3, 3);
+h2 = histogram(resRow, edges); 
+h2.FaceColor  = 'k';
+axis([-4.5 4.5 0 28]);
+ylabel('Count'); xlabel('A_{i,j} - <A_{i,.}>');
+title(['std = ',num2str(std(resRow))]);
+
+
+
 %% Estimate the maximum values for each Odor
 
 % find out all the non-nan values in the aMatrix and plot the histogram
@@ -185,44 +274,22 @@ end
 
 % meanA = nanmean(aMatrix(:));
 
-maxAofOdor = zeros(rowNum, 1); % define parameter to store maximum amplitude 
-lowerBound = 1; % set a lower bound of the maximum amplitude
+maxAofOdor = zeros(rowTotal, 1); % define parameter to store maximum amplitude 
 
 disp('----------FIND AMPLITUDE OF EACH ODOR FOR TYPE 3 CURVE FITTING----------');
 fprintf('%30s\t%-5s\t\n', 'Odor Name', 'Amplitude');
 
-maxProj = max(rspTs, [], 3); %max of the data along the concentration
+% maxProj = max(rspTs, [], 3); %max of the data along the concentration
  
-for i = 1:rowNum
-    index = ~isnan(aMatrix(i, :)); %find the nun-zero elements of each row (odor), from the saturated dataset
-    maxSeqTemp = aMatrix(i, index);
-    maxSeq = maxSeqTemp(maxSeqTemp>lowerBound); %select the max values higher than the lower bound
-        
-    maxEst = mean(maxSeq); % use the mean as the maximum
-%     if ~isnan(maxEst) && maxEst>lowerBound
-        maxAofOdor(i) = maxEst;
-%     else %if there is no qualified elements, find the maximum in the raw data
-%         indexBackup = find(maxProj(i, :)>lowerBound);
-%         seqBackup = maxProj(i, indexBackup);
-%         maxEstBackup = mean(seqBackup);
-%         if isnan(maxEstBackup)
-%             maxAofOdor(i) = max(maxProj(i, :));
-%         else
-%             maxAofOdor(i) = maxEstBackup;
-%         end
-%     end
+for i = 1:rowTotal
+    colIdx = ~isnan(aMatrix(i, :));
+    maxSeq = aMatrix(i, colIdx); %find the nun-zero elements of each row (odor), from the saturated dataset
+
+    maxAofOdor(i) = mean(maxSeq(~isoutlier(maxSeq)));
+%     maxAofOdor(i) = mean(maxSeq);
+%     maxAofOdor(i) = mean(aMatrix(~isnan(aMatrix)));
     
 	fprintf('%30s\t%.2f\t\n', input.Odor{i}, maxAofOdor(i));
-end
-
-%% plot selected odor's dose-response map
-selOdorIdx = 1;
-figure; 
-for i = 1:colNum
-    xx = squeeze(concTs(selOdorIdx, i, :));
-    yy = squeeze(rspTs(selOdorIdx, i, :));
-    subplot(3, 7, i);
-    plot(log10(xx), yy, 'o-'); title(input.ORN{i});
 end
 
 
@@ -240,7 +307,6 @@ fprintf('%25s\t%-10s\t%-5s\t%-5s\t%-5s\t%-5s\t\n', 'Odor', 'ORN', 'Amp', 'Slop',
 
 [ftRow, ftCol] = find(maskPlot == 3);
 
-plotFlag = 0;
 for i = 1:length(ftRow)
     xx = squeeze(concTs(ftRow(i), ftCol(i), :));
     yy = squeeze(rspTs(ftRow(i), ftCol(i), :));
@@ -304,17 +370,19 @@ end
 % 
 
 %% show the failed fittings
-gofThld = 0.5;
+gofThld = 0.4;
 
 disp('----------FAILED FITTINGS----------');
 fprintf('%25s\t%-10s\t%-5s\t%-5s\t%-5s\t%-5s\t\n', 'Odor', 'ORN', 'Amp', 'Slop', 'EC50', 'R^2');
 
+plotFlag = 0;
 for i = 1: rowTotal
     for j = 1: colTotal
-        if r2Matrix(i, j) < gofThld
+        if r2Matrix(i, j) < gofThld || cMatrix(i, j)  ==0
+
             fprintf('%25s\t%-5s\t%.2f\t%.2f\t%.2f\t%.2f\n', input.Odor{i}, ...
                 input.ORN{j}, aMatrix(i,j), slop, cMatrix(i,j), r2Matrix(i,j));
-            
+
             if plotFlag == 1
                 xx = squeeze(concTs(i, j, :));
                 yy = squeeze(rspTs(i, j, :));
@@ -327,6 +395,8 @@ for i = 1: rowTotal
                 plot(xP, yP, 'r'); xlabel('log10(c)'); ylabel('\DeltaF/F');
                 title([input.Odor{i}, input.ORN{j}]);
             end
+            
+            aMatrix(i,j)=NaN;       cMatrix(i,j)=NaN;
         end
     end
 end
@@ -334,7 +404,7 @@ end
 %% show the EC50 matrix and amlitude matrix
 
 %replace NaN in the EC50 matrix with 0
-cMatrix(isnan(cMatrix)) = 0;
+% cMatrix(isnan(cMatrix)) = 0;
 
 % apply the sequence of ORN and odor to order elements of the matrix 
 % odorOrder = [17 12 15 2 10 3 4 16 9 1 18 8 6 5 7 13 14 11]; % the order is consistant to figure 2
@@ -343,8 +413,12 @@ cMatrix(isnan(cMatrix)) = 0;
 % odorOrder = [19,33,12,32,27,15,14,7,8,9,6,22,24,31,30,29,1,5,10,17,28,3,4,23,20,26,13,25,16,2,11,21,34,18]; 
 % ORNOrder  = [19,21,3,6,8,14,10,16,9,7,11,4,1,13,12,2,20,5,15,17,18];
 
-odorOrder = [18,34,21,2,11,16,25,13,26,17,20,28,23,4,3,10,5,1,29,27,24,30,31,22,6,9,8,7,14,15,32,12,19,33]; 
-ORNOrder  = [18,17,15,5,20,2,1,12,13,4,11,7,16,9,10,14,8,6,3,21,19];
+% odorOrder = [18,34,21,2,11,16,25,13,26,17,20,28,23,4,3,10,5,1,29,27,24,30,31,22,6,9,8,7,14,15,32,12,19,33]; 
+% ORNOrder  = [18,17,15,5,20,2,1,12,13,4,11,7,16,9,10,14,8,6,3,21,19];
+
+
+ORNOrder = [19,21,3,6,8,14,10,16,9,7,11,4,12,13,1,2,20,5,17,15,18];
+odorOrder = [19,33,12,32,27,15,14,7,8,9,6,22,24,31,30,29,1,5,10,3,23,4,20,28,26,17,13,25,16,2,21,11,34,18];
 
 [rowNum, colNum] = size(cMatrix);
 newMStep1 = -cMatrix;
@@ -372,7 +446,6 @@ cmp = colormap(jet); cmp(1,:) = [0 0 0];
 colormap(cmp); c = colorbar; 
 c.TickLabels{1} = 'NaN'; c.Label.String = '-log10(EC50)';
 title('EC50'); 
-
 
 % show the amplitude matrix
 aMatShow = aMatrix;    aMatShow(isnan(aMatShow)) = 0;
@@ -403,11 +476,30 @@ colormap(cmp); c = colorbar;
 c.TickLabels{1} = 'NaN'; c.Label.String = '-log10(EC50)';
 title('Amp'); 
 
+%%
+save('fitResults.mat', 'aMatrix', 'cMatrix', 'r2Matrix', 'slop');
+
+%% visualzie the type of curves in plot of A-vs-EC50
+
+% cMap = [230,97,1; ...
+%     0,0,0;...
+%     94,60,153]/255;
+
+cMap = parula(4);
+
+figure; 
+dffMP = max(rspTs, [], 3);
+
+for i = 1:3
+    xData = cMatrix( find(maskPlot == i) );
+    yData = dffMP( find(maskPlot == i) ); 
+    
+    plot(xData, yData, 'o', 'Color', cMap(i, :));
+    hold on
+end
+
+hold off;
+ylabel('\DeltaF/F_{max}'); xlabel('log_{10}(EC_{50})');
+title('Types');
 
 %%
-% save('fitResults.mat', 'aMatrix', 'cMatrix', 'r2Matrix', 'slop');
-
-
-
-
-

@@ -10,7 +10,8 @@ eSSR = @(p) EnsembleSSR(p, dataX, dataY, hillEq);
 % options = optimset('PlotFcns',@optimplotfval);
 % [param, ssr]= fminsearch(eSSR, p0, options);
 
-[param, ssr]= fminsearch(eSSR, p0);
+options = optimset('TolFun',1e-4,'Display','notify','MaxIter',100000,'MaxFunEvals',100000 );% ,'PlotFcns',@optimplotfval);
+[param, ssr]= fminsearch(eSSR, p0, options);
 
 slop= param(1);
 ampVec = param(2:trialNum+1);
