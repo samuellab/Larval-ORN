@@ -379,6 +379,8 @@ plotFlag = 0;
 for i = 1: rowTotal
     for j = 1: colTotal
         if r2Matrix(i, j) < gofThld || cMatrix(i, j)  ==0
+            
+            maskPlot(i, j) = 4;
 
             fprintf('%25s\t%-5s\t%.2f\t%.2f\t%.2f\t%.2f\n', input.Odor{i}, ...
                 input.ORN{j}, aMatrix(i,j), slop, cMatrix(i,j), r2Matrix(i,j));
@@ -396,7 +398,7 @@ for i = 1: rowTotal
                 title([input.Odor{i}, input.ORN{j}]);
             end
             
-            aMatrix(i,j)=NaN;       cMatrix(i,j)=NaN;
+%             aMatrix(i,j)=NaN;       cMatrix(i,j)=NaN;
         end
     end
 end
@@ -477,7 +479,7 @@ c.TickLabels{1} = 'NaN'; c.Label.String = '-log10(EC50)';
 title('Amp'); 
 
 %%
-save('fitResults.mat', 'aMatrix', 'cMatrix', 'r2Matrix', 'slop');
+save('fitResults.mat', 'aMatrix', 'cMatrix', 'r2Matrix', 'slop', 'maskPlot');
 
 %% visualzie the type of curves in plot of A-vs-EC50
 

@@ -6,6 +6,19 @@ t = ORNSpikeData;
 conc = reshape(cell2mat(t(:, 3)), [5, length(ornList)]);
 dff =  reshape(cell2mat(t(:, 4)), [5, length(ornList)]);
 
+%% our data
+rows = [3,  8,  6,  7,  9, 1, 16, 18, 17, 14, 10, 15, 5,  13, 11, 4   12];   
+cols = [13, 16, 10, 14, 1, 4, 5,  17, 2,  8,  1,  6,  11, 20, 15, 12, 21];
+
+lut = [1: 14, NaN, 15: 17, NaN];
+% lut = [1, NaN, 2:7, NaN 9: 14, NaN, 15: 17, NaN];
+
+load(fullfile('..', 'AnalysisResults', 'fitResults.mat'));
+
+for i  = 1:length(rows)
+    kdG(i) = cMatrix(rows(i), cols(i));   
+end
+
 %% pre fit
 
 hillEq = @(a, b, c, x)  a./(1+ exp(-b*(x-c)));
@@ -47,10 +60,18 @@ fprintf('%-5s\t%-5s\t\n', 'Slop', 'R^2');
 fprintf('%.2f\t%.2f\t\n', slop, rSquare);
 
 fprintf('Each individual curve:\n');
-fprintf('%-5s\t%-5s\t%-5s\t%-5s\t\n', 'ORN', 'Amp', 'Slop', 'EC50');
+fprintf('%-5s\t%-5s\t%-5s\t%-5s\t%-5s\t\n', 'ORN', 'Amp', 'Slop', 'EC50', 'EC50_GCaMP');
+
+kdList = NaN(19, 1);
 for i = 1:19
-    fprintf('%-5s\t%.2f\t%.2f\t%.2f\n', ...
-        ornList{i}, ampVec, slop, kdVec(i));
+    if ~isnan(lut(i))
+        kdList(i)= kdG(lut(i));
+        fprintf('%-5s\t%.2f\t%.2f\t%.2f\t%.2f\n', ...
+            ornList{i}, ampVec, slop, kdVec(i), kdG(lut(i)));
+    else
+        fprintf('%-5s\t%.2f\t%.2f\t%.2f\n', ...
+            ornList{i}, ampVec, slop, kdVec(i));
+    end
 end
 
 dataXEn = conc' -  repmat(kdVec,  1, 5);
@@ -63,3 +84,7 @@ yPlot = hillEq(1, slop, 0, xPlot);
 plot(xPlot, yPlot, 'r'); xlabel('Relative Dose (log dilution)'); ylabel('Norm. firing rate');
 hold off;
 
+
+%%
+figure; scatter(kdList(~isnan(kdList)), kdVec(~isnan(kdList))) ;
+title(['corr.=', num2str(corr(kdList(~isnan(kdList)), kdVec(~isnan(kdList))))]);

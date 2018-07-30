@@ -1,4 +1,4 @@
-load('fitResults.mat');
+load(fullfile('AnalysisResults', 'fitResults.mat'));
 
 %% load odor solubility
 [mw, rho, sol] = loadOdorSolub();

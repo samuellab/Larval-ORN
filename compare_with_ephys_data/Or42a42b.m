@@ -1,5 +1,11 @@
 load('Or42aOr42b.mat')
 
+%% our data
+row = 21;   cols = [5, 17];
+load(fullfile('..', 'AnalysisResults', 'fitResults.mat'));
+
+kdG(1) = cMatrix(row, cols(1));    kdG(2) = cMatrix(row, cols(2));
+
 %%
 hillEq = @(a, b, c, x)  a./(1+ exp(-b*(x-c)));
 
@@ -15,7 +21,7 @@ opts.StartPoint = [200 4 -6];
 odor = 'ethyl acetate';
 orn = {'Or42a', 'Or42b'};
 
-fprintf('%25s\t%-5s\t%-5s\t%-5s\t%-5s\t%-5s\t\n', 'Odor', 'ORN', 'Amp', 'Slop', 'EC50', 'R^2');
+fprintf('%25s\t%-5s\t%-5s\t%-5s\t%-5s\t%-5s\t%-5s\t\n', 'Odor', 'ORN', 'Amp', 'Slop', 'EC50', 'R^2', 'EC50_GCaMP');
 figure;
 
 for i = 1:2
@@ -31,8 +37,8 @@ for i = 1:2
     rSq = gof.rsquare; coeff = coeffvalues(fitresult);
 
    
-    fprintf('%25s\t%-5s\t%.2f\t%.2f\t%.2f\t%.2f\n', 'ethyl acetate', ...
-        orn{i}, coeff(1), coeff(2), coeff(3), rSq);
+    fprintf('%25s\t%-5s\t%.2f\t%.2f\t%.2f\t%.2f\t%.2f\n', 'ethyl acetate', ...
+        orn{i}, coeff(1), coeff(2), coeff(3), rSq, kdG(i));
 
     xP = linspace(min(xx), max(xx), 50);
     yP = hillEq(coeff(1), coeff(2), coeff(3), xP);
@@ -40,3 +46,10 @@ for i = 1:2
     plot(xx, yy, 'ok'); hold on;
     plot(xP, yP, 'r'); xlabel('Dose(log dilution)'); ylabel('ORN response (spikes/s)');
 end
+
+
+
+
+
+
+

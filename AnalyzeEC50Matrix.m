@@ -1,11 +1,19 @@
 %% load the fitted EC50 matrix
-clear; clc;
+clear; 
+% clc;
 warning('off','all');
 % diary(fullfile('.', 'AnalysisResults', 'AnalyzeEC50Matrix_log.txt')); 
 % diary on;
 
 % load(fullfile('.', 'AnalysisResults', 'FitDoseResponse.mat'));
-load(fullfile('.', 'AnalysisResults', 'fitResults.mat'));
+
+% load(fullfile('.', 'AnalysisResults', 'fitResults.mat'));
+
+% load('\\LABNAS100\Guangwei\code\fitting\FinalFittingResult\MLE_fit_all_20180718.mat')
+% cMatrix = c0MLE;
+
+load(fullfile('.', 'AnalysisResults', 'MLEFit_Final_20180724.mat'));
+cMatrix = cMatrixMLE;
 
 
 % load(fullfile('.', 'data', 'AveRawDataMatrix.mat'));
@@ -14,6 +22,38 @@ load(fullfile('.', 'data', 'AveRawDataMatrix2ndRound.mat'));
 % %%
 % figure;
 % imagesc(-cMatrix);
+%% visualize the EC50 matrix
+
+ORNOrder = [19,21,3,6,8,14,10,16,9,7,11,4,12,13,1,2,20,5,17,15,18];
+odorOrder = [19,33,12,32,27,15,14,7,8,9,6,22,24,31,30,29,1,5,10,3,23,4,20,28,26,17,13,25,16,2,21,11,34,18];
+
+[rowNum, colNum] = size(cMatrix);
+newMStep1 = -cMatrix;
+for i = 1:rowNum
+    newMStep1(i,:) = -cMatrix(odorOrder(i),:);
+end
+newMStep2 = newMStep1;
+for i = 1:colNum
+    newMStep2(:,i) = newMStep1(:,ORNOrder(i));
+end
+
+% draw the heat map of the EC50 matrix
+ec50Map = newMStep2;
+figure;  pos = get(gcf, 'pos'); set(gcf, 'pos', [pos(1), pos(2), 610, 420]);
+imagesc(ec50Map); 
+set(gcf, 'Position', [100 250 560 700])
+set(gca, 'CLim', [0 max(ec50Map(:))]);
+set(gca,'XTick',1:colNum);
+set(gca,'XTickLabel', ORNList(ORNOrder));
+set(gca,'xaxisLocation','top');
+set(gca,'YTick',1:rowNum);
+set(gca,'YTickLabel', odorList(odorOrder));
+set(gca, 'XTickLabelRotation', 45);
+cmp = colormap(jet); cmp(1,:) = [0 0 0];
+colormap(cmp); c = colorbar; 
+c.TickLabels{1} = 'NaN'; c.Label.String = '-log10(EC50)';
+title('EC50'); 
+
 
 %% distribution of the value of 1/EC50
 % pool the non-NaN elements
@@ -40,7 +80,8 @@ xlabel('1/EC50'); ylabel('CDF'); title('CDF(1/EC50)');
 addpath(fullfile('.', '3rdPartyCodes', 'powerlaws_full_v0.0.10-2012-01-17'));
 
 % fit the power law function
-[alpha, xmin, L] = plfit( sData );
+[alpha, xmin, L] = plfit( sData, 'limit', 1e+5);
+
 % visualize the fiting results
 plplot(sData, xmin, alpha);
 % estimates the uncertainty in the estimated power-law parameters.
@@ -49,12 +90,45 @@ plplot(sData, xmin, alpha);
 % print the fitting resutls
 disp('----------Fit Distribution Function of 1/EC50 Data----------');
 disp('Reference: http://tuvalu.santafe.medu/~aaronc/powerlaws/');
-disp('PDF: p(x) = x^-alpha, for x >= xin');
+disp('PDF: p(x) = x^-alpha, for x >= xim');
 fprintf('%25s: alpha = %.2f\n', 'Scaling exponent', alpha);
 fprintf('%25s: xmin = %.2e\n', 'Lower bound', xmin);
 fprintf('%25s: L = %.2e\n','Log-likelihood', L);
 fprintf('%25s: p = %.2f\n', 'p-Value', p);
 fprintf('(Quote from the paper) If the resulting p-value is greater than 0.1,\n the power law is a plausible hypothesis for the data, otherwise it is rejected.\n')
+
+
+%% randomly assemble a subset of odors calculate the distribution 
+N = 1000;
+nOdor = 18;
+
+fitSubCoef = zeros(N, 3);
+
+% disp('----------Fit 1/EC50 Distribution Using Subset of Data----------');
+% fprintf('%-3s\t%-4s\t%-5s\t%-3s\t\n', '#', 'alpha', 'xmin', 'p');
+
+parfor i = 1:N
+    list = randperm(34);
+    list = list(1:nOdor);
+    cMatSubset = cMatrix(list, :);
+
+    cPoolSub = cMatSubset(~isnan(cMatSubset));
+    sDataSub = 1./(10.^cPoolSub);
+    sDataSub = sort(sDataSub);
+    
+    [alphaSub, xminSub, LSub] = plfit( sDataSub, 'limit', 1e+5);
+    [pSub,gofSub] = plpva(sDataSub, xminSub, 'silent');
+    
+    fitSubCoef(i, :) = [alphaSub, xminSub, pSub];
+    
+% 	fprintf('%.0f\t%.2f\t%.0f\t%.2f\t\n',i, alphaSub, xminSub, pSub);
+
+end
+%%
+disp(['Count of P-vlaue greater than 0.1: ', num2str(length(find(fitSubCoef(:, 3) > 0.1)))]);
+figure; histogram(fitSubCoef(:,end), 10);
+idxSub = find(fitSubCoef(:, 3) > 0.1);
+figure; histogram(fitSubCoef(idxSub, 1), 10); title([num2str(mean(fitSubCoef(idxSub, 1))), ' +- ', num2str(std(fitSubCoef(idxSub, 1)))])
 
 %% apply PCA on the EC50 matrix
 % replace NaN in the EC50 matrix with 0
@@ -116,11 +190,12 @@ mOpt = m(:, optList);
 % projection and each structure metric
 rho = zeros(1, length(mOpt));
 for i = 1:length(optList)
-    temp = corrcoef(proj1st, mOpt(:,i));
-    rho(i) = temp(1, 2);
+%     temp = corrcoef(proj1st, mOpt(:,i));
+%     rho(i) = temp(1, 2);
+    rho(i) = corr(proj1st, mOpt(:,i));
 end
 %find the largest correlation coefficient
-[rhoMax, rhoMaxInd] = max(rho);
+[rhoMax, rhoMaxInd] = max(abs(rho));
 
 % calculate the linear fitting
 xdata = proj1st;
@@ -196,3 +271,32 @@ fprintf('%.0f sigma significance compare with shuffled data. \n', round(signific
 %% Save analyzed data 
 % save(fullfile('.', 'AnalysisResults', 'AnalyzeEC50Matrix.mat'), 'alpha', 'xmin', 'p');
 % diary off;
+
+%% sort the -log10(EC50) for each odor
+negC = -cMatrix;
+negCMax = max(negC, [], 2);
+[~, rowIdx] = sort(negCMax, 'descend');
+
+figure; 
+for i = 1:rowNum
+    idx = rowIdx(i);
+    kdVec = negC(idx, :);
+    kdVec = kdVec(find(kdVec));
+    [kdVec, ~] = sort(kdVec);   
+    
+    iShow = i;
+    
+    yPlot = repmat([iShow-0.3; iShow+0.3], [1, length(kdVec)]);
+    xPlot = repmat(kdVec, [2, 1]);
+    plot(xPlot, yPlot, 'k'); 
+    hold on;
+    plot([1, 10], [iShow, iShow], 'k');
+%     plot([hc(idx); hc(idx)], [iShow-0.3; iShow+0.3],'r');
+end
+xlabel('-log_{10}EC_{50}');axis tight; 
+% set(gca,'box','off','ycolor','w')
+set(gca,'box','off');
+set(gcf, 'Position', [200 10 560 988]);
+yticks(1 : rowNum);
+yticklabels(odorList(rowIdx));
+
