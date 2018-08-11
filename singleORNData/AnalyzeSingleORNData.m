@@ -25,6 +25,8 @@ results.fitIndiv = cell(3, 2);
 results.cmpPValue = cell(3, 1);
 
 %%
+
+
 for  ff = 1:2
     
     load(input.matFiles{ff}, input.varNames{ff});   % load files
@@ -148,6 +150,9 @@ for  ff = 1:2
     xlabel('Concentration'); ylabel('\DeltaF/F');
     set(gca,'XScale','log' );
     hold off;
+   
+	
+    
 end
 
 % %% plot the var-vs-mean 
@@ -228,7 +233,34 @@ slopAll = [slop1, slop2];
 mean(slopAll(:))
 std(slopAll(:))
 
+%% plot all curves on one figure
+figure; 
+cmap = [215 25 28; 253 174 97; 171 217 233; 44 123 182]/255;
+errorbar(input.concList{1,1}(1:7), results.rMean{1,1}(1:7), results.rSEM{1,1}(1:7), '-o', 'Color', cmap(2,:)); hold on;
+errorbar(input.concList{1,2}(1:7), results.rMean{1,2}(1:7), results.rSEM{1,2}(1:7), '-o', 'Color', cmap(1,:));
+errorbar(input.concList{2,1}, results.rMean{2,1}, results.rSEM{2,1}, '-o', 'Color', cmap(4,:));
+errorbar(input.concList{2,2}(1:7), results.rMean{2,2}(1:7), results.rSEM{2,2}(1:7), '-o', 'Color', cmap(3,:));
 
+xlabel('Concentration'); ylabel('\DeltaF/F');
+set(gca,'XScale','log' );
+hold off;
 
+%% plot individual curves.
 
+cmap = [215 25 28; 253 174 97; 171 217 233; 44 123 182]/255;
+ 
 
+for i = 1:2
+    figure;
+    for j = 1:2
+        dffBlock = input.data{i, j};
+        concVec = input.concList{i, j};
+        trailNum = size(dffBlock, 1);
+        for k  = 1:trailNum
+            plot(concVec, dffBlock(k, :), '-o', 'Color', cmap((i-1)*2+j, :)); hold on;
+        end
+        
+    end
+    xlabel('Concentration'); ylabel('\DeltaF/F');
+        set(gca,'XScale','log' ); hold off;
+end

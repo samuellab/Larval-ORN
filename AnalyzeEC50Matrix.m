@@ -22,7 +22,7 @@ load(fullfile('.', 'data', 'AveRawDataMatrix2ndRound.mat'));
 % %%
 % figure;
 % imagesc(-cMatrix);
-%% visualize the EC50 matrix
+%% visualize the log10(1/EC50) matrix
 
 ORNOrder = [19,21,3,6,8,14,10,16,9,7,11,4,12,13,1,2,20,5,17,15,18];
 odorOrder = [19,33,12,32,27,15,14,7,8,9,6,22,24,31,30,29,1,5,10,3,23,4,20,28,26,17,13,25,16,2,21,11,34,18];
@@ -52,8 +52,97 @@ set(gca, 'XTickLabelRotation', 45);
 cmp = colormap(jet); cmp(1,:) = [0 0 0];
 colormap(cmp); c = colorbar; 
 c.TickLabels{1} = 'NaN'; c.Label.String = '-log10(EC50)';
+title('log10(EC50)'); 
+
+%% visualize the EC50 matrix
+newMStep1 = 10.^(cMatrix);
+for i = 1:rowNum
+    newMStep1(i,:) = 10.^(cMatrix(odorOrder(i),:));
+end
+newMStep2 = newMStep1;
+for i = 1:colNum
+    newMStep2(:,i) = newMStep1(:,ORNOrder(i));
+end
+
+% draw the heat map of the EC50 matrix
+ec50Map = newMStep2;
+ec50Map(isnan(ec50Map)) =  max(ec50Map(:))+0.001;
+figure;  pos = get(gcf, 'pos'); set(gcf, 'pos', [pos(1), pos(2), 610, 420]);
+imagesc(ec50Map); 
+set(gcf, 'Position', [100 250 560 700])
+set(gca, 'CLim', [0 max(ec50Map(:))]);
+set(gca,'XTick',1:colNum);
+set(gca,'XTickLabel', ORNList(ORNOrder));
+set(gca,'xaxisLocation','top');
+set(gca,'YTick',1:rowNum);
+set(gca,'YTickLabel', odorList(odorOrder));
+set(gca, 'XTickLabelRotation', 90);
+cmp = colormap(jet); 
+cmp(end+1,:) = [0 0 0];
+colormap(cmp); c = colorbar; 
+% c.TickLabels{end} = 'NaN'; 
+c.Label.String = 'EC50';
 title('EC50'); 
 
+%% visualize the 1/EC50 matrix
+newMStep1 = 10.^(-cMatrix);
+for i = 1:rowNum
+    newMStep1(i,:) = 10.^(-cMatrix(odorOrder(i),:));
+end
+newMStep2 = newMStep1;
+for i = 1:colNum
+    newMStep2(:,i) = newMStep1(:,ORNOrder(i));
+end
+
+% draw the heat map of the EC50 matrix
+ec50Map = newMStep2;
+ec50Map(isnan(ec50Map)) =  -0.2*10^8;
+figure;  pos = get(gcf, 'pos'); set(gcf, 'pos', [pos(1), pos(2), 610, 420]);
+imagesc(ec50Map); 
+set(gcf, 'Position', [100 250 560 700])
+set(gca, 'CLim', [min(ec50Map(:)) max(ec50Map(:))]);
+set(gca,'XTick',1:colNum);
+set(gca,'XTickLabel', ORNList(ORNOrder));
+set(gca,'xaxisLocation','top');
+set(gca,'YTick',1:rowNum);
+set(gca,'YTickLabel', odorList(odorOrder));
+set(gca, 'XTickLabelRotation', 90);
+cmp = colormap(jet); 
+cmp(1,:) = [0 0 0];
+colormap(cmp); c = colorbar; 
+% c.TickLabels{end} = 'NaN'; 
+c.Label.String = '1/EC50';
+title('1/EC50'); 
+
+%% visualize the log10(EC50) matrix
+newMStep1 = cMatrix;
+for i = 1:rowNum
+    newMStep1(i,:) = cMatrix(odorOrder(i),:);
+end
+newMStep2 = newMStep1;
+for i = 1:colNum
+    newMStep2(:,i) = newMStep1(:,ORNOrder(i));
+end
+
+% draw the heat map of the EC50 matrix
+ec50Map = newMStep2;
+ec50Map(isnan(ec50Map)) =  -1;
+figure;  pos = get(gcf, 'pos'); set(gcf, 'pos', [pos(1), pos(2), 610, 420]);
+imagesc(ec50Map); 
+set(gcf, 'Position', [100 250 560 700])
+set(gca, 'CLim', [min(ec50Map(:)) max(ec50Map(:))]);
+set(gca,'XTick',1:colNum);
+set(gca,'XTickLabel', ORNList(ORNOrder));
+set(gca,'xaxisLocation','top');
+set(gca,'YTick',1:rowNum);
+set(gca,'YTickLabel', odorList(odorOrder));
+set(gca, 'XTickLabelRotation', 90);
+cmp = colormap(jet); 
+cmp(end,:) = [0 0 0];
+colormap(cmp); c = colorbar; 
+c.TickLabels{end} = 'NaN'; 
+c.Label.String = 'log10(EC50)';
+title('log10(EC50)'); 
 
 %% distribution of the value of 1/EC50
 % pool the non-NaN elements
@@ -99,31 +188,31 @@ fprintf('(Quote from the paper) If the resulting p-value is greater than 0.1,\n 
 
 
 %% randomly assemble a subset of odors calculate the distribution 
-N = 1000;
-nOdor = 18;
-
-fitSubCoef = zeros(N, 3);
-
-% disp('----------Fit 1/EC50 Distribution Using Subset of Data----------');
-% fprintf('%-3s\t%-4s\t%-5s\t%-3s\t\n', '#', 'alpha', 'xmin', 'p');
-
-parfor i = 1:N
-    list = randperm(34);
-    list = list(1:nOdor);
-    cMatSubset = cMatrix(list, :);
-
-    cPoolSub = cMatSubset(~isnan(cMatSubset));
-    sDataSub = 1./(10.^cPoolSub);
-    sDataSub = sort(sDataSub);
-    
-    [alphaSub, xminSub, LSub] = plfit( sDataSub, 'limit', 1e+5);
-    [pSub,gofSub] = plpva(sDataSub, xminSub, 'silent');
-    
-    fitSubCoef(i, :) = [alphaSub, xminSub, pSub];
-    
-% 	fprintf('%.0f\t%.2f\t%.0f\t%.2f\t\n',i, alphaSub, xminSub, pSub);
-
-end
+% N = 1000;
+% nOdor = 18;
+% 
+% fitSubCoef = zeros(N, 3);
+% 
+% % disp('----------Fit 1/EC50 Distribution Using Subset of Data----------');
+% % fprintf('%-3s\t%-4s\t%-5s\t%-3s\t\n', '#', 'alpha', 'xmin', 'p');
+% 
+% parfor i = 1:N
+%     list = randperm(34);
+%     list = list(1:nOdor);
+%     cMatSubset = cMatrix(list, :);
+% 
+%     cPoolSub = cMatSubset(~isnan(cMatSubset));
+%     sDataSub = 1./(10.^cPoolSub);
+%     sDataSub = sort(sDataSub);
+%     
+%     [alphaSub, xminSub, LSub] = plfit( sDataSub, 'limit', 1e+5);
+%     [pSub,gofSub] = plpva(sDataSub, xminSub, 'silent');
+%     
+%     fitSubCoef(i, :) = [alphaSub, xminSub, pSub];
+%     
+% % 	fprintf('%.0f\t%.2f\t%.0f\t%.2f\t\n',i, alphaSub, xminSub, pSub);
+% 
+% end
 %%
 disp(['Count of P-vlaue greater than 0.1: ', num2str(length(find(fitSubCoef(:, 3) > 0.1)))]);
 figure; histogram(fitSubCoef(:,end), 10);
