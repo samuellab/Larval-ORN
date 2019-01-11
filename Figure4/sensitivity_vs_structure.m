@@ -1,6 +1,6 @@
 clear;  clc; warning('off','all');
 
-diary(fullfile('.', 'results', 'log_Figure4.txt')); 
+diary(fullfile('.', 'results', 'Figure4_log.txt')); 
 diary on;
 
 %% load the fitted log_10(EC50) matrix
