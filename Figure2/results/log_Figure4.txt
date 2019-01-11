@@ -1,0 +1,250 @@
+{Reference to a cleared variable editorId.
+
+Error in matlab.internal.editor.eval.FileInfo
+
+Error in matlab.internal.editor.eval.TmpFilePath.get
+
+Error in matlab.internal.editor.evaluateCode
+
+Error in matlab.internal.editor.evaluateCode
+} 
+if system_dependent('IsDebugMode')==1, dbquit all; end
+ReadRawData
+{Error using <a href="matlab:matlab.internal.language.introspective.errorDocCallback('cell2mat', 'C:\Program Files\MATLAB\R2018a\toolbox\matlab\datatypes\cell2mat.p', 45)" style="font-weight:bold">cell2mat</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2018a\toolbox\matlab\datatypes\cell2mat.p',45,0)">line 45</a>)
+All contents of the input cell array must be of the same data type.
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('ReadRawData', 'C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\Figure2\ReadRawData.m', 16)" style="font-weight:bold">ReadRawData</a> (<a href="matlab: opentoline('C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\Figure2\ReadRawData.m',16,0)">line 16</a>)
+dataRaw = cell2mat(raw(2:end, 4:end));
+} 
+opentoline('C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\Figure2\ReadRawData.m',16,0)
+ReadRawData
+if system_dependent('IsDebugMode')==1, dbquit all; end
+ReadRawData
+{Error using <a href="matlab:matlab.internal.language.introspective.errorDocCallback('cell2mat', 'C:\Program Files\MATLAB\R2018a\toolbox\matlab\datatypes\cell2mat.p', 45)" style="font-weight:bold">cell2mat</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2018a\toolbox\matlab\datatypes\cell2mat.p',45,0)">line 45</a>)
+All contents of the input cell array must be of the same data type.
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('ReadRawData', 'C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\Figure2\ReadRawData.m', 16)" style="font-weight:bold">ReadRawData</a> (<a href="matlab: opentoline('C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\Figure2\ReadRawData.m',16,0)">line 16</a>)
+dataRaw = cell2mat(raw(2:end, 4:end));
+} 
+ReadRawData
+a = raw(2:end, 4:end);
+if system_dependent('IsDebugMode')==1, dbquit; end
+uiopen('C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\Old functions and data\data\data_2nd_round\reformat_data.m',1)
+uiopen('C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\Old functions and data\data\data_2nd_round\deal_with_saturated_data.m',1)
+uiopen('C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\Old functions and data\Final_LoadData.m',1)
+Final_LoadData
+{Error using <a href="matlab:matlab.internal.language.introspective.errorDocCallback('readtable', 'C:\Program Files\MATLAB\R2018a\toolbox\matlab\iofun\readtable.m', 197)" style="font-weight:bold">readtable</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2018a\toolbox\matlab\iofun\readtable.m',197,0)">line 197</a>)
+Unable to open file '.\data\Data S1.csv'.
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('Final_LoadData', 'C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\Old functions and data\Final_LoadData.m', 4)" style="font-weight:bold">Final_LoadData</a> (<a href="matlab: opentoline('C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\Old functions and data\Final_LoadData.m',4,0)">line 4</a>)
+rawDataTable = readtable(fileName);    % load Excel file
+} 
+clc
+LoadData
+if system_dependent('IsDebugMode')==1, dbquit all; end
+LoadData
+if system_dependent('IsDebugMode')==1, dbquit; end
+clear
+clc
+LoadData
+if system_dependent('IsDebugMode')==1, dbquit; end
+LoadData
+if system_dependent('IsDebugMode')==1, dbquit; end
+clar
+{Undefined function or variable 'clar'.
+} 
+clear
+clc
+LoadData
+clear
+PlotHeatMap
+{Error using <a href="matlab:matlab.internal.language.introspective.errorDocCallback('save')" style="font-weight:bold">save</a>
+Cannot create 'heatmap.fig' because 'AnalysisResults\Figures' does not exist.
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('matlab.graphics.internal.figfile.FigFile/write', 'C:\Program Files\MATLAB\R2018a\toolbox\matlab\graphics\+matlab\+graphics\+internal\+figfile\@FigFile\write.m', 32)" style="font-weight:bold">matlab.graphics.internal.figfile.FigFile/write</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2018a\toolbox\matlab\graphics\+matlab\+graphics\+internal\+figfile\@FigFile\write.m',32,0)">line 32</a>)
+save(obj.Path, obj.MatVersion, '-struct', 'SaveVars');
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('savefig', 'C:\Program Files\MATLAB\R2018a\toolbox\matlab\graphics\savefig.m', 84)" style="font-weight:bold">savefig</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2018a\toolbox\matlab\graphics\savefig.m',84,0)">line 84</a>)
+FF.write();
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('PlotHeatMap', 'C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\Figure2\PlotHeatMap.m', 142)" style="font-weight:bold">PlotHeatMap</a> (<a href="matlab: opentoline('C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\Figure2\PlotHeatMap.m',142,0)">line 142</a>)
+savefig(gcf, fullfile('AnalysisResults', 'Figures', 'heatmap.fig'));
+} 
+opentoline('C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\Figure2\PlotHeatMap.m',142,0)
+PlotHeatMap
+{Error using <a href="matlab:matlab.internal.language.introspective.errorDocCallback('save')" style="font-weight:bold">save</a>
+Cannot create 'heatmap.fig' because 'results\Figures' does not exist.
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('matlab.graphics.internal.figfile.FigFile/write', 'C:\Program Files\MATLAB\R2018a\toolbox\matlab\graphics\+matlab\+graphics\+internal\+figfile\@FigFile\write.m', 32)" style="font-weight:bold">matlab.graphics.internal.figfile.FigFile/write</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2018a\toolbox\matlab\graphics\+matlab\+graphics\+internal\+figfile\@FigFile\write.m',32,0)">line 32</a>)
+save(obj.Path, obj.MatVersion, '-struct', 'SaveVars');
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('savefig', 'C:\Program Files\MATLAB\R2018a\toolbox\matlab\graphics\savefig.m', 84)" style="font-weight:bold">savefig</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2018a\toolbox\matlab\graphics\savefig.m',84,0)">line 84</a>)
+FF.write();
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('PlotHeatMap', 'C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\Figure2\PlotHeatMap.m', 142)" style="font-weight:bold">PlotHeatMap</a> (<a href="matlab: opentoline('C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\Figure2\PlotHeatMap.m',142,0)">line 142</a>)
+savefig(gcf, fullfile('results', 'Figures', 'heatmap.fig'));
+} 
+opentoline('C:\Program Files\MATLAB\R2018a\toolbox\matlab\graphics\+matlab\+graphics\+internal\+figfile\@FigFile\write.m',32,0)
+opentoline('C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\Figure2\PlotHeatMap.m',142,0)
+PlotHeatMap
+PlotHeatMap
+mat2str(concNew)
+
+ans =
+
+    '[1e-07;1e-06;1e-05;0.0001]'
+
+mat2str(concNew{:})
+{Brace indexing is not supported for variables of this type.
+} 
+mat2str(concNew(:))
+
+ans =
+
+    '[1e-07;1e-06;1e-05;0.0001]'
+
+mat2cell(concNew)
+{Error using <a href="matlab:matlab.internal.language.introspective.errorDocCallback('mat2cell', 'C:\Program Files\MATLAB\R2018a\toolbox\matlab\datatypes\mat2cell.m', 45)" style="font-weight:bold">mat2cell</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2018a\toolbox\matlab\datatypes\mat2cell.m',45,0)">line 45</a>)
+Not enough input arguments.
+} 
+cellfun(num2str, concNew)
+{Error using <a href="matlab:matlab.internal.language.introspective.errorDocCallback('num2str', 'C:\Program Files\MATLAB\R2018a\toolbox\matlab\strfun\num2str.p', 43)" style="font-weight:bold">num2str</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2018a\toolbox\matlab\strfun\num2str.p',43,0)">line 43</a>)
+Not enough input arguments.
+} 
+cellfun(@num2str, concNew)
+{Error using <a href="matlab:matlab.internal.language.introspective.errorDocCallback('cellfun')" style="font-weight:bold">cellfun</a>
+Input #2 expected to be a cell array, was double instead.
+} 
+nun2str(concNew)
+{Undefined function or variable 'nun2str'.
+} 
+num2str(concNew)
+
+ans =
+
+  4×6 <a href="matlab:helpPopup char" style="font-weight:bold">char</a> array
+
+    ' 1e-07'
+    ' 1e-06'
+    ' 1e-05'
+    '0.0001'
+
+PlotHeatMap
+PlotHeatMap
+----------Simulated Annealing Process----------
+
+  T = 1.00000, loss =   26.61575
+  T = 0.95000, loss =   26.68591
+  T = 0.90250, loss =   24.60847
+  T = 0.85737, loss =   26.34800
+  T = 0.81451, loss =   27.59479
+  T = 0.77378, loss =   22.60821
+  T = 0.73509, loss =   22.40631
+  T = 0.69834, loss =   26.32915
+  T = 0.66342, loss =   22.46255
+  T = 0.63025, loss =   21.30244
+  T = 0.59874, loss =   22.40736
+  T = 0.56880, loss =   25.96228
+  T = 0.54036, loss =   22.25070
+  T = 0.51334, loss =   19.37505
+  T = 0.48767, loss =   24.55892
+  T = 0.46329, loss =   20.05296
+  T = 0.44013, loss =   22.70747
+  T = 0.41812, loss =   22.82622
+  T = 0.39721, loss =   17.51954
+  T = 0.37735, loss =   20.15287
+  T = 0.35849, loss =   18.45809
+  T = 0.34056, loss =   19.68341
+  T = 0.32353, loss =   17.11200
+  T = 0.30736, loss =   17.76151
+  T = 0.29199, loss =   16.44145
+  T = 0.27739, loss =   16.06829
+  T = 0.26352, loss =   16.28145
+  T = 0.25034, loss =   17.20219
+  T = 0.23783, loss =   18.13660
+  T = 0.22594, loss =   17.31738
+  T = 0.21464, loss =   17.79840
+  T = 0.20391, loss =   14.83158
+  T = 0.19371, loss =   14.43937
+  T = 0.18403, loss =   15.85281
+  T = 0.17482, loss =   16.40518
+  T = 0.16608, loss =   14.14261
+  T = 0.15778, loss =   15.13120
+  T = 0.14989, loss =   14.22698
+  T = 0.14240, loss =   14.59990
+  T = 0.13528, loss =   13.04997
+  T = 0.12851, loss =   13.11463
+  T = 0.12209, loss =   13.90293
+  T = 0.11598, loss =   12.60222
+  T = 0.11018, loss =   13.00068
+  T = 0.10467, loss =   12.64059
+  T = 0.09944, loss =   13.40533
+  T = 0.09447, loss =   12.43584
+  T = 0.08974, loss =   12.04285
+  T = 0.08526, loss =   12.29087
+  T = 0.08099, loss =   12.02277
+  T = 0.07694, loss =   11.81230
+  T = 0.07310, loss =   11.19849
+  T = 0.06944, loss =   11.69140
+  T = 0.06597, loss =   11.84262
+  T = 0.06267, loss =   11.25596
+  T = 0.05954, loss =   11.46526
+  T = 0.05656, loss =   11.07037
+  T = 0.05373, loss =   10.47591
+  T = 0.05105, loss =   10.80548
+  T = 0.04849, loss =   10.95932
+  T = 0.04607, loss =   10.64300
+  T = 0.04377, loss =   10.21757
+  T = 0.04158, loss =   10.69800
+  T = 0.03950, loss =   10.22638
+  T = 0.03752, loss =    9.86010
+  T = 0.03565, loss =   10.14908
+  T = 0.03387, loss =   10.32166
+  T = 0.03217, loss =    9.83305
+  T = 0.03056, loss =   10.25304
+  T = 0.02904, loss =   10.26356
+  T = 0.02758, loss =   10.08443
+  T = 0.02620, loss =    9.96909
+  T = 0.02489, loss =    9.96703
+  T = 0.02365, loss =    9.88177
+  T = 0.02247, loss =    9.99938
+  T = 0.02134, loss =    9.78897
+  T = 0.02028, loss =    9.94301
+  T = 0.01926, loss =    9.76562
+  T = 0.01830, loss =    9.83828
+  T = 0.01738, loss =    9.87433
+  T = 0.01652, loss =    9.64193
+  T = 0.01569, loss =    9.71704
+  T = 0.01491, loss =    9.65833
+  T = 0.01416, loss =    9.67783
+  T = 0.01345, loss =    9.68112
+  T = 0.01278, loss =    9.71804
+  T = 0.01214, loss =    9.67696
+  T = 0.01153, loss =    9.64407
+  T = 0.01096, loss =    9.58108
+  T = 0.01041, loss =    9.58131
+  T = 0.00989, loss =    9.64939
+  T = 0.00939, loss =    9.58320
+  T = 0.00892, loss =    9.59758
+  T = 0.00848, loss =    9.63226
+  T = 0.00805, loss =    9.57793
+  T = 0.00765, loss =    9.58446
+  T = 0.00727, loss =    9.59814
+  T = 0.00691, loss =    9.67659
+  T = 0.00656, loss =    9.62859
+  T = 0.00623, loss =    9.61197
+  T = 0.00592, loss =    9.62711
+  T = 0.00562, loss =    9.61122
+  T = 0.00534, loss =    9.59063
+  T = 0.00508, loss =    9.60573
+  T = 0.00482, loss =    9.58651
+  T = 0.00458, loss =    9.61533
+  T = 0.00435, loss =    9.60198
+  T = 0.00413, loss =    9.58058
+  T = 0.00393, loss =    9.57134
+  T = 0.00373, loss =    9.59897
+  T = 0.00354, loss =    9.59075
+  T = 0.00337, loss =    9.59055
+  T = 0.00320, loss =    9.59253
+  T = 0.00304, loss =    9.57713
+  T = 0.00289, loss = 

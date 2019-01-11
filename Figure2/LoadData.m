@@ -1,5 +1,5 @@
-%% 
-fileName = fullfile('.', 'data', 'Data S1.csv');
+%% read csv file
+fileName = fullfile('data', 'Data S1.csv');
 
 rawDataTable = readtable(fileName);    % load Excel file
 
@@ -10,8 +10,7 @@ input.expID = rawDataTable.Exp_ID;
 input.dff = table2array(rawDataTable(:, 4:end));
 
 %% average data cross trials for each odor-ORN pair
-conc = zeros(length(input.Odor), length(input.ORN), 5);
-dff  = conc;    dffSEM = conc;
+conc = zeros(length(input.Odor), length(input.ORN), 5); dff = conc; dffSEM = conc;
 
 odorList = input.Odor;  ORNList = input.ORN;
 
@@ -48,7 +47,7 @@ for i = 1 : length(input.Odor)
     end
 end
 
-%% fill the 'gaps' with highest concentration data
+%% for ultral-sensitive pairs, fill the missing data with highest concentration data
 odorCount = size(conc, 1);      ORNCount  = size(conc, 2);
 
 mark = sum(conc - repmat(conc(1,1,:), [odorCount, ORNCount, 1]), 3);
@@ -61,7 +60,7 @@ while mark(r, c) ~= 0
     concTarget = conc(r, c, :);
 end
 
-concHm = squeeze(concTarget);
+concHm = squeeze(concTarget); % 'Hm' stands for Heat map
 dffHm = dff;  dffSEMHm = dffSEM;    
 
 for i = 1 : length(rowFill)
@@ -83,6 +82,5 @@ odorList{find(strcmp(odorList,'4-methylcyclohexane' ))} = '4-methylcyclohexanol 
 odorList{find(strcmp(odorList,'4-pheny-2-butanol' ))} = '4-phenyl-2-butanol';
 
 %% save data
-save(fullfile('data', 'doseResponseData.mat'), 'rawDataTable', ...
+save(fullfile('results', 'doseResponseData.mat'), 'rawDataTable', ...
 	'odorList', 'ORNList', 'conc', 'dff', 'dffSEM', 'concHm', 'dffHm', 'dffSEMHm');
-
