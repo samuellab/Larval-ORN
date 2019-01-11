@@ -42,4 +42,4 @@ view(159.4, 11.3);
 hold off
 
 % save figure
-savefig(gcf, fullfile('results', 'figures', 'heatmap_Figure2B.fig'));
+savefig(gcf, fullfile('results', 'figures', 'PCA_Figure2B.fig'));
