@@ -8,21 +8,26 @@ If you use this data or code, please cite the following paper:
 Si G., Kanwal J.K., Hu Y., Tabone C., Baron J., Berck M., Vignoud G., Samuel A.D.T.(2019). Structured Odorant Response Patterns across a Complete Olfactory Receptor Neuron Population. Neuron, 101, 1-13.
 
 --------------------
+Links to the following data sets:
+1. Raw dose-response data (Fig. 2A): https://github.com/samuellab/Larval-ORN/tree/master/Figure2/Data
+2. Averaged dose-response data of saturated curves (Fig. 3A): https://github.com/samuellab/Larval-ORN/tree/master/Figure3/Data
+3. Sensitivity Matrix (Fig. 3B): https://github.com/samuellab/Larval-ORN/tree/master/Figure3/Data
+
+Links to the following methods:
+1. MLE (Fig. 3): https://github.com/samuellab/Larval-ORN/tree/master/Figure3/Script
+2. Curve-fitting (Fig. 3): https://github.com/samuellab/Larval-ORN/tree/master/Figure3/Script
+3. Linear-Nonlinear model (Fig. 5): https://github.com/samuellab/Larval-ORN/tree/master/Figure5/Script
+
 quick data links:
 sensitivty matrix:
 dose-response data:
 raw data:
 (csv file)
 
-quick method link:
-MLE code
-Curve fitting
-linear-nonlinear model
-
 --------------------------------
-instructions:
+Explanation of Code:
 
-codes were written in Matlab 2018b
+All code was written using Matlab 2018b
 
 section 1 does-response data
 1, how to load the data
