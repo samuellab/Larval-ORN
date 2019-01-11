@@ -1,5 +1,5 @@
 %% load the fitted EC50 matrix
-clear; 
+% clear; 
 % clc;
 warning('off','all');
 % diary(fullfile('.', 'AnalysisResults', 'AnalyzeEC50Matrix_log.txt')); 
@@ -214,10 +214,10 @@ fprintf('(Quote from the paper) If the resulting p-value is greater than 0.1,\n 
 % 
 % end
 %%
-disp(['Count of P-vlaue greater than 0.1: ', num2str(length(find(fitSubCoef(:, 3) > 0.1)))]);
-figure; histogram(fitSubCoef(:,end), 10);
-idxSub = find(fitSubCoef(:, 3) > 0.1);
-figure; histogram(fitSubCoef(idxSub, 1), 10); title([num2str(mean(fitSubCoef(idxSub, 1))), ' +- ', num2str(std(fitSubCoef(idxSub, 1)))])
+% disp(['Count of P-vlaue greater than 0.1: ', num2str(length(find(fitSubCoef(:, 3) > 0.1)))]);
+% figure; histogram(fitSubCoef(:,end), 10);
+% idxSub = find(fitSubCoef(:, 3) > 0.1);
+% figure; histogram(fitSubCoef(idxSub, 1), 10); title([num2str(mean(fitSubCoef(idxSub, 1))), ' +- ', num2str(std(fitSubCoef(idxSub, 1)))])
 
 %% apply PCA on the EC50 matrix
 % replace NaN in the EC50 matrix with 0

@@ -7,10 +7,12 @@
 % load(fullfile('.', 'AnalysisResults', 'FitDoseResponse.mat'));
 
 % load(fullfile('.', 'data', 'AveRawDataMatrix.mat'));
-dataFileName = fullfile('.', 'data', 'AveRawDataMatrix2ndRound.mat');
+% dataFileName = fullfile('.', 'data', 'AveRawDataMatrix2ndRound.mat');
+dataFileName = fullfile('.', 'data', 'doseResponseData.mat');
 load(dataFileName);
 
-data = dataMean;
+% data = dataMean;
+data = dff;
 
 % % normalize data of each ORN-odor pair using fitted r_max
 % [r, c] = find(~isnan(aMatrix));
@@ -178,3 +180,13 @@ hold off
 % ax.XTickLabel = {'1E-8', '1E-7', '1E-6', '1E-5', '1E-4'}; 
 % ax.YTickLabel = {'0', '0.5', '1', '1.5', '2'};
 % xlabel('Concentrations'); ylabel('ORNs total activities (a.u.)');
+
+%% 
+Xcentered = score*coeff';
+offset = dataTall - Xcentered;
+
+offsetVec = offset(1, :);
+
+
+
+
