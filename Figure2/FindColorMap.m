@@ -1,10 +1,10 @@
 function [colorMapSort] = FindColorMap()
 
-load(fullfile('.', 'AnalysisResults', 'FitDoseResponse.mat'));
+load(fullfile('..', 'Figure4','data', 'log10EC50.mat'));
 % cMatrix(23, 12) = -9;   %2-heptanone, 85c
 % cMatrix(24, 16) = -9.5;  %methyl salicylate, 22c 
-
-[~, score, ~,~,~, ~] = pca(-cMatrix);
+log10EC50(isnan(log10EC50)) = 0;
+[~, score, ~,~,~, ~] = pca(-log10EC50);
 [~, I] = sort(score(:, 1));
 
 myColorMap = jet(34);

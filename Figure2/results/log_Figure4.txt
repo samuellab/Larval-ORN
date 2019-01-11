@@ -247,4 +247,172 @@ PlotHeatMap
   T = 0.00337, loss =    9.59055
   T = 0.00320, loss =    9.59253
   T = 0.00304, loss =    9.57713
-  T = 0.00289, loss = 
+  T = 0.00289, loss =    9.58962
+  T = 0.00274, loss =    9.57134
+  T = 0.00261, loss =    9.57903
+  T = 0.00248, loss =    9.57134
+  T = 0.00235, loss =    9.57054
+  T = 0.00223, loss =    9.57054
+  T = 0.00212, loss =    9.57367
+  T = 0.00202, loss =    9.57134
+  T = 0.00192, loss =    9.56821
+  T = 0.00182, loss =    9.56821
+  T = 0.00173, loss =    9.57480
+  T = 0.00164, loss =    9.56821
+  T = 0.00156, loss =    9.57134
+  T = 0.00148, loss =    9.56821
+  T = 0.00141, loss =    9.57134
+  T = 0.00134, loss =    9.56821
+  T = 0.00127, loss =    9.56821
+----------Search Odor and ORN Orders----------
+Simulated Annealing Results:
+          Initial temperature: 1 
+            Final temperature: 0.001271 
+       Consecutive rejections: 15477 
+     Number of function calls: 963363 
+             Total final loss: 9.57 
+                   ORN order:  19  21   3   6   8  14  10  16   9   7  11   4  13  12   1   2  20  15   5  17  18
+                  Odor order:  19  33  12  32  27  15  14   7   8   9   6  22  24  31  30  29   1   5  10   3  17   4  23  28  20  26  13  25  11   2  16  21  18  34
+PlotHeatMap
+uiopen('C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\Figure2\results\figures\heatmap_Figure2A.fig',1)
+uiopen('C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\Figure2\results\figures\heatmap_FigureS3C.fig',1)
+uiopen('C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\Figure2\results\figures\heatmap_Figure2A.fig',1)
+PCAonData
+{Error using <a href="matlab:matlab.internal.language.introspective.errorDocCallback('load')" style="font-weight:bold">load</a>
+'data\doseResponseData.mat' is not found in the current folder or on the MATLAB path, but exists in:
+    C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\Old functions and data
+
+<a href = "matlab:cd 'C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\Old functions and data'">Change the MATLAB current folder</a> or <a href = "matlab:addpath 'C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\Old functions and data'">add its folder to the MATLAB path</a>.
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('PCAonData', 'C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\Figure2\PCAonData.m', 2)" style="font-weight:bold">PCAonData</a> (<a href="matlab: opentoline('C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\Figure2\PCAonData.m',2,0)">line 2</a>)
+load(dataFileName);
+} 
+opentoline('C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\Figure2\PCAonData.m',2,0)
+PCAonData
+{'FindColorMap' is not found in the current folder or on the MATLAB path, but exists in:
+    C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\Old functions and data
+
+<a href = "matlab:cd 'C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\Old functions and data'">Change the MATLAB current folder</a> or <a href = "matlab:addpath 'C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\Old functions and data'">add its folder to the MATLAB path</a>.
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('PCAonData', 'C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\Figure2\PCAonData.m', 32)" style="font-weight:bold">PCAonData</a> (<a href="matlab: opentoline('C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\Figure2\PCAonData.m',32,0)">line 32</a>)
+[odorColorMap] = FindColorMap();
+} 
+opentoline('C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\Figure2\PCAonData.m',32,0)
+PCAonData
+{Error using <a href="matlab:matlab.internal.language.introspective.errorDocCallback('load')" style="font-weight:bold">load</a>
+'.\AnalysisResults\FitDoseResponse.mat' is not found in the current folder or on the MATLAB path, but exists in:
+    C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\Old functions and data
+
+<a href = "matlab:cd 'C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\Old functions and data'">Change the MATLAB current folder</a> or <a href = "matlab:addpath 'C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\Old functions and data'">add its folder to the MATLAB path</a>.
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('FindColorMap', 'C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\Figure2\functions\FindColorMap.m', 3)" style="font-weight:bold">FindColorMap</a> (<a href="matlab: opentoline('C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\Figure2\functions\FindColorMap.m',3,0)">line 3</a>)
+load(fullfile('.', 'AnalysisResults', 'FitDoseResponse.mat'));
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('PCAonData', 'C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\Figure2\PCAonData.m', 32)" style="font-weight:bold">PCAonData</a> (<a href="matlab: opentoline('C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\Figure2\PCAonData.m',32,0)">line 32</a>)
+[odorColorMap] = FindColorMap();
+} 
+opentoline('C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\Figure2\PCAonData.m',32,0)
+PCAonData
+{Error using <a href="matlab:matlab.internal.language.introspective.errorDocCallback('load')" style="font-weight:bold">load</a>
+'.\AnalysisResults\FitDoseResponse.mat' is not found in the current folder or on the MATLAB path, but exists in:
+    C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\Old functions and data
+
+<a href = "matlab:cd 'C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\Old functions and data'">Change the MATLAB current folder</a> or <a href = "matlab:addpath 'C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\Old functions and data'">add its folder to the MATLAB path</a>.
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('FindColorMap', 'C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\Figure2\functions\FindColorMap.m', 3)" style="font-weight:bold">FindColorMap</a> (<a href="matlab: opentoline('C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\Figure2\functions\FindColorMap.m',3,0)">line 3</a>)
+load(fullfile('.', 'AnalysisResults', 'FitDoseResponse.mat'));
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('PCAonData', 'C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\Figure2\PCAonData.m', 33)" style="font-weight:bold">PCAonData</a> (<a href="matlab: opentoline('C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\Figure2\PCAonData.m',33,0)">line 33</a>)
+[odorColorMap] = FindColorMap();
+} 
+opentoline('C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\Figure2\functions\FindColorMap.m',3,0)
+PCAonData
+{Undefined function or variable 'odorColorMap'.
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('PCAonData', 'C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\Figure2\PCAonData.m', 78)" style="font-weight:bold">PCAonData</a> (<a href="matlab: opentoline('C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\Figure2\PCAonData.m',78,0)">line 78</a>)
+        score(seqTemp, 3), markerSize*mksize_temp, odorColorMap(i,:),'fill');
+} 
+opentoline('C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\Figure2\PCAonData.m',78,0)
+opentoline('C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\Figure2\PCAonData.m',78,0)
+uiopen('C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\Old functions and data\FindColorMap.m',1)
+PCAonData
+close all
+PCAonData
+uiopen('C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\Old functions and data\FindColorMap.m',1)
+load('log10EC50.mat')
+FindColorMap
+{Error using <a href="matlab:matlab.internal.language.introspective.errorDocCallback('load')" style="font-weight:bold">load</a>
+'..\Figure4\data\log10EC50.mat' is not found in the current folder or on the MATLAB path, but exists in:
+    C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\Figure4
+    C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\Figure2
+    C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\Old functions and data
+    C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\Figure3
+    C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\Figure1
+    C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\Figure5
+
+Change the MATLAB current folder or add its folder to the MATLAB path.
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('FindColorMap', 'C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\Figure2\functions\FindColorMap.m', 3)" style="font-weight:bold">FindColorMap</a> (<a href="matlab: opentoline('C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\Figure2\functions\FindColorMap.m',3,0)">line 3</a>)
+load(fullfile('..', 'Figure4','data', 'log10EC50.mat'));
+} 
+fullfile('..', 'Figure4','data', 'log10EC50.mat')
+
+ans =
+
+    '..\Figure4\data\log10EC50.mat'
+
+FindColorMap
+{Error using <a href="matlab:matlab.internal.language.introspective.errorDocCallback('load')" style="font-weight:bold">load</a>
+'..\Figure4\data\log10EC50.mat' is not found in the current folder or on the MATLAB path, but exists in:
+    C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\Figure4
+    C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\Figure2
+    C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\Old functions and data
+    C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\Figure3
+    C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\Figure1
+    C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\Figure5
+
+Change the MATLAB current folder or add its folder to the MATLAB path.
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('FindColorMap', 'C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\Figure2\functions\FindColorMap.m', 3)" style="font-weight:bold">FindColorMap</a> (<a href="matlab: opentoline('C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\Figure2\functions\FindColorMap.m',3,0)">line 3</a>)
+load(fullfile('..', 'Figure4','data', 'log10EC50.mat'));
+} 
+FindColorMap
+{Error using <a href="matlab:matlab.internal.language.introspective.errorDocCallback('load')" style="font-weight:bold">load</a>
+'..\Figure4\data\log10EC50.mat' is not found in the current folder or on the MATLAB path, but exists in:
+    C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\Figure2
+    C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\Figure4
+    C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\Old functions and data
+    C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\Figure3
+    C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\Figure1
+    C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\Figure5
+
+Change the MATLAB current folder or add its folder to the MATLAB path.
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('FindColorMap', 'C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\Figure2\functions\FindColorMap.m', 3)" style="font-weight:bold">FindColorMap</a> (<a href="matlab: opentoline('C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\Figure2\functions\FindColorMap.m',3,0)">line 3</a>)
+load(fullfile('..', 'Figure4','data', 'log10EC50.mat'));
+} 
+fullfile('..', 'Figure4','data', 'log10EC50.mat')
+
+ans =
+
+    '..\Figure4\data\log10EC50.mat'
+
+load(fullfile('..', 'Figure4','data', 'log10EC50.mat'));
+{Error using <a href="matlab:matlab.internal.language.introspective.errorDocCallback('load')" style="font-weight:bold">load</a>
+'..\Figure4\data\log10EC50.mat' is not found in the current folder or on the MATLAB path, but exists in:
+    C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\Figure2
+    C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\Figure4
+    C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\Old functions and data
+    C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\Figure3
+    C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\Figure1
+    C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\Figure5
+
+Change the MATLAB current folder or add its folder to the MATLAB path.
+} 
+load(fullfile('...', 'Figure4','data', 'log10EC50.mat'));
+{Error using <a href="matlab:matlab.internal.language.introspective.errorDocCallback('load')" style="font-weight:bold">load</a>
+Unable to read file '...\Figure4\data\log10EC50.mat'. No such file or directory.
+} 
+load(fullfile('.', 'Figure4','data', 'log10EC50.mat'));
+{Error using <a href="matlab:matlab.internal.language.introspective.errorDocCallback('load')" style="font-weight:bold">load</a>
+'.\Figure4\data\log10EC50.ma

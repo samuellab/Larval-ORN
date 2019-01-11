@@ -1,17 +1,6 @@
-% addpath(genpath(pwd));
-% [dataMean, dataSEM, odorList, concList, infoORNList ] = GetAveNormData(); %get the averaged and normalized data
-% 
-% data = dataMean; 
-% dataSEM(5,:,:)=[]; 
-
-% load(fullfile('.', 'AnalysisResults', 'FitDoseResponse.mat'));
-
-% load(fullfile('.', 'data', 'AveRawDataMatrix.mat'));
-% dataFileName = fullfile('.', 'data', 'AveRawDataMatrix2ndRound.mat');
-dataFileName = fullfile('.', 'data', 'doseResponseData.mat');
+dataFileName = fullfile('results', 'doseResponseData.mat');
 load(dataFileName);
 
-% data = dataMean;
 data = dff;
 
 % % normalize data of each ORN-odor pair using fitted r_max
@@ -40,7 +29,17 @@ xlabel('PC'); ylabel('Variance Explained(%)');
 %% plot the data projection onto the first 3 PCs
 %define colormap for odors
 
+addpath(pwd);
 [odorColorMap] = FindColorMap();
+
+% [~, I] = sort(score(:, 1));
+% 
+% myColorMap = jet(34);
+% odorColorMap = zeros(34, 3);
+% for i =1:34
+%     odorColorMap(I(i), :) = myColorMap(i, :);
+% end
+
 
 % odorColorMap = jet(34);
 
