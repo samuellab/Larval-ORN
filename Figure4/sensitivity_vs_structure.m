@@ -4,7 +4,6 @@ diary(fullfile('.', 'results', 'log_Figure4.txt'));
 diary on;
 
 %% load the fitted log_10(EC50) matrix
-
 load(fullfile('.', 'data', 'log10EC50.mat'));
 cMatrix = log10EC50;
 
@@ -56,8 +55,6 @@ end
 explainedAve = mean(explainedMatrix, 2);
 explainedStd = std(explainedMatrix, 0, 2)*2;
 
-% figure;   pareto(explainedAve);	title('Shuffled Matrix');
-
 figure;   plot(1:length(explained1), explained1, '-ok'); hold on;
 errorbar(1:length(explainedAve), explainedAve, explainedStd, 's');
 patch([1:length(explainedAve) fliplr(1:length(explainedAve))], ...
@@ -82,10 +79,6 @@ disp('----------PCA on the log(1/EC50) Data----------');
 fprintf('1st PC accounts %.2f percentage of data variance. \n', explained1(1));
 fprintf('%.0f sigma significance compare with shuffled data. \n', round(significance));
 
-
-
-
-
 %% Compare odors' functional with structure
 %load structure data
 %load the .xlsx file of the odor strucure descriptors
@@ -109,8 +102,6 @@ mOpt = m(:, optList);
 % projection and each structure metric
 rho = zeros(1, length(mOpt));
 for i = 1:length(optList)
-%     temp = corrcoef(proj1st, mOpt(:,i));
-%     rho(i) = temp(1, 2);
     rho(i) = corr(proj1st, mOpt(:,i));
 end
 %find the largest correlation coefficient
@@ -131,15 +122,12 @@ xlabel('Projection on 1st PC');
 ylabel(inforMOpt{rhoMaxInd});
 title(['Correlation: ', num2str(rhoMax, 1)]);
 
-% display the results 
+% show the results 
 disp('----------Relate Odorant Functional Data with Structural Data----------');
 disp('Reference: http://www.nature.com/nmeth/journal/v5/n5/full/nmeth.1197.html');
 disp('');
 fprintf('Odor structure descriptor "%5s" hits the highest coefficient score with the 1st PC of odor functional data. \n', inforMOpt{rhoMaxInd});
-fprintf('The Pearson correlation coefficient is %.2f. \n', rhoMax);
-
-
-
+fprintf('The Pearson correlation coefficient is %.1f. \n', rhoMax);
 
 %%
 diary off;

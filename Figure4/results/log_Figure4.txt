@@ -1,7 +1,7 @@
 ----------PCA on the log(1/EC50) Data----------
 1st PC accounts 31.26 percentage of data variance. 
-17 sigma significance compare with shuffled data. 
+16 sigma significance compare with shuffled data. 
 ----------Relate Odorant Functional Data with Structural Data----------
 Reference: http://www.nature.com/nmeth/journal/v5/n5/full/nmeth.1197.html
 Odor structure descriptor "  P1s" hits the highest coefficient score with the 1st PC of odor functional data. 
-The Pearson correlation coefficient is 0.75. 
+The Pearson correlation coefficient is 0.8. 
