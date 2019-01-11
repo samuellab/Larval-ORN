@@ -415,4 +415,19 @@ Unable to read file '...\Figure4\data\log10EC50.mat'. No such file or directory.
 } 
 load(fullfile('.', 'Figure4','data', 'log10EC50.mat'));
 {Error using <a href="matlab:matlab.internal.language.introspective.errorDocCallback('load')" style="font-weight:bold">load</a>
-'.\Figure4\data\log10EC50.ma
+'.\Figure4\data\log10EC50.mat' is not found in the current folder or on the MATLAB path, but exists in:
+    C:\Users\Lab Admin\Documents\GitHub\larval_olfaction
+
+<a href = "matlab:cd 'C:\Users\Lab Admin\Documents\GitHub\larval_olfaction'">Change the MATLAB current folder</a> or <a href = "matlab:addpath 'C:\Users\Lab Admin\Documents\GitHub\larval_olfaction'">add its folder to the MATLAB path</a>.
+} 
+cd
+
+C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\Figure2
+
+cd
+
+C:\Users\Lab Admin\Documents\GitHub\larval_olfaction\Figure2
+
+cd ..\..
+load(fullfile('..', 'Figure4','data', 'log10EC50.mat'));
+sensitivity_vs_structure
