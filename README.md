@@ -3,8 +3,9 @@ General...
 Code and data for paper 'Invariances in a combinatorial olfactory receptor code'
 including...
 ----------------
-How to cite this paper:
+If you use this data or code, please cite the following paper:
 
+Si G., Kanwal J.K., Hu Y., Tabone C., Baron J., Berck M., Vignoud G., Samuel A.D.T.(2019). Structured Odorant Response Patterns across a Complete Olfactory Receptor Neuron Population. Neuron, 101, 1-13.
 
 --------------------
 quick data links:
