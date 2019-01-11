@@ -1,8 +1,8 @@
 function [colorMapSort] = FindColorMap()
 
 load(fullfile('.', 'AnalysisResults', 'FitDoseResponse.mat'));
-cMatrix(23, 12) = -9;   %2-heptanone, 85c
-cMatrix(24, 16) = -9.5;  %methyl salicylate, 22c 
+% cMatrix(23, 12) = -9;   %2-heptanone, 85c
+% cMatrix(24, 16) = -9.5;  %methyl salicylate, 22c 
 
 [~, score, ~,~,~, ~] = pca(-cMatrix);
 [~, I] = sort(score(:, 1));
