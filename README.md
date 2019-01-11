@@ -2,11 +2,15 @@
 General...
 Code and data for paper 'Invariances in a combinatorial olfactory receptor code'
 including...
+
+
+Citation
 ----------------
 If you use this data or code, please cite the following paper:
 
 Si G., Kanwal J.K., Hu Y., Tabone C., Baron J., Berck M., Vignoud G., Samuel A.D.T.(2019). Structured Odorant Response Patterns across a Complete Olfactory Receptor Neuron Population. Neuron, 101, 1-13.
 
+Quick Links
 --------------------
 Links to the following data sets:
 1. Raw dose-response data (Fig. 2A): https://github.com/samuellab/Larval-ORN/tree/master/Figure2/Data
@@ -24,10 +28,23 @@ dose-response data:
 raw data:
 (csv file)
 
+Explanation of Code
 --------------------------------
-Explanation of Code:
-
 All code was written using Matlab 2018b
+
+Figure 1:
+-Parts list of materials used to build microfluidic setup
+
+Figure 2:
+-load and plot raw dose-dependent activity responses for ORN population data 
+-perform PCA on averaged dose-response data
+-identify the 36 dose-response curves that saturate, fit to Hill function, extract EC50
+-generate PCA from Fig. S3A
+
+Figure 3:
+Figure 4:
+Figure 5:
+
 
 section 1 does-response data
 1, how to load the data
