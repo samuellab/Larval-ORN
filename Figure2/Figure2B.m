@@ -10,7 +10,7 @@ dataTall = reshape(dataTall,[],size(data,2),1);
 
 %% plot the data projection onto the first 3 PCs
 %define colormap for odors
-addpath(pwd);
+addpath(genpath(pwd));
 [odorColorMap] = FindColorMap();
 
 markerSize = 400;     mksize_temp = [ 0.1 0.2 0.35 0.55 0.8];

@@ -1,3 +1,6 @@
+addpath(genpath(pwd));
+LoadData;
+
 load(fullfile( 'results', 'doseResponseData.mat'));
 
 reproduceFig2 = 1;
