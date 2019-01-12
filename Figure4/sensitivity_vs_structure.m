@@ -11,8 +11,9 @@ cMatrix = log10EC50;
 % replace NaN in the EC50 matrix with 0
 cMatrix(isnan(cMatrix)) = 0;
 
-% PCA, using -cMatrix does not change the dimentionality, but it could make
-% the load and projection match each other
+% PCA. We perform PCA on the -cMatrix -> this does not change the 
+% dimentionality, but allows coeff(loads) and score(projection) axes to
+% match such that  both axes go from aromatic to aliphatic
 [coeff1, score1, latent1,tsquared1,explained1, ~] = pca(-cMatrix);
 
 % plot the load/projection of/on the 1st PC.
@@ -79,9 +80,9 @@ disp('----------PCA on the log(1/EC50) Data----------');
 fprintf('1st PC accounts %.2f percentage of data variance. \n', explained1(1));
 fprintf('%.0f sigma significance compare with shuffled data. \n', round(significance));
 
-%% Compare odors' functional with structure
+%% Compare function with structure of odorants
 %load structure data
-%load the .xlsx file of the odor strucure descriptors
+%load the .xlsx file of the odor structure descriptors
 filename = fullfile('.', 'data', 'Odor_Structure_Descriptors_EDragon.xlsx');
 sheet = 1;
 xlRange = 'A3:BLF37';
