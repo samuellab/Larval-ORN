@@ -12,7 +12,7 @@ cMatrix = log10EC50;
 cMatrix(isnan(cMatrix)) = 0;
 
 % PCA. We perform PCA on the -cMatrix -> this does not change the 
-% dimentionality, but allows coeff(loads) and score(projection) axes to
+% dimentionality, ut allows coeff(loads) and score(projection) axes to
 % match such that  both axes go from aromatic to aliphatic
 [coeff1, score1, latent1,tsquared1,explained1, ~] = pca(-cMatrix);
 
