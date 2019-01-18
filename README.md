@@ -1,6 +1,6 @@
 # Larval-ORN
 
-Data and analysis of fruit fly larvae olfactory receptor neuron (ORN) population responses to a broad panel of odors. This folder contains code and data from the paper, "Structured odorant response patterns across a complete olfactory receptor neuron population".
+Data and analysis of fruit fly larvae olfactory receptor neuron (ORN) population responses to a broad panel of odors. This folder contains code and data from the paper, "Structured odorant response patterns across a complete olfactory receptor neuron population."
 
 
 
