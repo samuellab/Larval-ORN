@@ -37,7 +37,7 @@ Figure 4 folder:
 * Principal Component Analysis of the sensitivity matrix.
 * Comparision with odor molecular structure properties.
 
-Figure 5:
+Figure 5 folder:
 * Reverse-correlation analysis ORN's dynamic activity responding to white-noise odor stimuli.
 * Comparision of linear filters acorss animals.
 
