@@ -12,8 +12,8 @@ Quick Links
 Instructions
 --------------------------------
 All code was written using Matlab 2018b.
-Code and data are organized by figure to ease locating and reproducing any figures from the paper.
-Each "figure" folder contains a "data", "functions", and "results" subfolder, as well as matlab script(s) to generate subfigures within each figure. Below is a summary of the contents that can be found in each "figure" folder:
+Code and data are organized by figure to ease locating and reproducing any of the figures from the paper.
+Each "figure" folder contains a "data", "functions", and "results" subfolder, as well as Matlab script(s) to generate the subfigures. Below is a summary of the contents that can be found in each "figure" folder:
 
 Figure 1 folder:
 * AutoCAD design file of the microfluidic chips
