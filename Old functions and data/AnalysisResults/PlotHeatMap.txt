@@ -1,7 +1,0 @@
-----------Information About the Raw Dose Response Data----------
-               Number of odor: 19 
-     Concentrations each odor: 5 
-      Number of larvae imaged: 122 
-Average trials each condition: 6.4 
-     Number of responded ONRs: 18 
-            ONRs no responses: Or63a Or33a Or49a 

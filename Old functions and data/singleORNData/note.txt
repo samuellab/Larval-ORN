@@ -1,3 +1,0 @@
-functions in this folder ask the question: why the slop here is dfferent from the fitting using main results?
-
-Figure out, the variation of EC_50 may cause the slop shallower. 
