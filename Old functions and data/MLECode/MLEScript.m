@@ -1,5 +1,3 @@
-
-
 %% Load the raw dose response data and initial guesses from least squares fitting
 addpath('..');
 
