@@ -1,6 +1,6 @@
 # Larval-ORN
 
-Data and analysis of fruit fly larvae Olfactory Receptor Neurons (ORNs) responses to a broad panel of odors. This is the code and data from the paper, "Structured odorant response patterns across a complete olfactory receptor neuron population".
+Data and analysis of fruit fly larvae olfactory receptor neuron (ORN) population responses to a broad panel of odors. This folder contains code and data from the paper, "Structured odorant response patterns across a complete olfactory receptor neuron population".
 
 
 
@@ -12,19 +12,19 @@ Quick Links
 Instructions
 --------------------------------
 All code was written using Matlab 2018b.
-Code and data are organized by figure in order to ease finding and reproducing any figure from the paper.
-Each "figure" folder includes a "data", "functions", and "results" subfolder, as well as matlab script(s) to generate panels within each figure. Below is a summary of the contents that can be found in each "figure" folder:
+Code and data are organized by figure to ease locating and reproducing any figures from the paper.
+Each "figure" folder contains a "data", "functions", and "results" subfolder, as well as matlab script(s) to generate subfigures within each figure. Below is a summary of the contents that can be found in each "figure" folder:
 
 Figure 1 folder:
 * AutoCAD design file of the microfluidic chips
 * Parts list of materials used to build the odor delivery setup
 
 Figure 2 folder:
-* 21 larval ORNs' activity data in response to 34 odorants at five orders of magnitude in concentration
+* Activity data of the 21 larval ORNs in response to 34 odorants at five orders of magnitude in concentration
 * Principal Component Analysis of ORN dose-response data
-* PCA analysis of ORN dynamic data
+* PCA analysis of ORN response over time data
 * ORN calcium imaging response traces
-* Analysis of our selected 35 odors sampled from odor space explored by the fly community
+* Sampling analysis of our selected 35 odors in comparison to those previously explored by the fly community
 
 Figure 3 folder:
 * Fit of the dose-response data using Hill equation
@@ -39,7 +39,7 @@ Figure 4 folder:
 
 Figure 5 folder:
 * Reverse-correlation analysis on dynamic ORN activity responding to white-noise odor stimuli
-* Comparision of linear filters acorss animals
+* Comparision of linear filters across animals
 
 
 How to cite:
