@@ -3,25 +3,24 @@
 load(fullfile('.', 'data', 'doseResponseData.mat'));
 
 %% plot the average activity vs concentration figure
-[r, c, z] = size(dffHm);
-odorConc = concHm;
-% odorConc = [1E-8 1E-7 1E-6 1E-5 1E-4];
+[r, c, z] = size(dataMean);
+odorConc = [1E-8 1E-7 1E-6 1E-5 1E-4];
 
 % meanodorConc
-actAveEachOdor = mean(dffHm, 2);
+actAveEachOdor = mean(dataMean, 2);
 actAveEachOdor = reshape(actAveEachOdor, [r, z]);
 
-actAveEachORN = mean(dffHm, 1);
+actAveEachORN = mean(dataMean, 1);
 actAveEachORN = reshape(actAveEachORN, [c, z]);
 
-temp = reshape(dffHm, [r*c, z]);
+temp = reshape(dataMean, [r*c, z]);
 actAveAllOdor = mean(temp, 1);
 
 %standard error of the mean
-actSEMEachOdor = std(dffHm,0, 2)./sqrt(c);
+actSEMEachOdor = std(dataMean,0, 2)./sqrt(c);
 actSEMEachOdor = reshape(actSEMEachOdor, [r, z]);
 
-actSEMEachORN = std(dffHm, 0, 1)./sqrt(r);
+actSEMEachORN = std(dataMean,0, 1)./sqrt(r);
 actSEMEachORN = reshape(actSEMEachORN, [c, z]);
 
 actSEMAllOdor = std(temp,0, 1)./sqrt(r*c);
@@ -31,7 +30,6 @@ Y = log10(actAveAllOdor');
 X = ones(length(odorConc), 2);
 X(:,2) = log10(odorConc');
 slope = X\Y;
-% slope2 = X(1:4, :)\Y(1:4);
 
 % plot
 figure; 
