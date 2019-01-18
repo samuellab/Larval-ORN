@@ -1,6 +1,6 @@
 # Larval-ORN
 
-Data and analysis of fruit fly larvae Olfactory Receptor Neruons (ORNs) activity responding to a broad panel of odors. It is the code and data part of the paper "Structured odorant response patterns across a complete olfactory receptor neuron population".
+Data and analysis of fruit fly larvae Olfactory Receptor Neurons (ORNs) responses to a broad panel of odors. This is the code and data from the paper, "Structured odorant response patterns across a complete olfactory receptor neuron population".
 
 
 
@@ -12,8 +12,8 @@ Quick Links
 Instructions
 --------------------------------
 All code was written using Matlab 2018b.
-Codes and data are organized to reproduce each figures in the paper.
-Each figure folder include script to generate subfigures and data, function and result subfolders.
+Code and data are organized to reproduce each figure in the paper.
+Each figure folder includes script(s) to generate subfigures, and a data, function, and result subfolders.
 
 Figure 1 folder:
 * AutoCAD design file of the microfluidic chips.
