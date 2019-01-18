@@ -1,6 +1,6 @@
 % set the info of data
 % global path
-path = fullfile('./', 'mseqData', './');
+path = fullfile('./', 'data', './');
 % n_files = 6;       
 neuron  = {'Or42a'};
 title_str =  'Or42a-10-73pentanol';
@@ -15,7 +15,7 @@ time_point = 0.03203; %time resolution of the recording, unit: s.
 
 % load the stimulus info, including 'ndye' and 'image_times_dye'
 % load('Calibration_4C_1203mseq_v1_mid.mat');
-load(fullfile('./', 'mseqData', 'Calibration_1023mseq_v1.mat'));
+load(fullfile('./', 'data', 'Calibration_1023mseq_v1.mat'));
 
 %% Part 0, plot one output seq & the input seq, calculat the filter
 disp('Part 0, plot one sequence with stimulus.');

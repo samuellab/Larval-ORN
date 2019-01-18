@@ -89,6 +89,7 @@ fprintf('x0''s done, function = %0.3f\n',funval(iter+1))
 
 end
 
-%% save data and plot figures
+%% Save fitted data 
 % data is saved at ./results/MLEFit.mat.
 
+%% generate 
