@@ -43,5 +43,5 @@ ninv(t123idx) = ni;
 
 x0inv = cell(size(t123idx));
 x0inv(t123idx) = x0i;
-
-save('.\results\invMLEFitResults.mat','Ainv','ninv','x0inv')
+saveFile = which('invMLEFitResults.mat');
+save(saveFile,'Ainv','ninv','x0inv')

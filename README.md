@@ -6,17 +6,8 @@ Data and analysis of fruit fly larvae Olfactory Receptor Neruons (ORNs) activity
 
 Quick Links
 --------------------
-Links to the following data sets:
-1. Raw dose-response data (Fig. 2A): https://github.com/samuellab/Larval-ORN/tree/master/Figure2/Data
-2. Averaged dose-response data of saturated curves (Fig. 3A): https://github.com/samuellab/Larval-ORN/tree/master/Figure3/Data
-3. Sensitivity Matrix (Fig. 3B): https://github.com/samuellab/Larval-ORN/tree/master/Figure3/Data
-
-Links to the following methods:
-1. MLE (Fig. 3): https://github.com/samuellab/Larval-ORN/tree/master/Figure3/Script
-2. Curve-fitting (Fig. 3): https://github.com/samuellab/Larval-ORN/tree/master/Figure3/Script
-3. Linear-Nonlinear model (Fig. 5): https://github.com/samuellab/Larval-ORN/tree/master/Figure5/Script
-(csv file)
-
+* Raw dose-response data (Fig. 2A): Larval-ORN/Figure2/results/ORN_Dose_Response_Fig2A.xlsx
+* Sensitivity Matrix (Fig. 3B): Larval-ORN/Figure3/results/log_10_EC50.csv
 
 Instructions
 --------------------------------
@@ -46,7 +37,7 @@ Figure 4 folder:
 * Principal Component Analysis of the sensitivity matrix.
 * Comparision with odor molecular structure properties.
 
-Figure 5:
+Figure 5 folder:
 * Reverse-correlation analysis ORN's dynamic activity responding to white-noise odor stimuli.
 * Comparision of linear filters acorss animals.
 

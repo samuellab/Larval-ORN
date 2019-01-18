@@ -42,5 +42,5 @@ end
 
 %% Save fitted data 
 % data is saved at ./results/MLEFit.mat.
-
-%% generate 
+saveFile = which('MLEFit.mat');
+save(saveFile,'A','AStd','cMatrixMLE','logL','n','nStd','noiseStd','x0Std');
