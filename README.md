@@ -7,39 +7,39 @@ Data and analysis of fruit fly larvae Olfactory Receptor Neurons (ORNs) response
 Quick Links
 --------------------
 * Raw dose-response data (Fig. 2A): Larval-ORN/Figure2/results/ORN_Dose_Response_Fig2A.xlsx
-* Sensitivity Matrix (Fig. 3B): Larval-ORN/Figure3/results/log_10_EC50.csv
+* Sensitivity matrix (Fig. 3B): Larval-ORN/Figure3/results/log_10_EC50.csv
 
 Instructions
 --------------------------------
 All code was written using Matlab 2018b.
-Code and data are organized to reproduce each figure in the paper.
-Each figure folder includes script(s) to generate subfigures, and a data, function, and result subfolders.
+Code and data are organized by figure in order to ease finding and reproducing any figure from the paper.
+Each "figure" folder includes a "data", "functions", and "results" subfolder, as well as matlab script(s) to generate panels within each figure. Below is a summary of the contents that can be found in each "figure" folder:
 
 Figure 1 folder:
-* AutoCAD design file of the microfluidic chips.
+* AutoCAD design file of the microfluidic chips
 * Parts list of materials used to build the odor delivery setup
 
 Figure 2 folder:
-* 21 larval ORNs' activity data in responds to 34 odors at five order of magnitude concentration levels.
+* 21 larval ORNs' activity data in response to 34 odorants at five orders of magnitude in concentration
 * Principal Component Analysis of ORN dose-response data
-* PCA analysis of ORN dynamic data.
-* ORN response traces.
-* The selected 35 odors span the odor space explored by the fly community.
+* PCA analysis of ORN dynamic data
+* ORN calcium imaging response traces
+* Analysis of our selected 35 odors sampled from odor space explored by the fly community
 
 Figure 3 folder:
-* Fit the dose-response data using Hill equation
-* Maximum Likelihood Estimation of the ORN-odor sensitivies.
-* Fit the sensitivity distribution.
-* Power-law relationship between average ORN activity and odor concentration.
-* Comparision with electrophysiological data
+* Fit of the dose-response data using Hill equation
+* Maximum Likelihood Estimation of ORN-odor sensitivies
+* Fit of the sensitivity distribution
+* Power-law relationship between average ORN activity and odor concentration
+* Fit comparison to electrophysiological data
 
 Figure 4 folder:
-* Principal Component Analysis of the sensitivity matrix.
-* Comparision with odor molecular structure properties.
+* Principal Component Analysis of the sensitivity matrix
+* Comparision with odor molecular structure properties
 
 Figure 5 folder:
-* Reverse-correlation analysis ORN's dynamic activity responding to white-noise odor stimuli.
-* Comparision of linear filters acorss animals.
+* Reverse-correlation analysis on dynamic ORN activity responding to white-noise odor stimuli
+* Comparision of linear filters acorss animals
 
 
 How to cite:
