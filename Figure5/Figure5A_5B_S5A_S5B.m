@@ -1,4 +1,5 @@
 addpath(genpath(pwd));
+clear; clc; close all;
 
 % set the info of data
 % global path
@@ -28,14 +29,10 @@ plot(image_times, output_n, 'k'); xlabel('Time(s)');  hold on;
 plot(image_times_dye, ndye*0.1 -0.1, 'r'); axis tight; legend('Response', 'Stimulus');  hold off; 
 title([title_str, '- Input Output']);
 
-
 %% Figure S5A part1, Plot the fluorescent traces side by side, check robustness, average all the data
-disp('Part 1, subplot all the curves.');
-
-count =0; 
 
 listing = dir('./data/Or42a*.mat');
-dffPool = [];
+dffPool = []; count =0; 
 
 for ii=1:length(listing)
     filename = listing(ii).name;
@@ -47,7 +44,6 @@ for ii=1:length(listing)
         output_s = output(lunstable: rend); %cut off the signal
          
         dffPool(count, :) = output_s'; %pick the output signal
-
     end
 end
 
@@ -118,7 +114,8 @@ xlabel('Time(s)'); xticks(-3:3:15);
 
 % normalize all the fitlers and plot on top of each other
 filterNorm = filterCut./repmat(max(filterCut,[], 1), [size(filterCut,1) 1]);
-figure; hold on;
+fh4 = figure(4);
+hold on;
 
 for i = 2:size(filterNorm, 2)
     plot(ftime, filterNorm(:, i), 'Color', [0.5 0.5 0.5]);
@@ -129,7 +126,7 @@ plot(ftime, filterNorm(:, 1), 'k');
 plot([0 0], [-0.25 1], '-');
 axis([-3 15 -0.25 1]); xticks(-3:3:15); yticks(-0.25:0.25:1);
 
-%% Part 5, check the linearity
+%% Figure S5B, fit the scatter plot using a non-linear function
 
 datalen = rend - lunstable + 1;
 pred_data = zeros(datalen, 1);
@@ -144,9 +141,9 @@ for i = 1 : datalen
     pred_data(i) = f_r'*ii;
 end
 
-%% Figure S5B, fit the scatter plot using a non-linear function
-fh7 = figure(7);
-set(fh7, 'Position', [225, 430, 420, 420], 'color', 'white'); 
+% scatter plot
+fh5 = figure(5);
+set(fh5, 'Position', [225, 430, 420, 420], 'color', 'white'); 
 set(gca,'FontName','Arial'); set(gca,'FontSize',12);
 
 scatter(pred_data, dffPool(1, :), '.k');
@@ -155,6 +152,7 @@ axis([-0.2 2.5 -0.2 2.5]);
 xlabel('Prediction'); ylabel('Measured');
 hold off
 
+% fit the shape
 x = pred_data;
 y = dffPool(1, :)';
 
@@ -164,10 +162,10 @@ fit_result = fit( x, y, ft);
 % When the 'fit' function out of work. Use 'cftool' would be better.
 % For Or42a, set the parameters here (from cftool)
 % AS AN EXAMPLE, CHANGE THE FOLLOWING PARAMETERS FOR FUTURE RUN
-% fit_result.a = 1.274;
-% fit_result.b = 3.83;
-% fit_result.c = 0.3948;
-% fit_result.d = -0.2422;
+% fit_result.a = 2.6889;
+% fit_result.b = 1.7913;
+% fit_result.c = 0.6783;
+% fit_result.d = -0.6567;
 
 %draw the fit curve on the scatter plot
 xx = min([x;y]) : 0.01 : max([x;y]); 
@@ -190,3 +188,11 @@ for i = 1:7
 end
 axis tight
 xlabel('Time(s)'); 
+
+%% save figures
+
+saveas(fh1, fullfile('results', 'figures', 'Figure5A.fig'));
+saveas(fh4, fullfile('results', 'figures', 'Figure5B.fig'));
+saveas(fh2, fullfile('results', 'figures', 'FigureS5A_part1.fig'));
+saveas(fh3, fullfile('results', 'figures', 'FigureS5A_part2.fig'));
+saveas(fh5, fullfile('results', 'figures', 'FigureS5B.fig'));

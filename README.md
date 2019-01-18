@@ -1,12 +1,12 @@
 # Larval-ORN
 General...
-Code and data for paper 'Invariances in a combinatorial olfactory receptor code'
+Code and data for the paper, "Structured odorant response patterns across a complete olfactory receptor neuron population"
 including...
 
 
 Citation
 ----------------
-If you use this data or code, please cite the following paper:
+Please cite the following paper if you use this data or code:
 
 Si G., Kanwal J.K., Hu Y., Tabone C., Baron J., Berck M., Vignoud G., Samuel A.D.T.(2019). Structured Odorant Response Patterns across a Complete Olfactory Receptor Neuron Population. Neuron, 101, 1-13.
 
@@ -22,10 +22,6 @@ Links to the following methods:
 2. Curve-fitting (Fig. 3): https://github.com/samuellab/Larval-ORN/tree/master/Figure3/Script
 3. Linear-Nonlinear model (Fig. 5): https://github.com/samuellab/Larval-ORN/tree/master/Figure5/Script
 
-quick data links:
-sensitivty matrix:
-dose-response data:
-raw data:
 (csv file)
 
 Explanation of Code
