@@ -1,3 +1,4 @@
+% Data from Kreher et al., 2008, Table S1A
 dffJC = ...
 [-6	-43	-9	-3	-4	-7	2	-19	37	32	8	2	-19	3	-4	1	0	5	11	-6	-4
 2	6	-7	-6	1	-3	0	-1	15	-8	26	3	-4	6	0	4	-1	88	0	3	3
@@ -28,9 +29,11 @@ dffJC = ...
 -12	11	5	-2	-6	-2	-2	2	24	-2	31	-4	4	3	-1	-4	15	7	9	-9	0
 ];
 
+% ORN ID
 ornListJC = {'2a', '7a', '13a', '22c', '24a', '30a', '33b', '35a', '42a', ...
     '42b', '45a', '45b', '47a', '49a', '59a', '67b', '74a', '82a', '85c', '94a', '94b' };
 
+% Odor Name
 odorListJC = {'Propionic Acid', ...
 'Geranyl acetate', ...
 'E2-Hexenal', ...
@@ -59,13 +62,13 @@ odorListJC = {'Propionic Acid', ...
 'Octyl acetate', ...
 'Carbon dioxide'};
 
+% order of ORN and odor. Generate using the same algorithm used in Fig2A
+% see funciton ./Figure2/functions/GetBestOrder.m
 odorOrder = [8,7,14,11,13,10,9,12,20,26,15,4,3,16,17,24,19,6,18,25,23,5,21,22,27,2,1];
 ORNOrder = [4,5,6,20,12,15,21,2,16,17,8,11,3,19,13,14,9,10,1,18,7];
 
-
-
+% plot the re-organized matrix
 mNew1 = dffJC;
-
 for i = 1:27
     mNew1(i,:) = dffJC(odorOrder(i),:);
 end
@@ -82,3 +85,8 @@ set(gca,'xaxisLocation','top');
 set(gca,'YTick',1:27);
 set(gca,'YTickLabel',odorListJC(odorOrder));
 set(gca, 'XTickLabelRotation', 45);
+set(gcf, 'Position', [85 350 620 640]);
+colorbar; 
+
+% save figure
+saveas(gcf, fullfile('.', 'results', 'figures', 'FigureS4I.fig'));
