@@ -22,10 +22,6 @@ Links to the following methods:
 2. Curve-fitting (Fig. 3): https://github.com/samuellab/Larval-ORN/tree/master/Figure3/Script
 3. Linear-Nonlinear model (Fig. 5): https://github.com/samuellab/Larval-ORN/tree/master/Figure5/Script
 
-Links to the following data files:
-sensitivty matrix: https://github.com/samuellab/Larval-ORN/tree/master/Figure3/data
-dose-response data: https://github.com/samuellab/Larval-ORN/tree/master/Figure2/data
-raw data: https://github.com/samuellab/Larval-ORN/tree/master/Figure2/data
 (csv file)
 
 Explanation of Code
