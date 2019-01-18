@@ -1,5 +1,5 @@
 function typeMask = SetCurveType(rowNum, colNum)
-%Manuelly set the type of each dose-response curve
+% Set the type of each dose-response curve
 % 1: saturated curves
 % 2: highest DF/F value >> 1, and the 2nd highest concentration reach the half maximum
 % 3: weak responses, not 1 nor 2, and non-zero.
