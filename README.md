@@ -44,6 +44,6 @@ Figure 5 folder:
 
 How to cite:
 ----------------
-Please cite the following paper if you use the data or code:
+Please cite the following in press paper if you use the data or code:
 
-> Si G., Kanwal J.K., Hu Y., Tabone C., Baron J., Berck M., Vignoud G., Samuel A.D.T.(2019). Structured Odorant Response Patterns across a Complete Olfactory Receptor Neuron Population. Neuron, 101, 1-13.
+> Si G., Kanwal J.K., Hu Y., Tabone C., Baron J., Berck M., Vignoud G., Samuel A.D.T. Structured Odorant Response Patterns across a Complete Olfactory Receptor Neuron Population. Neuron (2019) https://doi.org/10.1016/j.neuron.2018.12.030
