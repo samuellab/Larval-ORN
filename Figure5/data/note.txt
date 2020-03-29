@@ -1,0 +1,9 @@
+Calibration_1023mseq_v1.mat
+- stimulus sequence informaiton file. calibrated using fluorescent dye. 
+- image_times_dye: camera time points.
+- ndye: time-series of normalized fluorescent intensity, indicates the relative odorant concentration
+
+Or42a_3pentanol_mseq_x.mat
+- experiment information and data file.
+- image_times: camera time points
+- signal{i}: time-series of raw ORN calcium intensity. dafult i = 1, when idicate bilateral, i=1,2
