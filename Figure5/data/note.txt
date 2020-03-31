@@ -7,3 +7,16 @@ Or42a_3pentanol_mseq_x.mat
 - experiment information and data file.
 - image_times: camera time points
 - signal{i}: time-series of raw ORN calcium intensity. dafult i = 1, when idicate bilateral, i=1,2
+
+raw_data.mat
+- two sets of experiments, defined by the stimuli: an m-sequence and its reverse (0->1, 1->0).
+- stimuli_t: time points of the stimuli
+- stimuli_s: signal of the stimuli
+- ORN_data: ORN responses, plus experiment information
+ - ORN name
+ - odor name
+ - odor concentration
+ - animal ID
+ - experiment ID
+ - t: time points for ORN recording
+ - s: ORN DF/F
